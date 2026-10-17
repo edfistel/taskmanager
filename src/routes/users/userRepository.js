@@ -1,6 +1,6 @@
 import { pool } from '../../config/database.js';
 
-export async function createUser({ nome, email, senhaHash }) {
+export async function criarUsuario({ nome, email, senhaHash }) {
   const result = await pool.query(
     `INSERT INTO usuarios (nome, email, senha_hash)
      VALUES ($1, $2, $3)
