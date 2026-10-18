@@ -1,13 +1,15 @@
 {
   "name": "taskmanager",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "API de gerenciamento de tarefas com Express",
+  "keywords": ["tarefas", "express", "api"],
   "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "author": "Eduardo Fischer, Lucas Oleques",
+  "type": "module",
+  "main": "src/server.js",
   "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
