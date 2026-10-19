@@ -11,7 +11,7 @@ export async function criarUsuario({ nome, email, senhaHash }) {
   return result.rows[0] ?? null;
 }
 
-export async function deleteUser(id) {
+export async function apagarUsuario(id) {
   const result = await pool.query(
     `UPDATE usuarios
      SET ativo = false
@@ -41,16 +41,16 @@ export async function alterarSenha({id, senhaHash}) {
     return result.rows[0] ?? null;
 }
 
-export async function buscarUsuarioPorId({id}) {
+export async function buscarUsuarioPorId(id) {
     const result = await pool.query(
         `SELECT id_usuario, email, ativo FROM usuarios WHERE id_usuario = $1`,[id]
     );
     return result.rows[0] ?? null;
 }
 
-export async function buscarUsuarioPorEmail({email}) {
+export async function buscarUsuarioPorEmail(email) {
     const result = await pool.query(
-        `SELECT id_usuario, nome, email, senha_hash, ativo FROM usuarios where email = $1 AND ativo = true`, [email]
+        `SELECT id_usuario, nome, email, senha_hash, ativo FROM usuarios where email = $1`, [email]
     );
 
     return result.rows[0] ?? null;
