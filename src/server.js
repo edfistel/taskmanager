@@ -1,9 +1,6 @@
-const express = require('express');
-const app = express();
+import app from './app.js';
+
 const PORT = 3000;
-
-app.use(express.json());
-
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

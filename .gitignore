@@ -1,0 +1,9 @@
+# Logs
+logs
+*.log
+
+# Arquivos de ambiente
+.env
+
+# Diretorios de dependências do Node.js
+node_modules/
