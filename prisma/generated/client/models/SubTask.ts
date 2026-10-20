@@ -4,7 +4,7 @@
 // biome-ignore-all lint: generated file
 // @ts-nocheck 
 /*
- * This file exports the `SubTask` model and its related types.
+ * This file exports the `Subtask` model and its related types.
  *
  * 🟢 You can import this file directly.
  */
@@ -13,773 +13,773 @@ import type * as $Enums from "../enums.ts"
 import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
- * Model SubTask
+ * Model Subtask
  * 
  */
-export type SubTaskModel = runtime.Types.Result.DefaultSelection<Prisma.$SubTaskPayload>
+export type SubtaskModel = runtime.Types.Result.DefaultSelection<Prisma.$SubtaskPayload>
 
-export type AggregateSubTask = {
-  _count: SubTaskCountAggregateOutputType | null
-  _avg: SubTaskAvgAggregateOutputType | null
-  _sum: SubTaskSumAggregateOutputType | null
-  _min: SubTaskMinAggregateOutputType | null
-  _max: SubTaskMaxAggregateOutputType | null
+export type AggregateSubtask = {
+  _count: SubtaskCountAggregateOutputType | null
+  _avg: SubtaskAvgAggregateOutputType | null
+  _sum: SubtaskSumAggregateOutputType | null
+  _min: SubtaskMinAggregateOutputType | null
+  _max: SubtaskMaxAggregateOutputType | null
 }
 
-export type SubTaskAvgAggregateOutputType = {
+export type SubtaskAvgAggregateOutputType = {
   id: number | null
-  taskId: number | null
   position: number | null
+  taskId: number | null
 }
 
-export type SubTaskSumAggregateOutputType = {
+export type SubtaskSumAggregateOutputType = {
   id: number | null
-  taskId: number | null
   position: number | null
+  taskId: number | null
 }
 
-export type SubTaskMinAggregateOutputType = {
+export type SubtaskMinAggregateOutputType = {
   id: number | null
-  taskId: number | null
   title: string | null
   description: string | null
+  dueDate: Date | null
   position: number | null
-  deadline: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  taskId: number | null
 }
 
-export type SubTaskMaxAggregateOutputType = {
+export type SubtaskMaxAggregateOutputType = {
   id: number | null
-  taskId: number | null
   title: string | null
   description: string | null
+  dueDate: Date | null
   position: number | null
-  deadline: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  taskId: number | null
 }
 
-export type SubTaskCountAggregateOutputType = {
+export type SubtaskCountAggregateOutputType = {
   id: number
-  taskId: number
   title: number
   description: number
+  dueDate: number
   position: number
-  deadline: number
   createdAt: number
   updatedAt: number
+  taskId: number
   _all: number
 }
 
 
-export type SubTaskAvgAggregateInputType = {
+export type SubtaskAvgAggregateInputType = {
   id?: true
-  taskId?: true
   position?: true
+  taskId?: true
 }
 
-export type SubTaskSumAggregateInputType = {
+export type SubtaskSumAggregateInputType = {
   id?: true
-  taskId?: true
   position?: true
+  taskId?: true
 }
 
-export type SubTaskMinAggregateInputType = {
+export type SubtaskMinAggregateInputType = {
   id?: true
-  taskId?: true
   title?: true
   description?: true
+  dueDate?: true
   position?: true
-  deadline?: true
   createdAt?: true
   updatedAt?: true
+  taskId?: true
 }
 
-export type SubTaskMaxAggregateInputType = {
+export type SubtaskMaxAggregateInputType = {
   id?: true
-  taskId?: true
   title?: true
   description?: true
+  dueDate?: true
   position?: true
-  deadline?: true
   createdAt?: true
   updatedAt?: true
+  taskId?: true
 }
 
-export type SubTaskCountAggregateInputType = {
+export type SubtaskCountAggregateInputType = {
   id?: true
-  taskId?: true
   title?: true
   description?: true
+  dueDate?: true
   position?: true
-  deadline?: true
   createdAt?: true
   updatedAt?: true
+  taskId?: true
   _all?: true
 }
 
-export type SubTaskAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which SubTask to aggregate.
+   * Filter which Subtask to aggregate.
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of SubTasks to fetch.
+   * Determine the order of Subtasks to fetch.
    */
-  orderBy?: Prisma.SubTaskOrderByWithRelationInput | Prisma.SubTaskOrderByWithRelationInput[]
+  orderBy?: Prisma.SubtaskOrderByWithRelationInput | Prisma.SubtaskOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
    * Sets the start position
    */
-  cursor?: Prisma.SubTaskWhereUniqueInput
+  cursor?: Prisma.SubtaskWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` SubTasks from the position of the cursor.
+   * Take `±n` Subtasks from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` SubTasks.
+   * Skip the first `n` Subtasks.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Count returned SubTasks
+   * Count returned Subtasks
   **/
-  _count?: true | SubTaskCountAggregateInputType
+  _count?: true | SubtaskCountAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to average
   **/
-  _avg?: SubTaskAvgAggregateInputType
+  _avg?: SubtaskAvgAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to sum
   **/
-  _sum?: SubTaskSumAggregateInputType
+  _sum?: SubtaskSumAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the minimum value
   **/
-  _min?: SubTaskMinAggregateInputType
+  _min?: SubtaskMinAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the maximum value
   **/
-  _max?: SubTaskMaxAggregateInputType
+  _max?: SubtaskMaxAggregateInputType
 }
 
-export type GetSubTaskAggregateType<T extends SubTaskAggregateArgs> = {
-      [P in keyof T & keyof AggregateSubTask]: P extends '_count' | 'count'
+export type GetSubtaskAggregateType<T extends SubtaskAggregateArgs> = {
+      [P in keyof T & keyof AggregateSubtask]: P extends '_count' | 'count'
     ? T[P] extends true
       ? number
-      : Prisma.GetScalarType<T[P], AggregateSubTask[P]>
-    : Prisma.GetScalarType<T[P], AggregateSubTask[P]>
+      : Prisma.GetScalarType<T[P], AggregateSubtask[P]>
+    : Prisma.GetScalarType<T[P], AggregateSubtask[P]>
 }
 
 
 
 
-export type SubTaskGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SubTaskWhereInput
-  orderBy?: Prisma.SubTaskOrderByWithAggregationInput | Prisma.SubTaskOrderByWithAggregationInput[]
-  by: Prisma.SubTaskScalarFieldEnum[] | Prisma.SubTaskScalarFieldEnum
-  having?: Prisma.SubTaskScalarWhereWithAggregatesInput
+export type SubtaskGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubtaskWhereInput
+  orderBy?: Prisma.SubtaskOrderByWithAggregationInput | Prisma.SubtaskOrderByWithAggregationInput[]
+  by: Prisma.SubtaskScalarFieldEnum[] | Prisma.SubtaskScalarFieldEnum
+  having?: Prisma.SubtaskScalarWhereWithAggregatesInput
   take?: number
   skip?: number
-  _count?: SubTaskCountAggregateInputType | true
-  _avg?: SubTaskAvgAggregateInputType
-  _sum?: SubTaskSumAggregateInputType
-  _min?: SubTaskMinAggregateInputType
-  _max?: SubTaskMaxAggregateInputType
+  _count?: SubtaskCountAggregateInputType | true
+  _avg?: SubtaskAvgAggregateInputType
+  _sum?: SubtaskSumAggregateInputType
+  _min?: SubtaskMinAggregateInputType
+  _max?: SubtaskMaxAggregateInputType
 }
 
-export type SubTaskGroupByOutputType = {
+export type SubtaskGroupByOutputType = {
   id: number
-  taskId: number
   title: string
   description: string | null
+  dueDate: Date | null
   position: number
-  deadline: Date | null
   createdAt: Date
   updatedAt: Date
-  _count: SubTaskCountAggregateOutputType | null
-  _avg: SubTaskAvgAggregateOutputType | null
-  _sum: SubTaskSumAggregateOutputType | null
-  _min: SubTaskMinAggregateOutputType | null
-  _max: SubTaskMaxAggregateOutputType | null
+  taskId: number
+  _count: SubtaskCountAggregateOutputType | null
+  _avg: SubtaskAvgAggregateOutputType | null
+  _sum: SubtaskSumAggregateOutputType | null
+  _min: SubtaskMinAggregateOutputType | null
+  _max: SubtaskMaxAggregateOutputType | null
 }
 
-export type GetSubTaskGroupByPayload<T extends SubTaskGroupByArgs> = Prisma.PrismaPromise<
+export type GetSubtaskGroupByPayload<T extends SubtaskGroupByArgs> = Prisma.PrismaPromise<
   Array<
-    Prisma.PickEnumerable<SubTaskGroupByOutputType, T['by']> &
+    Prisma.PickEnumerable<SubtaskGroupByOutputType, T['by']> &
       {
-        [P in ((keyof T) & (keyof SubTaskGroupByOutputType))]: P extends '_count'
+        [P in ((keyof T) & (keyof SubtaskGroupByOutputType))]: P extends '_count'
           ? T[P] extends boolean
             ? number
-            : Prisma.GetScalarType<T[P], SubTaskGroupByOutputType[P]>
-          : Prisma.GetScalarType<T[P], SubTaskGroupByOutputType[P]>
+            : Prisma.GetScalarType<T[P], SubtaskGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], SubtaskGroupByOutputType[P]>
       }
     >
   >
 
 
 
-export type SubTaskWhereInput = {
-  AND?: Prisma.SubTaskWhereInput | Prisma.SubTaskWhereInput[]
-  OR?: Prisma.SubTaskWhereInput[]
-  NOT?: Prisma.SubTaskWhereInput | Prisma.SubTaskWhereInput[]
-  id?: Prisma.IntFilter<"SubTask"> | number
-  taskId?: Prisma.IntFilter<"SubTask"> | number
-  title?: Prisma.StringFilter<"SubTask"> | string
-  description?: Prisma.StringNullableFilter<"SubTask"> | string | null
-  position?: Prisma.IntFilter<"SubTask"> | number
-  deadline?: Prisma.DateTimeNullableFilter<"SubTask"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"SubTask"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"SubTask"> | Date | string
+export type SubtaskWhereInput = {
+  AND?: Prisma.SubtaskWhereInput | Prisma.SubtaskWhereInput[]
+  OR?: Prisma.SubtaskWhereInput[]
+  NOT?: Prisma.SubtaskWhereInput | Prisma.SubtaskWhereInput[]
+  id?: Prisma.IntFilter<"Subtask"> | number
+  title?: Prisma.StringFilter<"Subtask"> | string
+  description?: Prisma.StringNullableFilter<"Subtask"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Subtask"> | Date | string | null
+  position?: Prisma.IntFilter<"Subtask"> | number
+  createdAt?: Prisma.DateTimeFilter<"Subtask"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Subtask"> | Date | string
+  taskId?: Prisma.IntFilter<"Subtask"> | number
   task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>
 }
 
-export type SubTaskOrderByWithRelationInput = {
+export type SubtaskOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  taskId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
-  deadline?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
   task?: Prisma.TaskOrderByWithRelationInput
 }
 
-export type SubTaskWhereUniqueInput = Prisma.AtLeast<{
+export type SubtaskWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  AND?: Prisma.SubTaskWhereInput | Prisma.SubTaskWhereInput[]
-  OR?: Prisma.SubTaskWhereInput[]
-  NOT?: Prisma.SubTaskWhereInput | Prisma.SubTaskWhereInput[]
-  taskId?: Prisma.IntFilter<"SubTask"> | number
-  title?: Prisma.StringFilter<"SubTask"> | string
-  description?: Prisma.StringNullableFilter<"SubTask"> | string | null
-  position?: Prisma.IntFilter<"SubTask"> | number
-  deadline?: Prisma.DateTimeNullableFilter<"SubTask"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"SubTask"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"SubTask"> | Date | string
+  AND?: Prisma.SubtaskWhereInput | Prisma.SubtaskWhereInput[]
+  OR?: Prisma.SubtaskWhereInput[]
+  NOT?: Prisma.SubtaskWhereInput | Prisma.SubtaskWhereInput[]
+  title?: Prisma.StringFilter<"Subtask"> | string
+  description?: Prisma.StringNullableFilter<"Subtask"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Subtask"> | Date | string | null
+  position?: Prisma.IntFilter<"Subtask"> | number
+  createdAt?: Prisma.DateTimeFilter<"Subtask"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Subtask"> | Date | string
+  taskId?: Prisma.IntFilter<"Subtask"> | number
   task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>
 }, "id">
 
-export type SubTaskOrderByWithAggregationInput = {
+export type SubtaskOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  taskId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
-  deadline?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  _count?: Prisma.SubTaskCountOrderByAggregateInput
-  _avg?: Prisma.SubTaskAvgOrderByAggregateInput
-  _max?: Prisma.SubTaskMaxOrderByAggregateInput
-  _min?: Prisma.SubTaskMinOrderByAggregateInput
-  _sum?: Prisma.SubTaskSumOrderByAggregateInput
+  taskId?: Prisma.SortOrder
+  _count?: Prisma.SubtaskCountOrderByAggregateInput
+  _avg?: Prisma.SubtaskAvgOrderByAggregateInput
+  _max?: Prisma.SubtaskMaxOrderByAggregateInput
+  _min?: Prisma.SubtaskMinOrderByAggregateInput
+  _sum?: Prisma.SubtaskSumOrderByAggregateInput
 }
 
-export type SubTaskScalarWhereWithAggregatesInput = {
-  AND?: Prisma.SubTaskScalarWhereWithAggregatesInput | Prisma.SubTaskScalarWhereWithAggregatesInput[]
-  OR?: Prisma.SubTaskScalarWhereWithAggregatesInput[]
-  NOT?: Prisma.SubTaskScalarWhereWithAggregatesInput | Prisma.SubTaskScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"SubTask"> | number
-  taskId?: Prisma.IntWithAggregatesFilter<"SubTask"> | number
-  title?: Prisma.StringWithAggregatesFilter<"SubTask"> | string
-  description?: Prisma.StringNullableWithAggregatesFilter<"SubTask"> | string | null
-  position?: Prisma.IntWithAggregatesFilter<"SubTask"> | number
-  deadline?: Prisma.DateTimeNullableWithAggregatesFilter<"SubTask"> | Date | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"SubTask"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SubTask"> | Date | string
+export type SubtaskScalarWhereWithAggregatesInput = {
+  AND?: Prisma.SubtaskScalarWhereWithAggregatesInput | Prisma.SubtaskScalarWhereWithAggregatesInput[]
+  OR?: Prisma.SubtaskScalarWhereWithAggregatesInput[]
+  NOT?: Prisma.SubtaskScalarWhereWithAggregatesInput | Prisma.SubtaskScalarWhereWithAggregatesInput[]
+  id?: Prisma.IntWithAggregatesFilter<"Subtask"> | number
+  title?: Prisma.StringWithAggregatesFilter<"Subtask"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Subtask"> | string | null
+  dueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Subtask"> | Date | string | null
+  position?: Prisma.IntWithAggregatesFilter<"Subtask"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Subtask"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Subtask"> | Date | string
+  taskId?: Prisma.IntWithAggregatesFilter<"Subtask"> | number
 }
 
-export type SubTaskCreateInput = {
+export type SubtaskCreateInput = {
   title: string
   description?: string | null
+  dueDate?: Date | string | null
   position: number
-  deadline?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  task: Prisma.TaskCreateNestedOneWithoutSubTaskInput
+  task: Prisma.TaskCreateNestedOneWithoutSubtasksInput
 }
 
-export type SubTaskUncheckedCreateInput = {
+export type SubtaskUncheckedCreateInput = {
   id?: number
-  taskId: number
   title: string
   description?: string | null
+  dueDate?: Date | string | null
   position: number
-  deadline?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  taskId: number
 }
 
-export type SubTaskUpdateInput = {
+export type SubtaskUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  task?: Prisma.TaskUpdateOneRequiredWithoutSubTaskNestedInput
+  task?: Prisma.TaskUpdateOneRequiredWithoutSubtasksNestedInput
 }
 
-export type SubTaskUncheckedUpdateInput = {
+export type SubtaskUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  taskId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  taskId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type SubTaskCreateManyInput = {
+export type SubtaskCreateManyInput = {
   id?: number
-  taskId: number
   title: string
   description?: string | null
+  dueDate?: Date | string | null
   position: number
-  deadline?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  taskId: number
 }
 
-export type SubTaskUpdateManyMutationInput = {
+export type SubtaskUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type SubTaskUncheckedUpdateManyInput = {
+export type SubtaskUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  taskId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  taskId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type SubTaskListRelationFilter = {
-  every?: Prisma.SubTaskWhereInput
-  some?: Prisma.SubTaskWhereInput
-  none?: Prisma.SubTaskWhereInput
+export type SubtaskListRelationFilter = {
+  every?: Prisma.SubtaskWhereInput
+  some?: Prisma.SubtaskWhereInput
+  none?: Prisma.SubtaskWhereInput
 }
 
-export type SubTaskOrderByRelationAggregateInput = {
+export type SubtaskOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type SubTaskCountOrderByAggregateInput = {
+export type SubtaskCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  taskId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   position?: Prisma.SortOrder
-  deadline?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
 }
 
-export type SubTaskAvgOrderByAggregateInput = {
+export type SubtaskAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  taskId?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
 }
 
-export type SubTaskMaxOrderByAggregateInput = {
+export type SubtaskMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  taskId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   position?: Prisma.SortOrder
-  deadline?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
 }
 
-export type SubTaskMinOrderByAggregateInput = {
+export type SubtaskMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  taskId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   position?: Prisma.SortOrder
-  deadline?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type SubTaskSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
+}
+
+export type SubtaskSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
 }
 
-export type SubTaskCreateNestedManyWithoutTaskInput = {
-  create?: Prisma.XOR<Prisma.SubTaskCreateWithoutTaskInput, Prisma.SubTaskUncheckedCreateWithoutTaskInput> | Prisma.SubTaskCreateWithoutTaskInput[] | Prisma.SubTaskUncheckedCreateWithoutTaskInput[]
-  connectOrCreate?: Prisma.SubTaskCreateOrConnectWithoutTaskInput | Prisma.SubTaskCreateOrConnectWithoutTaskInput[]
-  createMany?: Prisma.SubTaskCreateManyTaskInputEnvelope
-  connect?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
+export type SubtaskCreateNestedManyWithoutTaskInput = {
+  create?: Prisma.XOR<Prisma.SubtaskCreateWithoutTaskInput, Prisma.SubtaskUncheckedCreateWithoutTaskInput> | Prisma.SubtaskCreateWithoutTaskInput[] | Prisma.SubtaskUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.SubtaskCreateOrConnectWithoutTaskInput | Prisma.SubtaskCreateOrConnectWithoutTaskInput[]
+  createMany?: Prisma.SubtaskCreateManyTaskInputEnvelope
+  connect?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
 }
 
-export type SubTaskUncheckedCreateNestedManyWithoutTaskInput = {
-  create?: Prisma.XOR<Prisma.SubTaskCreateWithoutTaskInput, Prisma.SubTaskUncheckedCreateWithoutTaskInput> | Prisma.SubTaskCreateWithoutTaskInput[] | Prisma.SubTaskUncheckedCreateWithoutTaskInput[]
-  connectOrCreate?: Prisma.SubTaskCreateOrConnectWithoutTaskInput | Prisma.SubTaskCreateOrConnectWithoutTaskInput[]
-  createMany?: Prisma.SubTaskCreateManyTaskInputEnvelope
-  connect?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
+export type SubtaskUncheckedCreateNestedManyWithoutTaskInput = {
+  create?: Prisma.XOR<Prisma.SubtaskCreateWithoutTaskInput, Prisma.SubtaskUncheckedCreateWithoutTaskInput> | Prisma.SubtaskCreateWithoutTaskInput[] | Prisma.SubtaskUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.SubtaskCreateOrConnectWithoutTaskInput | Prisma.SubtaskCreateOrConnectWithoutTaskInput[]
+  createMany?: Prisma.SubtaskCreateManyTaskInputEnvelope
+  connect?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
 }
 
-export type SubTaskUpdateManyWithoutTaskNestedInput = {
-  create?: Prisma.XOR<Prisma.SubTaskCreateWithoutTaskInput, Prisma.SubTaskUncheckedCreateWithoutTaskInput> | Prisma.SubTaskCreateWithoutTaskInput[] | Prisma.SubTaskUncheckedCreateWithoutTaskInput[]
-  connectOrCreate?: Prisma.SubTaskCreateOrConnectWithoutTaskInput | Prisma.SubTaskCreateOrConnectWithoutTaskInput[]
-  upsert?: Prisma.SubTaskUpsertWithWhereUniqueWithoutTaskInput | Prisma.SubTaskUpsertWithWhereUniqueWithoutTaskInput[]
-  createMany?: Prisma.SubTaskCreateManyTaskInputEnvelope
-  set?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  disconnect?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  delete?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  connect?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  update?: Prisma.SubTaskUpdateWithWhereUniqueWithoutTaskInput | Prisma.SubTaskUpdateWithWhereUniqueWithoutTaskInput[]
-  updateMany?: Prisma.SubTaskUpdateManyWithWhereWithoutTaskInput | Prisma.SubTaskUpdateManyWithWhereWithoutTaskInput[]
-  deleteMany?: Prisma.SubTaskScalarWhereInput | Prisma.SubTaskScalarWhereInput[]
+export type SubtaskUpdateManyWithoutTaskNestedInput = {
+  create?: Prisma.XOR<Prisma.SubtaskCreateWithoutTaskInput, Prisma.SubtaskUncheckedCreateWithoutTaskInput> | Prisma.SubtaskCreateWithoutTaskInput[] | Prisma.SubtaskUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.SubtaskCreateOrConnectWithoutTaskInput | Prisma.SubtaskCreateOrConnectWithoutTaskInput[]
+  upsert?: Prisma.SubtaskUpsertWithWhereUniqueWithoutTaskInput | Prisma.SubtaskUpsertWithWhereUniqueWithoutTaskInput[]
+  createMany?: Prisma.SubtaskCreateManyTaskInputEnvelope
+  set?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  disconnect?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  delete?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  connect?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  update?: Prisma.SubtaskUpdateWithWhereUniqueWithoutTaskInput | Prisma.SubtaskUpdateWithWhereUniqueWithoutTaskInput[]
+  updateMany?: Prisma.SubtaskUpdateManyWithWhereWithoutTaskInput | Prisma.SubtaskUpdateManyWithWhereWithoutTaskInput[]
+  deleteMany?: Prisma.SubtaskScalarWhereInput | Prisma.SubtaskScalarWhereInput[]
 }
 
-export type SubTaskUncheckedUpdateManyWithoutTaskNestedInput = {
-  create?: Prisma.XOR<Prisma.SubTaskCreateWithoutTaskInput, Prisma.SubTaskUncheckedCreateWithoutTaskInput> | Prisma.SubTaskCreateWithoutTaskInput[] | Prisma.SubTaskUncheckedCreateWithoutTaskInput[]
-  connectOrCreate?: Prisma.SubTaskCreateOrConnectWithoutTaskInput | Prisma.SubTaskCreateOrConnectWithoutTaskInput[]
-  upsert?: Prisma.SubTaskUpsertWithWhereUniqueWithoutTaskInput | Prisma.SubTaskUpsertWithWhereUniqueWithoutTaskInput[]
-  createMany?: Prisma.SubTaskCreateManyTaskInputEnvelope
-  set?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  disconnect?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  delete?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  connect?: Prisma.SubTaskWhereUniqueInput | Prisma.SubTaskWhereUniqueInput[]
-  update?: Prisma.SubTaskUpdateWithWhereUniqueWithoutTaskInput | Prisma.SubTaskUpdateWithWhereUniqueWithoutTaskInput[]
-  updateMany?: Prisma.SubTaskUpdateManyWithWhereWithoutTaskInput | Prisma.SubTaskUpdateManyWithWhereWithoutTaskInput[]
-  deleteMany?: Prisma.SubTaskScalarWhereInput | Prisma.SubTaskScalarWhereInput[]
+export type SubtaskUncheckedUpdateManyWithoutTaskNestedInput = {
+  create?: Prisma.XOR<Prisma.SubtaskCreateWithoutTaskInput, Prisma.SubtaskUncheckedCreateWithoutTaskInput> | Prisma.SubtaskCreateWithoutTaskInput[] | Prisma.SubtaskUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.SubtaskCreateOrConnectWithoutTaskInput | Prisma.SubtaskCreateOrConnectWithoutTaskInput[]
+  upsert?: Prisma.SubtaskUpsertWithWhereUniqueWithoutTaskInput | Prisma.SubtaskUpsertWithWhereUniqueWithoutTaskInput[]
+  createMany?: Prisma.SubtaskCreateManyTaskInputEnvelope
+  set?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  disconnect?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  delete?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  connect?: Prisma.SubtaskWhereUniqueInput | Prisma.SubtaskWhereUniqueInput[]
+  update?: Prisma.SubtaskUpdateWithWhereUniqueWithoutTaskInput | Prisma.SubtaskUpdateWithWhereUniqueWithoutTaskInput[]
+  updateMany?: Prisma.SubtaskUpdateManyWithWhereWithoutTaskInput | Prisma.SubtaskUpdateManyWithWhereWithoutTaskInput[]
+  deleteMany?: Prisma.SubtaskScalarWhereInput | Prisma.SubtaskScalarWhereInput[]
 }
 
-export type SubTaskCreateWithoutTaskInput = {
+export type SubtaskCreateWithoutTaskInput = {
   title: string
   description?: string | null
+  dueDate?: Date | string | null
   position: number
-  deadline?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type SubTaskUncheckedCreateWithoutTaskInput = {
+export type SubtaskUncheckedCreateWithoutTaskInput = {
   id?: number
   title: string
   description?: string | null
+  dueDate?: Date | string | null
   position: number
-  deadline?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type SubTaskCreateOrConnectWithoutTaskInput = {
-  where: Prisma.SubTaskWhereUniqueInput
-  create: Prisma.XOR<Prisma.SubTaskCreateWithoutTaskInput, Prisma.SubTaskUncheckedCreateWithoutTaskInput>
+export type SubtaskCreateOrConnectWithoutTaskInput = {
+  where: Prisma.SubtaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.SubtaskCreateWithoutTaskInput, Prisma.SubtaskUncheckedCreateWithoutTaskInput>
 }
 
-export type SubTaskCreateManyTaskInputEnvelope = {
-  data: Prisma.SubTaskCreateManyTaskInput | Prisma.SubTaskCreateManyTaskInput[]
+export type SubtaskCreateManyTaskInputEnvelope = {
+  data: Prisma.SubtaskCreateManyTaskInput | Prisma.SubtaskCreateManyTaskInput[]
   skipDuplicates?: boolean
 }
 
-export type SubTaskUpsertWithWhereUniqueWithoutTaskInput = {
-  where: Prisma.SubTaskWhereUniqueInput
-  update: Prisma.XOR<Prisma.SubTaskUpdateWithoutTaskInput, Prisma.SubTaskUncheckedUpdateWithoutTaskInput>
-  create: Prisma.XOR<Prisma.SubTaskCreateWithoutTaskInput, Prisma.SubTaskUncheckedCreateWithoutTaskInput>
+export type SubtaskUpsertWithWhereUniqueWithoutTaskInput = {
+  where: Prisma.SubtaskWhereUniqueInput
+  update: Prisma.XOR<Prisma.SubtaskUpdateWithoutTaskInput, Prisma.SubtaskUncheckedUpdateWithoutTaskInput>
+  create: Prisma.XOR<Prisma.SubtaskCreateWithoutTaskInput, Prisma.SubtaskUncheckedCreateWithoutTaskInput>
 }
 
-export type SubTaskUpdateWithWhereUniqueWithoutTaskInput = {
-  where: Prisma.SubTaskWhereUniqueInput
-  data: Prisma.XOR<Prisma.SubTaskUpdateWithoutTaskInput, Prisma.SubTaskUncheckedUpdateWithoutTaskInput>
+export type SubtaskUpdateWithWhereUniqueWithoutTaskInput = {
+  where: Prisma.SubtaskWhereUniqueInput
+  data: Prisma.XOR<Prisma.SubtaskUpdateWithoutTaskInput, Prisma.SubtaskUncheckedUpdateWithoutTaskInput>
 }
 
-export type SubTaskUpdateManyWithWhereWithoutTaskInput = {
-  where: Prisma.SubTaskScalarWhereInput
-  data: Prisma.XOR<Prisma.SubTaskUpdateManyMutationInput, Prisma.SubTaskUncheckedUpdateManyWithoutTaskInput>
+export type SubtaskUpdateManyWithWhereWithoutTaskInput = {
+  where: Prisma.SubtaskScalarWhereInput
+  data: Prisma.XOR<Prisma.SubtaskUpdateManyMutationInput, Prisma.SubtaskUncheckedUpdateManyWithoutTaskInput>
 }
 
-export type SubTaskScalarWhereInput = {
-  AND?: Prisma.SubTaskScalarWhereInput | Prisma.SubTaskScalarWhereInput[]
-  OR?: Prisma.SubTaskScalarWhereInput[]
-  NOT?: Prisma.SubTaskScalarWhereInput | Prisma.SubTaskScalarWhereInput[]
-  id?: Prisma.IntFilter<"SubTask"> | number
-  taskId?: Prisma.IntFilter<"SubTask"> | number
-  title?: Prisma.StringFilter<"SubTask"> | string
-  description?: Prisma.StringNullableFilter<"SubTask"> | string | null
-  position?: Prisma.IntFilter<"SubTask"> | number
-  deadline?: Prisma.DateTimeNullableFilter<"SubTask"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"SubTask"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"SubTask"> | Date | string
+export type SubtaskScalarWhereInput = {
+  AND?: Prisma.SubtaskScalarWhereInput | Prisma.SubtaskScalarWhereInput[]
+  OR?: Prisma.SubtaskScalarWhereInput[]
+  NOT?: Prisma.SubtaskScalarWhereInput | Prisma.SubtaskScalarWhereInput[]
+  id?: Prisma.IntFilter<"Subtask"> | number
+  title?: Prisma.StringFilter<"Subtask"> | string
+  description?: Prisma.StringNullableFilter<"Subtask"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Subtask"> | Date | string | null
+  position?: Prisma.IntFilter<"Subtask"> | number
+  createdAt?: Prisma.DateTimeFilter<"Subtask"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Subtask"> | Date | string
+  taskId?: Prisma.IntFilter<"Subtask"> | number
 }
 
-export type SubTaskCreateManyTaskInput = {
+export type SubtaskCreateManyTaskInput = {
   id?: number
   title: string
   description?: string | null
+  dueDate?: Date | string | null
   position: number
-  deadline?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type SubTaskUpdateWithoutTaskInput = {
+export type SubtaskUpdateWithoutTaskInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type SubTaskUncheckedUpdateWithoutTaskInput = {
+export type SubtaskUncheckedUpdateWithoutTaskInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type SubTaskUncheckedUpdateManyWithoutTaskInput = {
+export type SubtaskUncheckedUpdateManyWithoutTaskInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
 
-export type SubTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type SubtaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  taskId?: boolean
   title?: boolean
   description?: boolean
+  dueDate?: boolean
   position?: boolean
-  deadline?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["subTask"]>
-
-export type SubTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   taskId?: boolean
+  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["subtask"]>
+
+export type SubtaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
   title?: boolean
   description?: boolean
+  dueDate?: boolean
   position?: boolean
-  deadline?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["subTask"]>
-
-export type SubTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   taskId?: boolean
+  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["subtask"]>
+
+export type SubtaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
   title?: boolean
   description?: boolean
+  dueDate?: boolean
   position?: boolean
-  deadline?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["subTask"]>
-
-export type SubTaskSelectScalar = {
-  id?: boolean
   taskId?: boolean
+  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["subtask"]>
+
+export type SubtaskSelectScalar = {
+  id?: boolean
   title?: boolean
   description?: boolean
+  dueDate?: boolean
   position?: boolean
-  deadline?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  taskId?: boolean
 }
 
-export type SubTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "taskId" | "title" | "description" | "position" | "deadline" | "createdAt" | "updatedAt", ExtArgs["result"]["subTask"]>
-export type SubTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "dueDate" | "position" | "createdAt" | "updatedAt" | "taskId", ExtArgs["result"]["subtask"]>
+export type SubtaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
 }
-export type SubTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
 }
-export type SubTaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>
 }
 
-export type $SubTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  name: "SubTask"
+export type $SubtaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  name: "Subtask"
   objects: {
     task: Prisma.$TaskPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    taskId: number
     title: string
     description: string | null
+    dueDate: Date | null
     position: number
-    deadline: Date | null
     createdAt: Date
     updatedAt: Date
-  }, ExtArgs["result"]["subTask"]>
+    taskId: number
+  }, ExtArgs["result"]["subtask"]>
   composites: {}
 }
 
-export type SubTaskGetPayload<S extends boolean | null | undefined | SubTaskDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$SubTaskPayload, S>
+export type SubtaskGetPayload<S extends boolean | null | undefined | SubtaskDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$SubtaskPayload, S>
 
-export type SubTaskCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-  Omit<SubTaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-    select?: SubTaskCountAggregateInputType | true
+export type SubtaskCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
+  Omit<SubtaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: SubtaskCountAggregateInputType | true
   }
 
-export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SubTask'], meta: { name: 'SubTask' } }
+export interface SubtaskDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subtask'], meta: { name: 'Subtask' } }
   /**
-   * Find zero or one SubTask that matches the filter.
-   * @param {SubTaskFindUniqueArgs} args - Arguments to find a SubTask
+   * Find zero or one Subtask that matches the filter.
+   * @param {SubtaskFindUniqueArgs} args - Arguments to find a Subtask
    * @example
-   * // Get one SubTask
-   * const subTask = await prisma.subTask.findUnique({
+   * // Get one Subtask
+   * const subtask = await prisma.subtask.findUnique({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findUnique<T extends SubTaskFindUniqueArgs>(args: Prisma.SelectSubset<T, SubTaskFindUniqueArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findUnique<T extends SubtaskFindUniqueArgs>(args: Prisma.SelectSubset<T, SubtaskFindUniqueArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find one SubTask that matches the filter or throw an error with `error.code='P2025'`
+   * Find one Subtask that matches the filter or throw an error with `error.code='P2025'`
    * if no matches were found.
-   * @param {SubTaskFindUniqueOrThrowArgs} args - Arguments to find a SubTask
+   * @param {SubtaskFindUniqueOrThrowArgs} args - Arguments to find a Subtask
    * @example
-   * // Get one SubTask
-   * const subTask = await prisma.subTask.findUniqueOrThrow({
+   * // Get one Subtask
+   * const subtask = await prisma.subtask.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findUniqueOrThrow<T extends SubTaskFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, SubTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findUniqueOrThrow<T extends SubtaskFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, SubtaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find the first SubTask that matches the filter.
+   * Find the first Subtask that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskFindFirstArgs} args - Arguments to find a SubTask
+   * @param {SubtaskFindFirstArgs} args - Arguments to find a Subtask
    * @example
-   * // Get one SubTask
-   * const subTask = await prisma.subTask.findFirst({
+   * // Get one Subtask
+   * const subtask = await prisma.subtask.findFirst({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findFirst<T extends SubTaskFindFirstArgs>(args?: Prisma.SelectSubset<T, SubTaskFindFirstArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findFirst<T extends SubtaskFindFirstArgs>(args?: Prisma.SelectSubset<T, SubtaskFindFirstArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find the first SubTask that matches the filter or
+   * Find the first Subtask that matches the filter or
    * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskFindFirstOrThrowArgs} args - Arguments to find a SubTask
+   * @param {SubtaskFindFirstOrThrowArgs} args - Arguments to find a Subtask
    * @example
-   * // Get one SubTask
-   * const subTask = await prisma.subTask.findFirstOrThrow({
+   * // Get one Subtask
+   * const subtask = await prisma.subtask.findFirstOrThrow({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findFirstOrThrow<T extends SubTaskFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, SubTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findFirstOrThrow<T extends SubtaskFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, SubtaskFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find zero or more SubTasks that matches the filter.
+   * Find zero or more Subtasks that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+   * @param {SubtaskFindManyArgs} args - Arguments to filter and select certain fields only.
    * @example
-   * // Get all SubTasks
-   * const subTasks = await prisma.subTask.findMany()
+   * // Get all Subtasks
+   * const subtasks = await prisma.subtask.findMany()
    * 
-   * // Get first 10 SubTasks
-   * const subTasks = await prisma.subTask.findMany({ take: 10 })
+   * // Get first 10 Subtasks
+   * const subtasks = await prisma.subtask.findMany({ take: 10 })
    * 
    * // Only select the `id`
-   * const subTaskWithIdOnly = await prisma.subTask.findMany({ select: { id: true } })
+   * const subtaskWithIdOnly = await prisma.subtask.findMany({ select: { id: true } })
    * 
    */
-  findMany<T extends SubTaskFindManyArgs>(args?: Prisma.SelectSubset<T, SubTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+  findMany<T extends SubtaskFindManyArgs>(args?: Prisma.SelectSubset<T, SubtaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
   /**
-   * Create a SubTask.
-   * @param {SubTaskCreateArgs} args - Arguments to create a SubTask.
+   * Create a Subtask.
+   * @param {SubtaskCreateArgs} args - Arguments to create a Subtask.
    * @example
-   * // Create one SubTask
-   * const SubTask = await prisma.subTask.create({
+   * // Create one Subtask
+   * const Subtask = await prisma.subtask.create({
    *   data: {
-   *     // ... data to create a SubTask
+   *     // ... data to create a Subtask
    *   }
    * })
    * 
    */
-  create<T extends SubTaskCreateArgs>(args: Prisma.SelectSubset<T, SubTaskCreateArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  create<T extends SubtaskCreateArgs>(args: Prisma.SelectSubset<T, SubtaskCreateArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Create many SubTasks.
-   * @param {SubTaskCreateManyArgs} args - Arguments to create many SubTasks.
+   * Create many Subtasks.
+   * @param {SubtaskCreateManyArgs} args - Arguments to create many Subtasks.
    * @example
-   * // Create many SubTasks
-   * const subTask = await prisma.subTask.createMany({
+   * // Create many Subtasks
+   * const subtask = await prisma.subtask.createMany({
    *   data: [
    *     // ... provide data here
    *   ]
    * })
    *     
    */
-  createMany<T extends SubTaskCreateManyArgs>(args?: Prisma.SelectSubset<T, SubTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  createMany<T extends SubtaskCreateManyArgs>(args?: Prisma.SelectSubset<T, SubtaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many SubTasks and returns the data saved in the database.
-   * @param {SubTaskCreateManyAndReturnArgs} args - Arguments to create many SubTasks.
+   * Create many Subtasks and returns the data saved in the database.
+   * @param {SubtaskCreateManyAndReturnArgs} args - Arguments to create many Subtasks.
    * @example
-   * // Create many SubTasks
-   * const subTask = await prisma.subTask.createManyAndReturn({
+   * // Create many Subtasks
+   * const subtask = await prisma.subtask.createManyAndReturn({
    *   data: [
    *     // ... provide data here
    *   ]
    * })
    * 
-   * // Create many SubTasks and only return the `id`
-   * const subTaskWithIdOnly = await prisma.subTask.createManyAndReturn({
+   * // Create many Subtasks and only return the `id`
+   * const subtaskWithIdOnly = await prisma.subtask.createManyAndReturn({
    *   select: { id: true },
    *   data: [
    *     // ... provide data here
@@ -789,28 +789,28 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * Read more here: https://pris.ly/d/null-undefined
    * 
    */
-  createManyAndReturn<T extends SubTaskCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, SubTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+  createManyAndReturn<T extends SubtaskCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, SubtaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
   /**
-   * Delete a SubTask.
-   * @param {SubTaskDeleteArgs} args - Arguments to delete one SubTask.
+   * Delete a Subtask.
+   * @param {SubtaskDeleteArgs} args - Arguments to delete one Subtask.
    * @example
-   * // Delete one SubTask
-   * const SubTask = await prisma.subTask.delete({
+   * // Delete one Subtask
+   * const Subtask = await prisma.subtask.delete({
    *   where: {
-   *     // ... filter to delete one SubTask
+   *     // ... filter to delete one Subtask
    *   }
    * })
    * 
    */
-  delete<T extends SubTaskDeleteArgs>(args: Prisma.SelectSubset<T, SubTaskDeleteArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  delete<T extends SubtaskDeleteArgs>(args: Prisma.SelectSubset<T, SubtaskDeleteArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Update one SubTask.
-   * @param {SubTaskUpdateArgs} args - Arguments to update one SubTask.
+   * Update one Subtask.
+   * @param {SubtaskUpdateArgs} args - Arguments to update one Subtask.
    * @example
-   * // Update one SubTask
-   * const subTask = await prisma.subTask.update({
+   * // Update one Subtask
+   * const subtask = await prisma.subtask.update({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -820,30 +820,30 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  update<T extends SubTaskUpdateArgs>(args: Prisma.SelectSubset<T, SubTaskUpdateArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  update<T extends SubtaskUpdateArgs>(args: Prisma.SelectSubset<T, SubtaskUpdateArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Delete zero or more SubTasks.
-   * @param {SubTaskDeleteManyArgs} args - Arguments to filter SubTasks to delete.
+   * Delete zero or more Subtasks.
+   * @param {SubtaskDeleteManyArgs} args - Arguments to filter Subtasks to delete.
    * @example
-   * // Delete a few SubTasks
-   * const { count } = await prisma.subTask.deleteMany({
+   * // Delete a few Subtasks
+   * const { count } = await prisma.subtask.deleteMany({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    * 
    */
-  deleteMany<T extends SubTaskDeleteManyArgs>(args?: Prisma.SelectSubset<T, SubTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  deleteMany<T extends SubtaskDeleteManyArgs>(args?: Prisma.SelectSubset<T, SubtaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Update zero or more SubTasks.
+   * Update zero or more Subtasks.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskUpdateManyArgs} args - Arguments to update one or more rows.
+   * @param {SubtaskUpdateManyArgs} args - Arguments to update one or more rows.
    * @example
-   * // Update many SubTasks
-   * const subTask = await prisma.subTask.updateMany({
+   * // Update many Subtasks
+   * const subtask = await prisma.subtask.updateMany({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -853,14 +853,14 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  updateMany<T extends SubTaskUpdateManyArgs>(args: Prisma.SelectSubset<T, SubTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  updateMany<T extends SubtaskUpdateManyArgs>(args: Prisma.SelectSubset<T, SubtaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Update zero or more SubTasks and returns the data updated in the database.
-   * @param {SubTaskUpdateManyAndReturnArgs} args - Arguments to update many SubTasks.
+   * Update zero or more Subtasks and returns the data updated in the database.
+   * @param {SubtaskUpdateManyAndReturnArgs} args - Arguments to update many Subtasks.
    * @example
-   * // Update many SubTasks
-   * const subTask = await prisma.subTask.updateManyAndReturn({
+   * // Update many Subtasks
+   * const subtask = await prisma.subtask.updateManyAndReturn({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -869,8 +869,8 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   ]
    * })
    * 
-   * // Update zero or more SubTasks and only return the `id`
-   * const subTaskWithIdOnly = await prisma.subTask.updateManyAndReturn({
+   * // Update zero or more Subtasks and only return the `id`
+   * const subtaskWithIdOnly = await prisma.subtask.updateManyAndReturn({
    *   select: { id: true },
    *   where: {
    *     // ... provide filter here
@@ -883,56 +883,56 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * Read more here: https://pris.ly/d/null-undefined
    * 
    */
-  updateManyAndReturn<T extends SubTaskUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, SubTaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+  updateManyAndReturn<T extends SubtaskUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, SubtaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
-   * Create or update one SubTask.
-   * @param {SubTaskUpsertArgs} args - Arguments to update or create a SubTask.
+   * Create or update one Subtask.
+   * @param {SubtaskUpsertArgs} args - Arguments to update or create a Subtask.
    * @example
-   * // Update or create a SubTask
-   * const subTask = await prisma.subTask.upsert({
+   * // Update or create a Subtask
+   * const subtask = await prisma.subtask.upsert({
    *   create: {
-   *     // ... data to create a SubTask
+   *     // ... data to create a Subtask
    *   },
    *   update: {
    *     // ... in case it already exists, update
    *   },
    *   where: {
-   *     // ... the filter for the SubTask we want to update
+   *     // ... the filter for the Subtask we want to update
    *   }
    * })
    */
-  upsert<T extends SubTaskUpsertArgs>(args: Prisma.SelectSubset<T, SubTaskUpsertArgs<ExtArgs>>): Prisma.Prisma__SubTaskClient<runtime.Types.Result.GetResult<Prisma.$SubTaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  upsert<T extends SubtaskUpsertArgs>(args: Prisma.SelectSubset<T, SubtaskUpsertArgs<ExtArgs>>): Prisma.Prisma__SubtaskClient<runtime.Types.Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
   /**
-   * Count the number of SubTasks.
+   * Count the number of Subtasks.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskCountArgs} args - Arguments to filter SubTasks to count.
+   * @param {SubtaskCountArgs} args - Arguments to filter Subtasks to count.
    * @example
-   * // Count the number of SubTasks
-   * const count = await prisma.subTask.count({
+   * // Count the number of Subtasks
+   * const count = await prisma.subtask.count({
    *   where: {
-   *     // ... the filter for the SubTasks we want to count
+   *     // ... the filter for the Subtasks we want to count
    *   }
    * })
   **/
-  count<T extends SubTaskCountArgs>(
-    args?: Prisma.Subset<T, SubTaskCountArgs>,
+  count<T extends SubtaskCountArgs>(
+    args?: Prisma.Subset<T, SubtaskCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
         ? number
-        : Prisma.GetScalarType<T['select'], SubTaskCountAggregateOutputType>
+        : Prisma.GetScalarType<T['select'], SubtaskCountAggregateOutputType>
       : number
   >
 
   /**
-   * Allows you to perform aggregations operations on a SubTask.
+   * Allows you to perform aggregations operations on a Subtask.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+   * @param {SubtaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
    * // Ordered by age ascending
    * // Where email contains prisma.io
@@ -952,13 +952,13 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   take: 10,
    * })
   **/
-  aggregate<T extends SubTaskAggregateArgs>(args: Prisma.Subset<T, SubTaskAggregateArgs>): Prisma.PrismaPromise<GetSubTaskAggregateType<T>>
+  aggregate<T extends SubtaskAggregateArgs>(args: Prisma.Subset<T, SubtaskAggregateArgs>): Prisma.PrismaPromise<GetSubtaskAggregateType<T>>
 
   /**
-   * Group by SubTask.
+   * Group by Subtask.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {SubTaskGroupByArgs} args - Group by arguments.
+   * @param {SubtaskGroupByArgs} args - Group by arguments.
    * @example
    * // Group by city, order by createdAt, get count
    * const result = await prisma.user.groupBy({
@@ -973,14 +973,14 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * 
   **/
   groupBy<
-    T extends SubTaskGroupByArgs,
+    T extends SubtaskGroupByArgs,
     HasSelectOrTake extends Prisma.Or<
       Prisma.Extends<'skip', Prisma.Keys<T>>,
       Prisma.Extends<'take', Prisma.Keys<T>>
     >,
     OrderByArg extends Prisma.True extends HasSelectOrTake
-      ? { orderBy: SubTaskGroupByArgs['orderBy'] }
-      : { orderBy?: SubTaskGroupByArgs['orderBy'] },
+      ? { orderBy: SubtaskGroupByArgs['orderBy'] }
+      : { orderBy?: SubtaskGroupByArgs['orderBy'] },
     OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
@@ -1029,20 +1029,20 @@ export interface SubTaskDelegate<ExtArgs extends runtime.Types.Extensions.Intern
           ? never
           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
       }[OrderFields]
-  >(args: Prisma.SubsetIntersection<T, SubTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  >(args: Prisma.SubsetIntersection<T, SubtaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubtaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
 /**
- * Fields of the SubTask model
+ * Fields of the Subtask model
  */
-readonly fields: SubTaskFieldRefs;
+readonly fields: SubtaskFieldRefs;
 }
 
 /**
- * The delegate class that acts as a "Promise-like" for SubTask.
+ * The delegate class that acts as a "Promise-like" for Subtask.
  * Why is this prefixed with `Prisma__`?
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__SubTaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+export interface Prisma__SubtaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   task<T extends Prisma.TaskDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TaskDefaultArgs<ExtArgs>>): Prisma.Prisma__TaskClient<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1071,431 +1071,431 @@ export interface Prisma__SubTaskClient<T, Null = never, ExtArgs extends runtime.
 
 
 /**
- * Fields of the SubTask model
+ * Fields of the Subtask model
  */
-export interface SubTaskFieldRefs {
-  readonly id: Prisma.FieldRef<"SubTask", 'Int'>
-  readonly taskId: Prisma.FieldRef<"SubTask", 'Int'>
-  readonly title: Prisma.FieldRef<"SubTask", 'String'>
-  readonly description: Prisma.FieldRef<"SubTask", 'String'>
-  readonly position: Prisma.FieldRef<"SubTask", 'Int'>
-  readonly deadline: Prisma.FieldRef<"SubTask", 'DateTime'>
-  readonly createdAt: Prisma.FieldRef<"SubTask", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"SubTask", 'DateTime'>
+export interface SubtaskFieldRefs {
+  readonly id: Prisma.FieldRef<"Subtask", 'Int'>
+  readonly title: Prisma.FieldRef<"Subtask", 'String'>
+  readonly description: Prisma.FieldRef<"Subtask", 'String'>
+  readonly dueDate: Prisma.FieldRef<"Subtask", 'DateTime'>
+  readonly position: Prisma.FieldRef<"Subtask", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Subtask", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Subtask", 'DateTime'>
+  readonly taskId: Prisma.FieldRef<"Subtask", 'Int'>
 }
     
 
 // Custom InputTypes
 /**
- * SubTask findUnique
+ * Subtask findUnique
  */
-export type SubTaskFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * Filter, which SubTask to fetch.
+   * Filter, which Subtask to fetch.
    */
-  where: Prisma.SubTaskWhereUniqueInput
+  where: Prisma.SubtaskWhereUniqueInput
 }
 
 /**
- * SubTask findUniqueOrThrow
+ * Subtask findUniqueOrThrow
  */
-export type SubTaskFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * Filter, which SubTask to fetch.
+   * Filter, which Subtask to fetch.
    */
-  where: Prisma.SubTaskWhereUniqueInput
+  where: Prisma.SubtaskWhereUniqueInput
 }
 
 /**
- * SubTask findFirst
+ * Subtask findFirst
  */
-export type SubTaskFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * Filter, which SubTask to fetch.
+   * Filter, which Subtask to fetch.
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of SubTasks to fetch.
+   * Determine the order of Subtasks to fetch.
    */
-  orderBy?: Prisma.SubTaskOrderByWithRelationInput | Prisma.SubTaskOrderByWithRelationInput[]
+  orderBy?: Prisma.SubtaskOrderByWithRelationInput | Prisma.SubtaskOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for SubTasks.
+   * Sets the position for searching for Subtasks.
    */
-  cursor?: Prisma.SubTaskWhereUniqueInput
+  cursor?: Prisma.SubtaskWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` SubTasks from the position of the cursor.
+   * Take `±n` Subtasks from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` SubTasks.
+   * Skip the first `n` Subtasks.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of SubTasks.
+   * Filter by unique combinations of Subtasks.
    */
-  distinct?: Prisma.SubTaskScalarFieldEnum | Prisma.SubTaskScalarFieldEnum[]
+  distinct?: Prisma.SubtaskScalarFieldEnum | Prisma.SubtaskScalarFieldEnum[]
 }
 
 /**
- * SubTask findFirstOrThrow
+ * Subtask findFirstOrThrow
  */
-export type SubTaskFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * Filter, which SubTask to fetch.
+   * Filter, which Subtask to fetch.
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of SubTasks to fetch.
+   * Determine the order of Subtasks to fetch.
    */
-  orderBy?: Prisma.SubTaskOrderByWithRelationInput | Prisma.SubTaskOrderByWithRelationInput[]
+  orderBy?: Prisma.SubtaskOrderByWithRelationInput | Prisma.SubtaskOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for SubTasks.
+   * Sets the position for searching for Subtasks.
    */
-  cursor?: Prisma.SubTaskWhereUniqueInput
+  cursor?: Prisma.SubtaskWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` SubTasks from the position of the cursor.
+   * Take `±n` Subtasks from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` SubTasks.
+   * Skip the first `n` Subtasks.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of SubTasks.
+   * Filter by unique combinations of Subtasks.
    */
-  distinct?: Prisma.SubTaskScalarFieldEnum | Prisma.SubTaskScalarFieldEnum[]
+  distinct?: Prisma.SubtaskScalarFieldEnum | Prisma.SubtaskScalarFieldEnum[]
 }
 
 /**
- * SubTask findMany
+ * Subtask findMany
  */
-export type SubTaskFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * Filter, which SubTasks to fetch.
+   * Filter, which Subtasks to fetch.
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of SubTasks to fetch.
+   * Determine the order of Subtasks to fetch.
    */
-  orderBy?: Prisma.SubTaskOrderByWithRelationInput | Prisma.SubTaskOrderByWithRelationInput[]
+  orderBy?: Prisma.SubtaskOrderByWithRelationInput | Prisma.SubtaskOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for listing SubTasks.
+   * Sets the position for listing Subtasks.
    */
-  cursor?: Prisma.SubTaskWhereUniqueInput
+  cursor?: Prisma.SubtaskWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` SubTasks from the position of the cursor.
+   * Take `±n` Subtasks from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` SubTasks.
+   * Skip the first `n` Subtasks.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of SubTasks.
+   * Filter by unique combinations of Subtasks.
    */
-  distinct?: Prisma.SubTaskScalarFieldEnum | Prisma.SubTaskScalarFieldEnum[]
+  distinct?: Prisma.SubtaskScalarFieldEnum | Prisma.SubtaskScalarFieldEnum[]
 }
 
 /**
- * SubTask create
+ * Subtask create
  */
-export type SubTaskCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * The data needed to create a SubTask.
+   * The data needed to create a Subtask.
    */
-  data: Prisma.XOR<Prisma.SubTaskCreateInput, Prisma.SubTaskUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.SubtaskCreateInput, Prisma.SubtaskUncheckedCreateInput>
 }
 
 /**
- * SubTask createMany
+ * Subtask createMany
  */
-export type SubTaskCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to create many SubTasks.
+   * The data used to create many Subtasks.
    */
-  data: Prisma.SubTaskCreateManyInput | Prisma.SubTaskCreateManyInput[]
+  data: Prisma.SubtaskCreateManyInput | Prisma.SubtaskCreateManyInput[]
   skipDuplicates?: boolean
 }
 
 /**
- * SubTask createManyAndReturn
+ * Subtask createManyAndReturn
  */
-export type SubTaskCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelectCreateManyAndReturn<ExtArgs> | null
+  select?: Prisma.SubtaskSelectCreateManyAndReturn<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
-   * The data used to create many SubTasks.
+   * The data used to create many Subtasks.
    */
-  data: Prisma.SubTaskCreateManyInput | Prisma.SubTaskCreateManyInput[]
+  data: Prisma.SubtaskCreateManyInput | Prisma.SubtaskCreateManyInput[]
   skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  include?: Prisma.SubtaskIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
- * SubTask update
+ * Subtask update
  */
-export type SubTaskUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * The data needed to update a SubTask.
+   * The data needed to update a Subtask.
    */
-  data: Prisma.XOR<Prisma.SubTaskUpdateInput, Prisma.SubTaskUncheckedUpdateInput>
+  data: Prisma.XOR<Prisma.SubtaskUpdateInput, Prisma.SubtaskUncheckedUpdateInput>
   /**
-   * Choose, which SubTask to update.
+   * Choose, which Subtask to update.
    */
-  where: Prisma.SubTaskWhereUniqueInput
+  where: Prisma.SubtaskWhereUniqueInput
 }
 
 /**
- * SubTask updateMany
+ * Subtask updateMany
  */
-export type SubTaskUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to update SubTasks.
+   * The data used to update Subtasks.
    */
-  data: Prisma.XOR<Prisma.SubTaskUpdateManyMutationInput, Prisma.SubTaskUncheckedUpdateManyInput>
+  data: Prisma.XOR<Prisma.SubtaskUpdateManyMutationInput, Prisma.SubtaskUncheckedUpdateManyInput>
   /**
-   * Filter which SubTasks to update
+   * Filter which Subtasks to update
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
-   * Limit how many SubTasks to update.
+   * Limit how many Subtasks to update.
    */
   limit?: number
 }
 
 /**
- * SubTask updateManyAndReturn
+ * Subtask updateManyAndReturn
  */
-export type SubTaskUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelectUpdateManyAndReturn<ExtArgs> | null
+  select?: Prisma.SubtaskSelectUpdateManyAndReturn<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
-   * The data used to update SubTasks.
+   * The data used to update Subtasks.
    */
-  data: Prisma.XOR<Prisma.SubTaskUpdateManyMutationInput, Prisma.SubTaskUncheckedUpdateManyInput>
+  data: Prisma.XOR<Prisma.SubtaskUpdateManyMutationInput, Prisma.SubtaskUncheckedUpdateManyInput>
   /**
-   * Filter which SubTasks to update
+   * Filter which Subtasks to update
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
-   * Limit how many SubTasks to update.
+   * Limit how many Subtasks to update.
    */
   limit?: number
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  include?: Prisma.SubtaskIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
- * SubTask upsert
+ * Subtask upsert
  */
-export type SubTaskUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * The filter to search for the SubTask to update in case it exists.
+   * The filter to search for the Subtask to update in case it exists.
    */
-  where: Prisma.SubTaskWhereUniqueInput
+  where: Prisma.SubtaskWhereUniqueInput
   /**
-   * In case the SubTask found by the `where` argument doesn't exist, create a new SubTask with this data.
+   * In case the Subtask found by the `where` argument doesn't exist, create a new Subtask with this data.
    */
-  create: Prisma.XOR<Prisma.SubTaskCreateInput, Prisma.SubTaskUncheckedCreateInput>
+  create: Prisma.XOR<Prisma.SubtaskCreateInput, Prisma.SubtaskUncheckedCreateInput>
   /**
-   * In case the SubTask was found with the provided `where` argument, update it with this data.
+   * In case the Subtask was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.SubTaskUpdateInput, Prisma.SubTaskUncheckedUpdateInput>
+  update: Prisma.XOR<Prisma.SubtaskUpdateInput, Prisma.SubtaskUncheckedUpdateInput>
 }
 
 /**
- * SubTask delete
+ * Subtask delete
  */
-export type SubTaskDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
   /**
-   * Filter which SubTask to delete.
+   * Filter which Subtask to delete.
    */
-  where: Prisma.SubTaskWhereUniqueInput
+  where: Prisma.SubtaskWhereUniqueInput
 }
 
 /**
- * SubTask deleteMany
+ * Subtask deleteMany
  */
-export type SubTaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which SubTasks to delete
+   * Filter which Subtasks to delete
    */
-  where?: Prisma.SubTaskWhereInput
+  where?: Prisma.SubtaskWhereInput
   /**
-   * Limit how many SubTasks to delete.
+   * Limit how many Subtasks to delete.
    */
   limit?: number
 }
 
 /**
- * SubTask without action
+ * Subtask without action
  */
-export type SubTaskDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SubtaskDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SubTask
+   * Select specific fields to fetch from the Subtask
    */
-  select?: Prisma.SubTaskSelect<ExtArgs> | null
+  select?: Prisma.SubtaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SubTask
+   * Omit specific fields from the Subtask
    */
-  omit?: Prisma.SubTaskOmit<ExtArgs> | null
+  omit?: Prisma.SubtaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubTaskInclude<ExtArgs> | null
+  include?: Prisma.SubtaskInclude<ExtArgs> | null
 }

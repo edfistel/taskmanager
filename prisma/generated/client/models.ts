@@ -8,13 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/RefreshToken.ts'
 export type * from './models/User.ts'
-export type * from './models/Frame.ts'
+export type * from './models/RefreshToken.ts'
+export type * from './models/Board.ts'
 export type * from './models/List.ts'
 export type * from './models/Task.ts'
-export type * from './models/SubTask.ts'
-export type * from './models/Status.ts'
+export type * from './models/Subtask.ts'
 export type * from './models/Comment.ts'
-export type * from './models/AssignTask.ts'
+export type * from './models/TaskAttribute.ts'
+export type * from './models/TaskAssignment.ts'
 export type * from './commonInputTypes.ts'

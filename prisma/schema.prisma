@@ -7,108 +7,104 @@ datasource db {
   provider = "postgresql"
 }
 
-model refresh_token {
-    id        Int      @id @default(autoincrement())
-    userId    Int
-    user      user     @relation(fields: [userId], references: [id])
-    token     String   @unique
-    expiresAt DateTime
-    revoked   Boolean  @default(false)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+enum Status {
+  AFAZER
+  EM_ANDAMENTO
+  CONCLUIDO
 }
 
-model user {
-    id        Int      @id @default(autoincrement())
-    name      String?
-    email     String   @unique
-    senha     String
-    refreshToken refresh_token[]
-    frame     frame[]
-    list      list[]
-    task      task[]
-    comment   comment[]
-    assing_task assign_task[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nome      String?
+  email     String   @unique
+  senha     String
+  criadoEm  DateTime @default(now())
+
+  refreshTokens RefreshToken[]
+  quadros       Quadro[]
+  comentarios   Comentario[]
+  atribuicoes   AtribuirTarefa[]
 }
 
-model frame {
-    id        Int      @id @default(autoincrement())
-    userId    Int
-    user      user     @relation(fields: [userId], references: [id])
-    name      String
-    description String?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model RefreshToken {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+  expiraEm   DateTime
+  revogado   Boolean  @default(false)
+
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }
 
-model list {
-    id        Int      @id @default(autoincrement())
-    userId    Int
-    user      user     @relation(fields: [userId], references: [id])
-    name      String
-    position  Int
-    data      Json
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Quadro {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  descricao String?
+  criadoEm  DateTime @default(now())
+
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  listas Lista[]
 }
 
-model task {
-    id        Int      @id @default(autoincrement())
-    userId    Int
-    user      user     @relation(fields: [userId], references: [id])
-    sub       subtask[]
-    status    status[]
-    comment   comment[]
-    assing_task assign_task[]
-    title     String
-    description String?
-    position  Int
-    deadline  DateTime?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Lista {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  posicao   Int
+
+  quadroId Int
+  quadro   Quadro @relation(fields: [quadroId], references: [id])
+
+  tarefas Tarefa[]
 }
 
-model subtask {
-    id        Int      @id @default(autoincrement())
-    taskId    Int
-    task      task     @relation(fields: [taskId], references: [id])
-    title     String
-    description String?
-    position  Int
-    deadline  DateTime?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Tarefa {
+  id        Int      @id @default(autoincrement())
+  titulo    String
+  descricao String?
+  prazo     DateTime?
+  posicao   Int
+  status    Status   @default(AFAZER)
+
+  listaId Int
+  lista   Lista @relation(fields: [listaId], references: [id])
+
+  subtarefas Subtarefa[]
+  comentarios Comentario[]
+  atribuicoes AtribuirTarefa[]
 }
 
-model status {
-    id        Int      @id @default(autoincrement())
-    taskId    Int
-    task      task     @relation(fields: [taskId], references: [id])
-    title     String
-    complete  Boolean @default(false)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Subtarefa {
+  id        Int     @id @default(autoincrement())
+  titulo    String
+  concluida Boolean @default(false)
+
+  tarefaId Int
+  tarefa   Tarefa @relation(fields: [tarefaId], references: [id])
 }
 
-model comment {
-    id        Int      @id @default(autoincrement())
-    taskId    Int
-    task      task     @relation(fields: [taskId], references: [id])
-    userId    Int
-    user      user     @relation(fields: [userId], references: [id])
-    text      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Comentario {
+  id        Int      @id @default(autoincrement())
+  texto     String
+  criadoEm  DateTime @default(now())
+
+  tarefaId Int
+  tarefa   Tarefa @relation(fields: [tarefaId], references: [id])
+
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }
 
-model assign_task {
-    id        Int      @id @default(autoincrement())
-    taskId    Int
-    task      task     @relation(fields: [taskId], references: [id])
-    userId    Int
-    user      user     @relation(fields: [userId], references: [id])
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model AtribuirTarefa {
+  id         Int      @id @default(autoincrement())
+  atribuidoEm DateTime @default(now())
+
+  tarefaId Int
+  tarefa   Tarefa @relation(fields: [tarefaId], references: [id])
+
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  @@unique([tarefaId, usuarioId])
 }
