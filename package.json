@@ -2,7 +2,11 @@
   "name": "taskmanager",
   "version": "1.0.0",
   "description": "API de gerenciamento de tarefas com Express",
-  "keywords": ["tarefas", "express", "api"],
+  "keywords": [
+    "tarefas",
+    "express",
+    "api"
+  ],
   "license": "ISC",
   "author": "Eduardo Fischer, Lucas Oleques",
   "type": "module",
@@ -13,8 +17,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "dotenv": "^18.0.8",
     "express": "^5.3.0",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "pg": "^8.23.1",
+    "prisma": "^7.10.1"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
