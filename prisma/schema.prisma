@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model refresh_token {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      user     @relation(fields: [userId], references: [id])
+    token     String   @unique
+    expiresAt DateTime
+    revoked   Boolean  @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model user {
+    id        Int      @id @default(autoincrement())
+    name      String?
+    email     String   @unique
+    senha     String
+    refreshToken refresh_token[]
+    frame     frame[]
+    list      list[]
+    task      task[]
+    comment   comment[]
+    assing_task assign_task[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model frame {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      user     @relation(fields: [userId], references: [id])
+    name      String
+    description String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model list {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      user     @relation(fields: [userId], references: [id])
+    name      String
+    position  Int
+    data      Json
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model task {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      user     @relation(fields: [userId], references: [id])
+    sub       subtask[]
+    status    status[]
+    comment   comment[]
+    assing_task assign_task[]
+    title     String
+    description String?
+    position  Int
+    deadline  DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model subtask {
+    id        Int      @id @default(autoincrement())
+    taskId    Int
+    task      task     @relation(fields: [taskId], references: [id])
+    title     String
+    description String?
+    position  Int
+    deadline  DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model status {
+    id        Int      @id @default(autoincrement())
+    taskId    Int
+    task      task     @relation(fields: [taskId], references: [id])
+    title     String
+    complete  Boolean @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model comment {
+    id        Int      @id @default(autoincrement())
+    taskId    Int
+    task      task     @relation(fields: [taskId], references: [id])
+    userId    Int
+    user      user     @relation(fields: [userId], references: [id])
+    text      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model assign_task {
+    id        Int      @id @default(autoincrement())
+    taskId    Int
+    task      task     @relation(fields: [taskId], references: [id])
+    userId    Int
+    user      user     @relation(fields: [userId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
