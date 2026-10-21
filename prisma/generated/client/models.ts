@@ -8,13 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
+export type * from './models/Usuario.ts'
 export type * from './models/RefreshToken.ts'
-export type * from './models/Board.ts'
-export type * from './models/List.ts'
-export type * from './models/Task.ts'
-export type * from './models/Subtask.ts'
-export type * from './models/Comment.ts'
-export type * from './models/TaskAttribute.ts'
-export type * from './models/TaskAssignment.ts'
+export type * from './models/Quadro.ts'
+export type * from './models/Lista.ts'
+export type * from './models/Tarefa.ts'
+export type * from './models/Subtarefa.ts'
+export type * from './models/Comentario.ts'
+export type * from './models/AtribuirTarefa.ts'
 export type * from './commonInputTypes.ts'
