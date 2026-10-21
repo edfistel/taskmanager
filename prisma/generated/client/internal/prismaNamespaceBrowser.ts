@@ -51,15 +51,15 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  RefreshToken: 'RefreshToken',
   User: 'User',
-  Frame: 'Frame',
+  RefreshToken: 'RefreshToken',
+  Board: 'Board',
   List: 'List',
   Task: 'Task',
-  SubTask: 'SubTask',
-  Status: 'Status',
+  Subtask: 'Subtask',
   Comment: 'Comment',
-  AssignTask: 'AssignTask'
+  TaskAttribute: 'TaskAttribute',
+  TaskAssignment: 'TaskAssignment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,24 +78,11 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const RefreshTokenScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  token: 'token',
-  expiresAt: 'expiresAt',
-  revoked: 'revoked',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  senha: 'senha',
+  password: 'password',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -103,26 +90,38 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const FrameScalarFieldEnum = {
+export const RefreshTokenScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  revoked: 'revoked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const BoardScalarFieldEnum = {
+  id: 'id',
   name: 'name',
   description: 'description',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 } as const
 
-export type FrameScalarFieldEnum = (typeof FrameScalarFieldEnum)[keyof typeof FrameScalarFieldEnum]
+export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum]
 
 
 export const ListScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   name: 'name',
   position: 'position',
-  data: 'data',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  boardId: 'boardId'
 } as const
 
 export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof ListScalarFieldEnum]
@@ -130,65 +129,64 @@ export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof List
 
 export const TaskScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   title: 'title',
   description: 'description',
+  dueDate: 'dueDate',
+  status: 'status',
   position: 'position',
-  deadline: 'deadline',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  listId: 'listId'
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
-export const SubTaskScalarFieldEnum = {
+export const SubtaskScalarFieldEnum = {
   id: 'id',
-  taskId: 'taskId',
   title: 'title',
   description: 'description',
+  dueDate: 'dueDate',
   position: 'position',
-  deadline: 'deadline',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  taskId: 'taskId'
 } as const
 
-export type SubTaskScalarFieldEnum = (typeof SubTaskScalarFieldEnum)[keyof typeof SubTaskScalarFieldEnum]
-
-
-export const StatusScalarFieldEnum = {
-  id: 'id',
-  taskId: 'taskId',
-  title: 'title',
-  complete: 'complete',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type StatusScalarFieldEnum = (typeof StatusScalarFieldEnum)[keyof typeof StatusScalarFieldEnum]
+export type SubtaskScalarFieldEnum = (typeof SubtaskScalarFieldEnum)[keyof typeof SubtaskScalarFieldEnum]
 
 
 export const CommentScalarFieldEnum = {
   id: 'id',
-  taskId: 'taskId',
-  userId: 'userId',
   text: 'text',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  taskId: 'taskId',
+  userId: 'userId'
 } as const
 
 export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
 
 
-export const AssignTaskScalarFieldEnum = {
+export const TaskAttributeScalarFieldEnum = {
   id: 'id',
-  taskId: 'taskId',
-  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  taskId: 'taskId'
 } as const
 
-export type AssignTaskScalarFieldEnum = (typeof AssignTaskScalarFieldEnum)[keyof typeof AssignTaskScalarFieldEnum]
+export type TaskAttributeScalarFieldEnum = (typeof TaskAttributeScalarFieldEnum)[keyof typeof TaskAttributeScalarFieldEnum]
+
+
+export const TaskAssignmentScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  taskId: 'taskId',
+  userId: 'userId'
+} as const
+
+export type TaskAssignmentScalarFieldEnum = (typeof TaskAssignmentScalarFieldEnum)[keyof typeof TaskAssignmentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -197,13 +195,6 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -220,13 +211,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

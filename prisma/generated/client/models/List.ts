@@ -28,84 +28,82 @@ export type AggregateList = {
 
 export type ListAvgAggregateOutputType = {
   id: number | null
-  userId: number | null
   position: number | null
+  boardId: number | null
 }
 
 export type ListSumAggregateOutputType = {
   id: number | null
-  userId: number | null
   position: number | null
+  boardId: number | null
 }
 
 export type ListMinAggregateOutputType = {
   id: number | null
-  userId: number | null
   name: string | null
   position: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  boardId: number | null
 }
 
 export type ListMaxAggregateOutputType = {
   id: number | null
-  userId: number | null
   name: string | null
   position: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  boardId: number | null
 }
 
 export type ListCountAggregateOutputType = {
   id: number
-  userId: number
   name: number
   position: number
-  data: number
   createdAt: number
   updatedAt: number
+  boardId: number
   _all: number
 }
 
 
 export type ListAvgAggregateInputType = {
   id?: true
-  userId?: true
   position?: true
+  boardId?: true
 }
 
 export type ListSumAggregateInputType = {
   id?: true
-  userId?: true
   position?: true
+  boardId?: true
 }
 
 export type ListMinAggregateInputType = {
   id?: true
-  userId?: true
   name?: true
   position?: true
   createdAt?: true
   updatedAt?: true
+  boardId?: true
 }
 
 export type ListMaxAggregateInputType = {
   id?: true
-  userId?: true
   name?: true
   position?: true
   createdAt?: true
   updatedAt?: true
+  boardId?: true
 }
 
 export type ListCountAggregateInputType = {
   id?: true
-  userId?: true
   name?: true
   position?: true
-  data?: true
   createdAt?: true
   updatedAt?: true
+  boardId?: true
   _all?: true
 }
 
@@ -197,12 +195,11 @@ export type ListGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type ListGroupByOutputType = {
   id: number
-  userId: number
   name: string
   position: number
-  data: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
+  boardId: number
   _count: ListCountAggregateOutputType | null
   _avg: ListAvgAggregateOutputType | null
   _sum: ListSumAggregateOutputType | null
@@ -230,24 +227,24 @@ export type ListWhereInput = {
   OR?: Prisma.ListWhereInput[]
   NOT?: Prisma.ListWhereInput | Prisma.ListWhereInput[]
   id?: Prisma.IntFilter<"List"> | number
-  userId?: Prisma.IntFilter<"List"> | number
   name?: Prisma.StringFilter<"List"> | string
   position?: Prisma.IntFilter<"List"> | number
-  data?: Prisma.JsonFilter<"List">
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  boardId?: Prisma.IntFilter<"List"> | number
+  board?: Prisma.XOR<Prisma.BoardScalarRelationFilter, Prisma.BoardWhereInput>
+  tasks?: Prisma.TaskListRelationFilter
 }
 
 export type ListOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
-  data?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  boardId?: Prisma.SortOrder
+  board?: Prisma.BoardOrderByWithRelationInput
+  tasks?: Prisma.TaskOrderByRelationAggregateInput
 }
 
 export type ListWhereUniqueInput = Prisma.AtLeast<{
@@ -255,23 +252,22 @@ export type ListWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ListWhereInput | Prisma.ListWhereInput[]
   OR?: Prisma.ListWhereInput[]
   NOT?: Prisma.ListWhereInput | Prisma.ListWhereInput[]
-  userId?: Prisma.IntFilter<"List"> | number
   name?: Prisma.StringFilter<"List"> | string
   position?: Prisma.IntFilter<"List"> | number
-  data?: Prisma.JsonFilter<"List">
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  boardId?: Prisma.IntFilter<"List"> | number
+  board?: Prisma.XOR<Prisma.BoardScalarRelationFilter, Prisma.BoardWhereInput>
+  tasks?: Prisma.TaskListRelationFilter
 }, "id">
 
 export type ListOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
-  data?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  boardId?: Prisma.SortOrder
   _count?: Prisma.ListCountOrderByAggregateInput
   _avg?: Prisma.ListAvgOrderByAggregateInput
   _max?: Prisma.ListMaxOrderByAggregateInput
@@ -284,78 +280,74 @@ export type ListScalarWhereWithAggregatesInput = {
   OR?: Prisma.ListScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ListScalarWhereWithAggregatesInput | Prisma.ListScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"List"> | number
-  userId?: Prisma.IntWithAggregatesFilter<"List"> | number
   name?: Prisma.StringWithAggregatesFilter<"List"> | string
   position?: Prisma.IntWithAggregatesFilter<"List"> | number
-  data?: Prisma.JsonWithAggregatesFilter<"List">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"List"> | Date | string
+  boardId?: Prisma.IntWithAggregatesFilter<"List"> | number
 }
 
 export type ListCreateInput = {
   name: string
   position: number
-  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutListInput
+  board: Prisma.BoardCreateNestedOneWithoutListsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutListInput
 }
 
 export type ListUncheckedCreateInput = {
   id?: number
-  userId: number
   name: string
   position: number
-  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  boardId: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutListInput
 }
 
 export type ListUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  board?: Prisma.BoardUpdateOneRequiredWithoutListsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutListNestedInput
 }
 
 export type ListUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boardId?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutListNestedInput
 }
 
 export type ListCreateManyInput = {
   id?: number
-  userId: number
   name: string
   position: number
-  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  boardId: number
 }
 
 export type ListUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ListUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boardId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListListRelationFilter = {
@@ -370,127 +362,145 @@ export type ListOrderByRelationAggregateInput = {
 
 export type ListCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
-  data?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  boardId?: Prisma.SortOrder
 }
 
 export type ListAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  boardId?: Prisma.SortOrder
 }
 
 export type ListMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  boardId?: Prisma.SortOrder
 }
 
 export type ListMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  boardId?: Prisma.SortOrder
 }
 
 export type ListSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  boardId?: Prisma.SortOrder
 }
 
-export type ListCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutUserInput, Prisma.ListUncheckedCreateWithoutUserInput> | Prisma.ListCreateWithoutUserInput[] | Prisma.ListUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutUserInput | Prisma.ListCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ListCreateManyUserInputEnvelope
+export type ListScalarRelationFilter = {
+  is?: Prisma.ListWhereInput
+  isNot?: Prisma.ListWhereInput
+}
+
+export type ListCreateNestedManyWithoutBoardInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutBoardInput, Prisma.ListUncheckedCreateWithoutBoardInput> | Prisma.ListCreateWithoutBoardInput[] | Prisma.ListUncheckedCreateWithoutBoardInput[]
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutBoardInput | Prisma.ListCreateOrConnectWithoutBoardInput[]
+  createMany?: Prisma.ListCreateManyBoardInputEnvelope
   connect?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
 }
 
-export type ListUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutUserInput, Prisma.ListUncheckedCreateWithoutUserInput> | Prisma.ListCreateWithoutUserInput[] | Prisma.ListUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutUserInput | Prisma.ListCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ListCreateManyUserInputEnvelope
+export type ListUncheckedCreateNestedManyWithoutBoardInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutBoardInput, Prisma.ListUncheckedCreateWithoutBoardInput> | Prisma.ListCreateWithoutBoardInput[] | Prisma.ListUncheckedCreateWithoutBoardInput[]
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutBoardInput | Prisma.ListCreateOrConnectWithoutBoardInput[]
+  createMany?: Prisma.ListCreateManyBoardInputEnvelope
   connect?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
 }
 
-export type ListUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutUserInput, Prisma.ListUncheckedCreateWithoutUserInput> | Prisma.ListCreateWithoutUserInput[] | Prisma.ListUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutUserInput | Prisma.ListCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ListUpsertWithWhereUniqueWithoutUserInput | Prisma.ListUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ListCreateManyUserInputEnvelope
+export type ListUpdateManyWithoutBoardNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutBoardInput, Prisma.ListUncheckedCreateWithoutBoardInput> | Prisma.ListCreateWithoutBoardInput[] | Prisma.ListUncheckedCreateWithoutBoardInput[]
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutBoardInput | Prisma.ListCreateOrConnectWithoutBoardInput[]
+  upsert?: Prisma.ListUpsertWithWhereUniqueWithoutBoardInput | Prisma.ListUpsertWithWhereUniqueWithoutBoardInput[]
+  createMany?: Prisma.ListCreateManyBoardInputEnvelope
   set?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
   disconnect?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
   delete?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
   connect?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
-  update?: Prisma.ListUpdateWithWhereUniqueWithoutUserInput | Prisma.ListUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ListUpdateManyWithWhereWithoutUserInput | Prisma.ListUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.ListUpdateWithWhereUniqueWithoutBoardInput | Prisma.ListUpdateWithWhereUniqueWithoutBoardInput[]
+  updateMany?: Prisma.ListUpdateManyWithWhereWithoutBoardInput | Prisma.ListUpdateManyWithWhereWithoutBoardInput[]
   deleteMany?: Prisma.ListScalarWhereInput | Prisma.ListScalarWhereInput[]
 }
 
-export type ListUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutUserInput, Prisma.ListUncheckedCreateWithoutUserInput> | Prisma.ListCreateWithoutUserInput[] | Prisma.ListUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutUserInput | Prisma.ListCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ListUpsertWithWhereUniqueWithoutUserInput | Prisma.ListUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ListCreateManyUserInputEnvelope
+export type ListUncheckedUpdateManyWithoutBoardNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutBoardInput, Prisma.ListUncheckedCreateWithoutBoardInput> | Prisma.ListCreateWithoutBoardInput[] | Prisma.ListUncheckedCreateWithoutBoardInput[]
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutBoardInput | Prisma.ListCreateOrConnectWithoutBoardInput[]
+  upsert?: Prisma.ListUpsertWithWhereUniqueWithoutBoardInput | Prisma.ListUpsertWithWhereUniqueWithoutBoardInput[]
+  createMany?: Prisma.ListCreateManyBoardInputEnvelope
   set?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
   disconnect?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
   delete?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
   connect?: Prisma.ListWhereUniqueInput | Prisma.ListWhereUniqueInput[]
-  update?: Prisma.ListUpdateWithWhereUniqueWithoutUserInput | Prisma.ListUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ListUpdateManyWithWhereWithoutUserInput | Prisma.ListUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.ListUpdateWithWhereUniqueWithoutBoardInput | Prisma.ListUpdateWithWhereUniqueWithoutBoardInput[]
+  updateMany?: Prisma.ListUpdateManyWithWhereWithoutBoardInput | Prisma.ListUpdateManyWithWhereWithoutBoardInput[]
   deleteMany?: Prisma.ListScalarWhereInput | Prisma.ListScalarWhereInput[]
 }
 
-export type ListCreateWithoutUserInput = {
+export type ListCreateNestedOneWithoutTasksInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutTasksInput, Prisma.ListUncheckedCreateWithoutTasksInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutTasksInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutTasksInput, Prisma.ListUncheckedCreateWithoutTasksInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutTasksInput
+  upsert?: Prisma.ListUpsertWithoutTasksInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutTasksInput, Prisma.ListUpdateWithoutTasksInput>, Prisma.ListUncheckedUpdateWithoutTasksInput>
+}
+
+export type ListCreateWithoutBoardInput = {
   name: string
   position: number
-  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  tasks?: Prisma.TaskCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutUserInput = {
+export type ListUncheckedCreateWithoutBoardInput = {
   id?: number
   name: string
   position: number
-  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutUserInput = {
+export type ListCreateOrConnectWithoutBoardInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutUserInput, Prisma.ListUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutBoardInput, Prisma.ListUncheckedCreateWithoutBoardInput>
 }
 
-export type ListCreateManyUserInputEnvelope = {
-  data: Prisma.ListCreateManyUserInput | Prisma.ListCreateManyUserInput[]
+export type ListCreateManyBoardInputEnvelope = {
+  data: Prisma.ListCreateManyBoardInput | Prisma.ListCreateManyBoardInput[]
   skipDuplicates?: boolean
 }
 
-export type ListUpsertWithWhereUniqueWithoutUserInput = {
+export type ListUpsertWithWhereUniqueWithoutBoardInput = {
   where: Prisma.ListWhereUniqueInput
-  update: Prisma.XOR<Prisma.ListUpdateWithoutUserInput, Prisma.ListUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutUserInput, Prisma.ListUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.ListUpdateWithoutBoardInput, Prisma.ListUncheckedUpdateWithoutBoardInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutBoardInput, Prisma.ListUncheckedCreateWithoutBoardInput>
 }
 
-export type ListUpdateWithWhereUniqueWithoutUserInput = {
+export type ListUpdateWithWhereUniqueWithoutBoardInput = {
   where: Prisma.ListWhereUniqueInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutUserInput, Prisma.ListUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutBoardInput, Prisma.ListUncheckedUpdateWithoutBoardInput>
 }
 
-export type ListUpdateManyWithWhereWithoutUserInput = {
+export type ListUpdateManyWithWhereWithoutBoardInput = {
   where: Prisma.ListScalarWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateManyMutationInput, Prisma.ListUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.ListUpdateManyMutationInput, Prisma.ListUncheckedUpdateManyWithoutBoardInput>
 }
 
 export type ListScalarWhereInput = {
@@ -498,118 +508,194 @@ export type ListScalarWhereInput = {
   OR?: Prisma.ListScalarWhereInput[]
   NOT?: Prisma.ListScalarWhereInput | Prisma.ListScalarWhereInput[]
   id?: Prisma.IntFilter<"List"> | number
-  userId?: Prisma.IntFilter<"List"> | number
   name?: Prisma.StringFilter<"List"> | string
   position?: Prisma.IntFilter<"List"> | number
-  data?: Prisma.JsonFilter<"List">
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
+  boardId?: Prisma.IntFilter<"List"> | number
 }
 
-export type ListCreateManyUserInput = {
+export type ListCreateWithoutTasksInput = {
+  name: string
+  position: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  board: Prisma.BoardCreateNestedOneWithoutListsInput
+}
+
+export type ListUncheckedCreateWithoutTasksInput = {
   id?: number
   name: string
   position: number
-  data: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  boardId: number
+}
+
+export type ListCreateOrConnectWithoutTasksInput = {
+  where: Prisma.ListWhereUniqueInput
+  create: Prisma.XOR<Prisma.ListCreateWithoutTasksInput, Prisma.ListUncheckedCreateWithoutTasksInput>
+}
+
+export type ListUpsertWithoutTasksInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutTasksInput, Prisma.ListUncheckedUpdateWithoutTasksInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutTasksInput, Prisma.ListUncheckedCreateWithoutTasksInput>
+  where?: Prisma.ListWhereInput
+}
+
+export type ListUpdateToOneWithWhereWithoutTasksInput = {
+  where?: Prisma.ListWhereInput
+  data: Prisma.XOR<Prisma.ListUpdateWithoutTasksInput, Prisma.ListUncheckedUpdateWithoutTasksInput>
+}
+
+export type ListUpdateWithoutTasksInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  board?: Prisma.BoardUpdateOneRequiredWithoutListsNestedInput
+}
+
+export type ListUncheckedUpdateWithoutTasksInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boardId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ListCreateManyBoardInput = {
+  id?: number
+  name: string
+  position: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ListUpdateWithoutUserInput = {
+export type ListUpdateWithoutBoardInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutUserInput = {
+export type ListUncheckedUpdateWithoutBoardInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateManyWithoutUserInput = {
+export type ListUncheckedUpdateManyWithoutBoardInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ListCountOutputType
+ */
+
+export type ListCountOutputType = {
+  tasks: number
+}
+
+export type ListCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tasks?: boolean | ListCountOutputTypeCountTasksArgs
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListCountOutputType
+   */
+  select?: Prisma.ListCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
 
 
 export type ListSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   name?: boolean
   position?: boolean
-  data?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  boardId?: boolean
+  board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  tasks?: boolean | Prisma.List$tasksArgs<ExtArgs>
+  _count?: boolean | Prisma.ListCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["list"]>
 
 export type ListSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   name?: boolean
   position?: boolean
-  data?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  boardId?: boolean
+  board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["list"]>
 
 export type ListSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  userId?: boolean
   name?: boolean
   position?: boolean
-  data?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  boardId?: boolean
+  board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["list"]>
 
 export type ListSelectScalar = {
   id?: boolean
-  userId?: boolean
   name?: boolean
   position?: boolean
-  data?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  boardId?: boolean
 }
 
-export type ListOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "position" | "data" | "createdAt" | "updatedAt", ExtArgs["result"]["list"]>
+export type ListOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "position" | "createdAt" | "updatedAt" | "boardId", ExtArgs["result"]["list"]>
 export type ListInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  tasks?: boolean | Prisma.List$tasksArgs<ExtArgs>
+  _count?: boolean | Prisma.ListCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ListIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
 }
 export type ListIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
 }
 
 export type $ListPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "List"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    board: Prisma.$BoardPayload<ExtArgs>
+    tasks: Prisma.$TaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    userId: number
     name: string
     position: number
-    data: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
+    boardId: number
   }, ExtArgs["result"]["list"]>
   composites: {}
 }
@@ -1004,7 +1090,8 @@ readonly fields: ListFieldRefs;
  */
 export interface Prisma__ListClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  board<T extends Prisma.BoardDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoardDefaultArgs<ExtArgs>>): Prisma.Prisma__BoardClient<runtime.Types.Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tasks<T extends Prisma.List$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1035,12 +1122,11 @@ export interface Prisma__ListClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface ListFieldRefs {
   readonly id: Prisma.FieldRef<"List", 'Int'>
-  readonly userId: Prisma.FieldRef<"List", 'Int'>
   readonly name: Prisma.FieldRef<"List", 'String'>
   readonly position: Prisma.FieldRef<"List", 'Int'>
-  readonly data: Prisma.FieldRef<"List", 'Json'>
   readonly createdAt: Prisma.FieldRef<"List", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"List", 'DateTime'>
+  readonly boardId: Prisma.FieldRef<"List", 'Int'>
 }
     
 
@@ -1439,6 +1525,30 @@ export type ListDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Lists to delete.
    */
   limit?: number
+}
+
+/**
+ * List.tasks
+ */
+export type List$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
 }
 
 /**

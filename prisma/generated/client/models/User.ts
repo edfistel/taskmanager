@@ -38,7 +38,7 @@ export type UserMinAggregateOutputType = {
   id: number | null
   name: string | null
   email: string | null
-  senha: string | null
+  password: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,7 +47,7 @@ export type UserMaxAggregateOutputType = {
   id: number | null
   name: string | null
   email: string | null
-  senha: string | null
+  password: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,7 +56,7 @@ export type UserCountAggregateOutputType = {
   id: number
   name: number
   email: number
-  senha: number
+  password: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -75,7 +75,7 @@ export type UserMinAggregateInputType = {
   id?: true
   name?: true
   email?: true
-  senha?: true
+  password?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -84,7 +84,7 @@ export type UserMaxAggregateInputType = {
   id?: true
   name?: true
   email?: true
-  senha?: true
+  password?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -93,7 +93,7 @@ export type UserCountAggregateInputType = {
   id?: true
   name?: true
   email?: true
-  senha?: true
+  password?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -189,7 +189,7 @@ export type UserGroupByOutputType = {
   id: number
   name: string | null
   email: string
-  senha: string
+  password: string
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -221,30 +221,26 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   name?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringFilter<"User"> | string
-  senha?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  refreshToken?: Prisma.RefreshTokenListRelationFilter
-  frame?: Prisma.FrameListRelationFilter
-  list?: Prisma.ListListRelationFilter
-  Task?: Prisma.TaskListRelationFilter
-  Comment?: Prisma.CommentListRelationFilter
-  AssignTask?: Prisma.AssignTaskListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  boards?: Prisma.BoardListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
+  assignments?: Prisma.TaskAssignmentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
-  senha?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  refreshToken?: Prisma.RefreshTokenOrderByRelationAggregateInput
-  frame?: Prisma.FrameOrderByRelationAggregateInput
-  list?: Prisma.ListOrderByRelationAggregateInput
-  Task?: Prisma.TaskOrderByRelationAggregateInput
-  Comment?: Prisma.CommentOrderByRelationAggregateInput
-  AssignTask?: Prisma.AssignTaskOrderByRelationAggregateInput
+  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  boards?: Prisma.BoardOrderByRelationAggregateInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
+  assignments?: Prisma.TaskAssignmentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -254,22 +250,20 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringNullableFilter<"User"> | string | null
-  senha?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  refreshToken?: Prisma.RefreshTokenListRelationFilter
-  frame?: Prisma.FrameListRelationFilter
-  list?: Prisma.ListListRelationFilter
-  Task?: Prisma.TaskListRelationFilter
-  Comment?: Prisma.CommentListRelationFilter
-  AssignTask?: Prisma.AssignTaskListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  boards?: Prisma.BoardListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
+  assignments?: Prisma.TaskAssignmentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
-  senha?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -286,7 +280,7 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  senha?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -294,66 +288,58 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameCreateNestedManyWithoutUserInput
-  list?: Prisma.ListCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: number
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameUncheckedCreateNestedManyWithoutUserInput
-  list?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUncheckedUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: number
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -361,7 +347,7 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -370,21 +356,16 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  senha?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -397,7 +378,7 @@ export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  senha?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -406,7 +387,7 @@ export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  senha?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -415,512 +396,333 @@ export type UserSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type UserCreateNestedOneWithoutRefreshTokenInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokenInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutRefreshTokenNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokenInput
-  upsert?: Prisma.UserUpsertWithoutRefreshTokenInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokenInput, Prisma.UserUpdateWithoutRefreshTokenInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokenInput>
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type UserCreateNestedOneWithoutFrameInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFrameInput, Prisma.UserUncheckedCreateWithoutFrameInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFrameInput
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type UserCreateNestedOneWithoutRefreshTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutFrameNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFrameInput, Prisma.UserUncheckedCreateWithoutFrameInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFrameInput
-  upsert?: Prisma.UserUpsertWithoutFrameInput
+export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput
+  upsert?: Prisma.UserUpsertWithoutRefreshTokensInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFrameInput, Prisma.UserUpdateWithoutFrameInput>, Prisma.UserUncheckedUpdateWithoutFrameInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
-export type UserCreateNestedOneWithoutListInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutListInput, Prisma.UserUncheckedCreateWithoutListInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutListInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutListNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutListInput, Prisma.UserUncheckedCreateWithoutListInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutListInput
-  upsert?: Prisma.UserUpsertWithoutListInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutListInput, Prisma.UserUpdateWithoutListInput>, Prisma.UserUncheckedUpdateWithoutListInput>
-}
-
-export type UserCreateNestedOneWithoutTaskInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTaskInput, Prisma.UserUncheckedCreateWithoutTaskInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTaskInput
+export type UserCreateNestedOneWithoutBoardsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBoardsInput, Prisma.UserUncheckedCreateWithoutBoardsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoardsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutTaskNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTaskInput, Prisma.UserUncheckedCreateWithoutTaskInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTaskInput
-  upsert?: Prisma.UserUpsertWithoutTaskInput
+export type UserUpdateOneRequiredWithoutBoardsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBoardsInput, Prisma.UserUncheckedCreateWithoutBoardsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoardsInput
+  upsert?: Prisma.UserUpsertWithoutBoardsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTaskInput, Prisma.UserUpdateWithoutTaskInput>, Prisma.UserUncheckedUpdateWithoutTaskInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBoardsInput, Prisma.UserUpdateWithoutBoardsInput>, Prisma.UserUncheckedUpdateWithoutBoardsInput>
 }
 
-export type UserCreateNestedOneWithoutCommentInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutCommentNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentInput
-  upsert?: Prisma.UserUpsertWithoutCommentInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentInput, Prisma.UserUpdateWithoutCommentInput>, Prisma.UserUncheckedUpdateWithoutCommentInput>
-}
-
-export type UserCreateNestedOneWithoutAssignTaskInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignTaskInput, Prisma.UserUncheckedCreateWithoutAssignTaskInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignTaskInput
+export type UserCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutAssignTaskNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignTaskInput, Prisma.UserUncheckedCreateWithoutAssignTaskInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignTaskInput
-  upsert?: Prisma.UserUpsertWithoutAssignTaskInput
+export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.UserUpsertWithoutCommentsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignTaskInput, Prisma.UserUpdateWithoutAssignTaskInput>, Prisma.UserUncheckedUpdateWithoutAssignTaskInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentsInput, Prisma.UserUpdateWithoutCommentsInput>, Prisma.UserUncheckedUpdateWithoutCommentsInput>
 }
 
-export type UserCreateWithoutRefreshTokenInput = {
+export type UserCreateNestedOneWithoutAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.UserUpdateWithoutAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutAssignmentsInput>
+}
+
+export type UserCreateWithoutRefreshTokensInput = {
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  frame?: Prisma.FrameCreateNestedManyWithoutUserInput
-  list?: Prisma.ListCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutRefreshTokenInput = {
+export type UserUncheckedCreateWithoutRefreshTokensInput = {
   id?: number
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  frame?: Prisma.FrameUncheckedCreateNestedManyWithoutUserInput
-  list?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskUncheckedCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutRefreshTokenInput = {
+export type UserCreateOrConnectWithoutRefreshTokensInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
 }
 
-export type UserUpsertWithoutRefreshTokenInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokenInput, Prisma.UserUncheckedUpdateWithoutRefreshTokenInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
+export type UserUpsertWithoutRefreshTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutRefreshTokenInput = {
+export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokenInput, Prisma.UserUncheckedUpdateWithoutRefreshTokenInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
-export type UserUpdateWithoutRefreshTokenInput = {
+export type UserUpdateWithoutRefreshTokensInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  frame?: Prisma.FrameUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutRefreshTokenInput = {
+export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  frame?: Prisma.FrameUncheckedUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUncheckedUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutFrameInput = {
+export type UserCreateWithoutBoardsInput = {
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  list?: Prisma.ListCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutFrameInput = {
+export type UserUncheckedCreateWithoutBoardsInput = {
   id?: number
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  list?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutFrameInput = {
+export type UserCreateOrConnectWithoutBoardsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFrameInput, Prisma.UserUncheckedCreateWithoutFrameInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBoardsInput, Prisma.UserUncheckedCreateWithoutBoardsInput>
 }
 
-export type UserUpsertWithoutFrameInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFrameInput, Prisma.UserUncheckedUpdateWithoutFrameInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFrameInput, Prisma.UserUncheckedCreateWithoutFrameInput>
+export type UserUpsertWithoutBoardsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBoardsInput, Prisma.UserUncheckedUpdateWithoutBoardsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBoardsInput, Prisma.UserUncheckedCreateWithoutBoardsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutFrameInput = {
+export type UserUpdateToOneWithWhereWithoutBoardsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFrameInput, Prisma.UserUncheckedUpdateWithoutFrameInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBoardsInput, Prisma.UserUncheckedUpdateWithoutBoardsInput>
 }
 
-export type UserUpdateWithoutFrameInput = {
+export type UserUpdateWithoutBoardsInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutFrameInput = {
+export type UserUncheckedUpdateWithoutBoardsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutListInput = {
+export type UserCreateWithoutCommentsInput = {
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutListInput = {
+export type UserUncheckedCreateWithoutCommentsInput = {
   id?: number
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameUncheckedCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput
+  assignments?: Prisma.TaskAssignmentUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutListInput = {
+export type UserCreateOrConnectWithoutCommentsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutListInput, Prisma.UserUncheckedCreateWithoutListInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
 }
 
-export type UserUpsertWithoutListInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutListInput, Prisma.UserUncheckedUpdateWithoutListInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutListInput, Prisma.UserUncheckedCreateWithoutListInput>
+export type UserUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutListInput = {
+export type UserUpdateToOneWithWhereWithoutCommentsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutListInput, Prisma.UserUncheckedUpdateWithoutListInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
 }
 
-export type UserUpdateWithoutListInput = {
+export type UserUpdateWithoutCommentsInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutListInput = {
+export type UserUncheckedUpdateWithoutCommentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUncheckedUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput
+  assignments?: Prisma.TaskAssignmentUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutTaskInput = {
+export type UserCreateWithoutAssignmentsInput = {
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameCreateNestedManyWithoutUserInput
-  list?: Prisma.ListCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutTaskInput = {
+export type UserUncheckedCreateWithoutAssignmentsInput = {
   id?: number
   name?: string | null
   email: string
-  senha: string
+  password: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameUncheckedCreateNestedManyWithoutUserInput
-  list?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutTaskInput = {
+export type UserCreateOrConnectWithoutAssignmentsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutTaskInput, Prisma.UserUncheckedCreateWithoutTaskInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
 }
 
-export type UserUpsertWithoutTaskInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutTaskInput, Prisma.UserUncheckedUpdateWithoutTaskInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutTaskInput, Prisma.UserUncheckedCreateWithoutTaskInput>
+export type UserUpsertWithoutAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignmentsInput, Prisma.UserUncheckedUpdateWithoutAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignmentsInput, Prisma.UserUncheckedCreateWithoutAssignmentsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutTaskInput = {
+export type UserUpdateToOneWithWhereWithoutAssignmentsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutTaskInput, Prisma.UserUncheckedUpdateWithoutTaskInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignmentsInput, Prisma.UserUncheckedUpdateWithoutAssignmentsInput>
 }
 
-export type UserUpdateWithoutTaskInput = {
+export type UserUpdateWithoutAssignmentsInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutTaskInput = {
+export type UserUncheckedUpdateWithoutAssignmentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUncheckedUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutCommentInput = {
-  name?: string | null
-  email: string
-  senha: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameCreateNestedManyWithoutUserInput
-  list?: Prisma.ListCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutCommentInput = {
-  id?: number
-  name?: string | null
-  email: string
-  senha: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameUncheckedCreateNestedManyWithoutUserInput
-  list?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
-  AssignTask?: Prisma.AssignTaskUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutCommentInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
-}
-
-export type UserUpsertWithoutCommentInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentInput, Prisma.UserUncheckedUpdateWithoutCommentInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutCommentInput, Prisma.UserUncheckedCreateWithoutCommentInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutCommentInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentInput, Prisma.UserUncheckedUpdateWithoutCommentInput>
-}
-
-export type UserUpdateWithoutCommentInput = {
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutCommentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUncheckedUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
-  AssignTask?: Prisma.AssignTaskUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutAssignTaskInput = {
-  name?: string | null
-  email: string
-  senha: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameCreateNestedManyWithoutUserInput
-  list?: Prisma.ListCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutAssignTaskInput = {
-  id?: number
-  name?: string | null
-  email: string
-  senha: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  frame?: Prisma.FrameUncheckedCreateNestedManyWithoutUserInput
-  list?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
-  Task?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
-  Comment?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutAssignTaskInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAssignTaskInput, Prisma.UserUncheckedCreateWithoutAssignTaskInput>
-}
-
-export type UserUpsertWithoutAssignTaskInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignTaskInput, Prisma.UserUncheckedUpdateWithoutAssignTaskInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAssignTaskInput, Prisma.UserUncheckedCreateWithoutAssignTaskInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutAssignTaskInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignTaskInput, Prisma.UserUncheckedUpdateWithoutAssignTaskInput>
-}
-
-export type UserUpdateWithoutAssignTaskInput = {
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutAssignTaskInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  frame?: Prisma.FrameUncheckedUpdateManyWithoutUserNestedInput
-  list?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
-  Task?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
-  Comment?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -929,21 +731,17 @@ export type UserUncheckedUpdateWithoutAssignTaskInput = {
  */
 
 export type UserCountOutputType = {
-  refreshToken: number
-  frame: number
-  list: number
-  Task: number
-  Comment: number
-  AssignTask: number
+  refreshTokens: number
+  boards: number
+  comments: number
+  assignments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  refreshToken?: boolean | UserCountOutputTypeCountRefreshTokenArgs
-  frame?: boolean | UserCountOutputTypeCountFrameArgs
-  list?: boolean | UserCountOutputTypeCountListArgs
-  Task?: boolean | UserCountOutputTypeCountTaskArgs
-  Comment?: boolean | UserCountOutputTypeCountCommentArgs
-  AssignTask?: boolean | UserCountOutputTypeCountAssignTaskArgs
+  refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+  boards?: boolean | UserCountOutputTypeCountBoardsArgs
+  comments?: boolean | UserCountOutputTypeCountCommentsArgs
+  assignments?: boolean | UserCountOutputTypeCountAssignmentsArgs
 }
 
 /**
@@ -959,43 +757,29 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountRefreshTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RefreshTokenWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountFrameArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FrameWhereInput
+export type UserCountOutputTypeCountBoardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoardWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountListArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountTaskArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TaskWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountCommentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CommentWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAssignTaskArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AssignTaskWhereInput
+export type UserCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskAssignmentWhereInput
 }
 
 
@@ -1003,15 +787,13 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   email?: boolean
-  senha?: boolean
+  password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  refreshToken?: boolean | Prisma.User$refreshTokenArgs<ExtArgs>
-  frame?: boolean | Prisma.User$frameArgs<ExtArgs>
-  list?: boolean | Prisma.User$listArgs<ExtArgs>
-  Task?: boolean | Prisma.User$TaskArgs<ExtArgs>
-  Comment?: boolean | Prisma.User$CommentArgs<ExtArgs>
-  AssignTask?: boolean | Prisma.User$AssignTaskArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  boards?: boolean | Prisma.User$boardsArgs<ExtArgs>
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
+  assignments?: boolean | Prisma.User$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1019,7 +801,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   email?: boolean
-  senha?: boolean
+  password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1028,7 +810,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   email?: boolean
-  senha?: boolean
+  password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1037,19 +819,17 @@ export type UserSelectScalar = {
   id?: boolean
   name?: boolean
   email?: boolean
-  senha?: boolean
+  password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "senha" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  refreshToken?: boolean | Prisma.User$refreshTokenArgs<ExtArgs>
-  frame?: boolean | Prisma.User$frameArgs<ExtArgs>
-  list?: boolean | Prisma.User$listArgs<ExtArgs>
-  Task?: boolean | Prisma.User$TaskArgs<ExtArgs>
-  Comment?: boolean | Prisma.User$CommentArgs<ExtArgs>
-  AssignTask?: boolean | Prisma.User$AssignTaskArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  boards?: boolean | Prisma.User$boardsArgs<ExtArgs>
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
+  assignments?: boolean | Prisma.User$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1058,18 +838,16 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    refreshToken: Prisma.$RefreshTokenPayload<ExtArgs>[]
-    frame: Prisma.$FramePayload<ExtArgs>[]
-    list: Prisma.$ListPayload<ExtArgs>[]
-    Task: Prisma.$TaskPayload<ExtArgs>[]
-    Comment: Prisma.$CommentPayload<ExtArgs>[]
-    AssignTask: Prisma.$AssignTaskPayload<ExtArgs>[]
+    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    boards: Prisma.$BoardPayload<ExtArgs>[]
+    comments: Prisma.$CommentPayload<ExtArgs>[]
+    assignments: Prisma.$TaskAssignmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string | null
     email: string
-    senha: string
+    password: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1466,12 +1244,10 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  refreshToken<T extends Prisma.User$refreshTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  frame<T extends Prisma.User$frameArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$frameArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FramePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  list<T extends Prisma.User$listArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Task<T extends Prisma.User$TaskArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TaskArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Comment<T extends Prisma.User$CommentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$CommentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  AssignTask<T extends Prisma.User$AssignTaskArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$AssignTaskArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssignTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  boards<T extends Prisma.User$boardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$boardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignments<T extends Prisma.User$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1504,7 +1280,7 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly senha: Prisma.FieldRef<"User", 'String'>
+  readonly password: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1900,9 +1676,9 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.refreshToken
+ * User.refreshTokens
  */
-export type User$refreshTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the RefreshToken
    */
@@ -1924,81 +1700,33 @@ export type User$refreshTokenArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * User.frame
+ * User.boards
  */
-export type User$frameArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$boardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Frame
+   * Select specific fields to fetch from the Board
    */
-  select?: Prisma.FrameSelect<ExtArgs> | null
+  select?: Prisma.BoardSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Frame
+   * Omit specific fields from the Board
    */
-  omit?: Prisma.FrameOmit<ExtArgs> | null
+  omit?: Prisma.BoardOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.FrameInclude<ExtArgs> | null
-  where?: Prisma.FrameWhereInput
-  orderBy?: Prisma.FrameOrderByWithRelationInput | Prisma.FrameOrderByWithRelationInput[]
-  cursor?: Prisma.FrameWhereUniqueInput
+  include?: Prisma.BoardInclude<ExtArgs> | null
+  where?: Prisma.BoardWhereInput
+  orderBy?: Prisma.BoardOrderByWithRelationInput | Prisma.BoardOrderByWithRelationInput[]
+  cursor?: Prisma.BoardWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.FrameScalarFieldEnum | Prisma.FrameScalarFieldEnum[]
+  distinct?: Prisma.BoardScalarFieldEnum | Prisma.BoardScalarFieldEnum[]
 }
 
 /**
- * User.list
+ * User.comments
  */
-export type User$listArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the List
-   */
-  select?: Prisma.ListSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the List
-   */
-  omit?: Prisma.ListOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListInclude<ExtArgs> | null
-  where?: Prisma.ListWhereInput
-  orderBy?: Prisma.ListOrderByWithRelationInput | Prisma.ListOrderByWithRelationInput[]
-  cursor?: Prisma.ListWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListScalarFieldEnum | Prisma.ListScalarFieldEnum[]
-}
-
-/**
- * User.Task
- */
-export type User$TaskArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Task
-   */
-  select?: Prisma.TaskSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Task
-   */
-  omit?: Prisma.TaskOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TaskInclude<ExtArgs> | null
-  where?: Prisma.TaskWhereInput
-  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
-  cursor?: Prisma.TaskWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
-}
-
-/**
- * User.Comment
- */
-export type User$CommentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Comment
    */
@@ -2020,27 +1748,27 @@ export type User$CommentArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 /**
- * User.AssignTask
+ * User.assignments
  */
-export type User$AssignTaskArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AssignTask
+   * Select specific fields to fetch from the TaskAssignment
    */
-  select?: Prisma.AssignTaskSelect<ExtArgs> | null
+  select?: Prisma.TaskAssignmentSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AssignTask
+   * Omit specific fields from the TaskAssignment
    */
-  omit?: Prisma.AssignTaskOmit<ExtArgs> | null
+  omit?: Prisma.TaskAssignmentOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AssignTaskInclude<ExtArgs> | null
-  where?: Prisma.AssignTaskWhereInput
-  orderBy?: Prisma.AssignTaskOrderByWithRelationInput | Prisma.AssignTaskOrderByWithRelationInput[]
-  cursor?: Prisma.AssignTaskWhereUniqueInput
+  include?: Prisma.TaskAssignmentInclude<ExtArgs> | null
+  where?: Prisma.TaskAssignmentWhereInput
+  orderBy?: Prisma.TaskAssignmentOrderByWithRelationInput | Prisma.TaskAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.TaskAssignmentWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AssignTaskScalarFieldEnum | Prisma.AssignTaskScalarFieldEnum[]
+  distinct?: Prisma.TaskAssignmentScalarFieldEnum | Prisma.TaskAssignmentScalarFieldEnum[]
 }
 
 /**

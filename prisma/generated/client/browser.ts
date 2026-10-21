@@ -18,20 +18,20 @@ export { Prisma }
 export * as $Enums from './enums.ts'
 export * from './enums.ts';
 /**
- * Model RefreshToken
- * 
- */
-export type RefreshToken = Prisma.RefreshTokenModel
-/**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
 /**
- * Model Frame
+ * Model RefreshToken
  * 
  */
-export type Frame = Prisma.FrameModel
+export type RefreshToken = Prisma.RefreshTokenModel
+/**
+ * Model Board
+ * 
+ */
+export type Board = Prisma.BoardModel
 /**
  * Model List
  * 
@@ -43,22 +43,22 @@ export type List = Prisma.ListModel
  */
 export type Task = Prisma.TaskModel
 /**
- * Model SubTask
+ * Model Subtask
  * 
  */
-export type SubTask = Prisma.SubTaskModel
-/**
- * Model Status
- * 
- */
-export type Status = Prisma.StatusModel
+export type Subtask = Prisma.SubtaskModel
 /**
  * Model Comment
  * 
  */
 export type Comment = Prisma.CommentModel
 /**
- * Model AssignTask
+ * Model TaskAttribute
  * 
  */
-export type AssignTask = Prisma.AssignTaskModel
+export type TaskAttribute = Prisma.TaskAttributeModel
+/**
+ * Model TaskAssignment
+ * 
+ */
+export type TaskAssignment = Prisma.TaskAssignmentModel
