@@ -59,7 +59,7 @@ prisma/
 
 ## Modelo de dados
 
-O schema Prisma define usuários, tokens de atualização, quadros, listas, tarefas, subtarefas, comentários e atribuições de tarefas. As tarefas possuem os status `AFAZER`, `EM_ANDAMENTO` e `CONCLUIDO`.
+O schema Prisma define usuários, tokens de atualização, quadros, listas, tarefas, subtarefas, comentários e atribuições de tarefas. As tarefas possuem os status `A_FAZER`, `EM_ANDAMENTO` e `CONCLUIDO`.
 
 ## Scripts disponíveis
 

@@ -10,10 +10,9 @@
 */
 
 export const Status = {
-  TODO: 'TODO',
-  IN_PROGRESS: 'IN_PROGRESS',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
+  A_FAZER: 'A_FAZER',
+  EM_ANDAMENTO: 'EM_ANDAMENTO',
+  CONCLUIDO: 'CONCLUIDO'
 } as const
 
 export type Status = (typeof Status)[keyof typeof Status]

@@ -51,15 +51,14 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
+  Usuario: 'Usuario',
   RefreshToken: 'RefreshToken',
-  Board: 'Board',
-  List: 'List',
-  Task: 'Task',
-  Subtask: 'Subtask',
-  Comment: 'Comment',
-  TaskAttribute: 'TaskAttribute',
-  TaskAssignment: 'TaskAssignment'
+  Quadro: 'Quadro',
+  Lista: 'Lista',
+  Tarefa: 'Tarefa',
+  Subtarefa: 'Subtarefa',
+  Comentario: 'Comentario',
+  AtribuirTarefa: 'AtribuirTarefa'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,115 +77,91 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
+export const UsuarioScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  nome: 'nome',
   email: 'email',
-  password: 'password',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  senha: 'senha',
+  criadoEm: 'criadoEm'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
   token: 'token',
-  expiresAt: 'expiresAt',
-  revoked: 'revoked',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  expiraEm: 'expiraEm',
+  revogado: 'revogado',
+  usuarioId: 'usuarioId'
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
-export const BoardScalarFieldEnum = {
+export const QuadroScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  nome: 'nome',
+  descricao: 'descricao',
+  criadoEm: 'criadoEm',
+  usuarioId: 'usuarioId'
 } as const
 
-export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum]
+export type QuadroScalarFieldEnum = (typeof QuadroScalarFieldEnum)[keyof typeof QuadroScalarFieldEnum]
 
 
-export const ListScalarFieldEnum = {
+export const ListaScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  position: 'position',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  boardId: 'boardId'
+  nome: 'nome',
+  posicao: 'posicao',
+  quadroId: 'quadroId'
 } as const
 
-export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof ListScalarFieldEnum]
+export type ListaScalarFieldEnum = (typeof ListaScalarFieldEnum)[keyof typeof ListaScalarFieldEnum]
 
 
-export const TaskScalarFieldEnum = {
+export const TarefaScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  description: 'description',
-  dueDate: 'dueDate',
+  titulo: 'titulo',
+  descricao: 'descricao',
+  prazo: 'prazo',
+  posicao: 'posicao',
   status: 'status',
-  position: 'position',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  listId: 'listId'
+  listaId: 'listaId'
 } as const
 
-export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+export type TarefaScalarFieldEnum = (typeof TarefaScalarFieldEnum)[keyof typeof TarefaScalarFieldEnum]
 
 
-export const SubtaskScalarFieldEnum = {
+export const SubtarefaScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  description: 'description',
-  dueDate: 'dueDate',
-  position: 'position',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  taskId: 'taskId'
+  titulo: 'titulo',
+  concluida: 'concluida',
+  tarefaId: 'tarefaId'
 } as const
 
-export type SubtaskScalarFieldEnum = (typeof SubtaskScalarFieldEnum)[keyof typeof SubtaskScalarFieldEnum]
+export type SubtarefaScalarFieldEnum = (typeof SubtarefaScalarFieldEnum)[keyof typeof SubtarefaScalarFieldEnum]
 
 
-export const CommentScalarFieldEnum = {
+export const ComentarioScalarFieldEnum = {
   id: 'id',
-  text: 'text',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  taskId: 'taskId',
-  userId: 'userId'
+  texto: 'texto',
+  criadoEm: 'criadoEm',
+  tarefaId: 'tarefaId',
+  usuarioId: 'usuarioId'
 } as const
 
-export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+export type ComentarioScalarFieldEnum = (typeof ComentarioScalarFieldEnum)[keyof typeof ComentarioScalarFieldEnum]
 
 
-export const TaskAttributeScalarFieldEnum = {
+export const AtribuirTarefaScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  taskId: 'taskId'
+  atribuidoEm: 'atribuidoEm',
+  tarefaId: 'tarefaId',
+  usuarioId: 'usuarioId'
 } as const
 
-export type TaskAttributeScalarFieldEnum = (typeof TaskAttributeScalarFieldEnum)[keyof typeof TaskAttributeScalarFieldEnum]
-
-
-export const TaskAssignmentScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  taskId: 'taskId',
-  userId: 'userId'
-} as const
-
-export type TaskAssignmentScalarFieldEnum = (typeof TaskAssignmentScalarFieldEnum)[keyof typeof TaskAssignmentScalarFieldEnum]
+export type AtribuirTarefaScalarFieldEnum = (typeof AtribuirTarefaScalarFieldEnum)[keyof typeof AtribuirTarefaScalarFieldEnum]
 
 
 export const SortOrder = {
