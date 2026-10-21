@@ -1,6 +1,9 @@
 import express from 'express';
 import routesRouter from './routes/routes.js';
 import { usersRouter } from './routes/users/userRoutes.js';
+import { quadroRouter } from './routes/quadro/quadroRoutes.js';
+import { listaRouter } from './routes/lista/listaRoutes.js';
+import { tarefaRouter } from './routes/tarefa/tarefaRoutes.js';
 
 const app = express();
 
@@ -9,6 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routesRouter);
 app.use('/users', usersRouter);
+app.use('/quadros', quadroRouter);
+app.use(listaRouter);
+app.use(tarefaRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Rota não encontrada' });
