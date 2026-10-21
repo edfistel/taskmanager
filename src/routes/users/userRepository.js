@@ -1,57 +1,59 @@
-import { pool } from '../../config/database.js';
+import { prisma } from '../../config/database.js';
+
+// Campos seguros para devolver na API (nunca inclui a senha)
+const camposPublicos = {
+    id: true,
+    nome: true,
+    email: true
+};
+
+// Campos usados internamente para autenticar (inclui o hash da senha)
+const camposParaAutenticar = {
+    ...camposPublicos,
+    senha: true
+};
 
 export async function criarUsuario({ nome, email, senhaHash }) {
-  const result = await pool.query(
-    `INSERT INTO usuarios (nome, email, senha_hash)
-     VALUES ($1, $2, $3)
-     RETURNING id_usuario, nome, email`,
-    [nome, email, senhaHash]
-  );
-
-  return result.rows[0] ?? null;
+    return prisma.usuario.create({
+        data: { nome, email, senha: senhaHash },
+        select: camposPublicos
+    });
 }
 
+// O banco apaga em cascata os quadros (com tudo dentro), comentários, atribuições e tokens
 export async function apagarUsuario(id) {
-  const result = await pool.query(
-    `UPDATE usuarios
-     SET ativo = false
-     WHERE id_usuario = $1
-     RETURNING id_usuario, ativo`,
-    [id]
-  );
-
-  return result.rows[0] ?? null;
+    return prisma.usuario.delete({
+        where: { id },
+        select: camposPublicos
+    });
 }
 
-export async function alterarNome({id,nome}) {
-    const result = await pool.query(
-        `UPDATE usuarios SET nome = $1 WHERE id_usuario = $2 RETURNING id_usuario 
-        `,[nome,id]
-    );
-
-    return result.rows[0] ?? null;
+export async function alterarNome({ id, nome }) {
+    return prisma.usuario.update({
+        where: { id },
+        data: { nome },
+        select: camposPublicos
+    });
 }
 
-export async function alterarSenha({id, senhaHash}) {
-    const result = await pool.query(
-        `UPDATE usuarios SET senha_hash = $1 WHERE id_usuario = $2 RETURNING id_usuario 
-        `,[senhaHash,id]
-    );
-
-    return result.rows[0] ?? null;
+export async function alterarSenha({ id, senhaHash }) {
+    return prisma.usuario.update({
+        where: { id },
+        data: { senha: senhaHash },
+        select: { id: true }
+    });
 }
 
 export async function buscarUsuarioPorId(id) {
-    const result = await pool.query(
-        `SELECT id_usuario, email, ativo FROM usuarios WHERE id_usuario = $1`,[id]
-    );
-    return result.rows[0] ?? null;
+    return prisma.usuario.findUnique({
+        where: { id },
+        select: camposParaAutenticar
+    });
 }
 
 export async function buscarUsuarioPorEmail(email) {
-    const result = await pool.query(
-        `SELECT id_usuario, nome, email, senha_hash, ativo FROM usuarios where email = $1`, [email]
-    );
-
-    return result.rows[0] ?? null;
+    return prisma.usuario.findUnique({
+        where: { email },
+        select: camposParaAutenticar
+    });
 }

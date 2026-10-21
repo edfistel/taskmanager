@@ -15,14 +15,14 @@ export async function criarUsuario(req, res) {
 export async function buscarUsuarioPorEmail(req, res) {
     try{
 
-        const email = req.body.email;
+        const email = req.params.email;
         const usuario = await userService.buscarUsuarioPorEmail(email);
 
         if(!usuario){
-            return res.status(401).json({success: false, message: 'Usuário não encontrado, ou email inválido'});
+            return res.status(404).json({success: false, message: 'Usuário não encontrado, ou email inválido'});
         }
 
-        return res.status(200).json({success: true, body:{id_usuario: usuario.id_usuario, nome: usuario.nome, email: usuario.email}});
+        return res.status(200).json({success: true, body:{id: usuario.id, nome: usuario.nome, email: usuario.email}});
 
     }catch(error) {
         return res.status(400).json({success: false, message: error.message});
@@ -51,7 +51,7 @@ export async function login(req, res) {
 
 export async function buscarMeuPerfil(req, res) {
     try {
-        const id = req.user.id_usuario;
+        const id = req.user.id;
 
         const usuario = await userService.buscarUsuarioPorId(id);
 
@@ -65,7 +65,7 @@ export async function buscarMeuPerfil(req, res) {
         return res.status(200).json({
             success: true,
             body: {
-                id_usuario: usuario.id_usuario,
+                id: usuario.id,
                 nome: usuario.nome,
                 email: usuario.email
             }
@@ -81,7 +81,7 @@ export async function buscarMeuPerfil(req, res) {
 
 export async function alterarSenha(req, res) {
     try {
-        const id = req.user.id_usuario;
+        const id = req.user.id;
         const { senhaAtual, novaSenha } = req.body;
 
         await userService.alterarSenhaDoUsuario({
@@ -105,7 +105,7 @@ export async function alterarSenha(req, res) {
 
 export async function apagarUsuario(req, res) {
     try {
-        const id = req.user.id_usuario;
+        const id = req.user.id;
 
         const usuario = await userService.apagarUsuario(id);
 
@@ -118,13 +118,13 @@ export async function apagarUsuario(req, res) {
 
         return res.status(200).json({
             success: true,
-            message: 'Usuário desativado com sucesso'
+            message: 'Usuário apagado com sucesso'
         });
 
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Erro ao desativar usuário'
+            message: 'Erro ao apagar usuário'
         });
     }
 }

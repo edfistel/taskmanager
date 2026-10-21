@@ -34,12 +34,12 @@ export async function login({ email, senha }) {
         emailNormalizado
     );
     
-    if (!usuario || !usuario.ativo) {
+    if (!usuario) {
         throw new Error('E-mail ou senha inválidos');
     }
 
     const senhaCorreta = await argon2.verify(
-        usuario.senha_hash,
+        usuario.senha,
         senha
     );
 
@@ -49,7 +49,7 @@ export async function login({ email, senha }) {
 
     // Autenticação das credenciais realizada com sucesso
     return {
-        id_usuario: usuario.id_usuario,
+        id: usuario.id,
         nome: usuario.nome,
         email: usuario.email
     };
@@ -66,11 +66,11 @@ export async function alterarSenhaDoUsuario({id, novaSenha, senhaAtual}) {
     
     const usuario = await userRepository.buscarUsuarioPorId(id);
     
-    if(!usuario || !usuario.ativo) {
-        throw new Error('Usuário não encontrado, ou inativo');
+    if(!usuario) {
+        throw new Error('Usuário não encontrado');
     }
 
-    const senhaMatch = await argon2.verify(usuario.senha_hash, senhaAtual);
+    const senhaMatch = await argon2.verify(usuario.senha, senhaAtual);
 
     if(!senhaMatch) {
         throw new Error('Senha atual incorreta');
@@ -82,7 +82,17 @@ export async function alterarSenhaDoUsuario({id, novaSenha, senhaAtual}) {
 
 }
 
+export async function buscarUsuarioPorId(id) {
+    return userRepository.buscarUsuarioPorId(id);
+}
+
 export async function apagarUsuario(id) {
+    const usuario = await userRepository.buscarUsuarioPorId(id);
+
+    if (!usuario) {
+        return null;
+    }
+
     return userRepository.apagarUsuario(id);
 }
 
