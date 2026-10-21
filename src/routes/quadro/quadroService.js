@@ -1,9 +1,15 @@
 import * as quadroRepository from './quadroRepository.js';
+import {
+    ErroDeValidacao,
+    validarId,
+    validarTextoObrigatorio,
+    normalizarTextoOpcional
+} from '../../tools/validacao.js';
 
 const TAMANHO_MAXIMO_DO_NOME = 100;
 
-// Erro causado por dado inválido enviado pelo cliente (vira status 400)
-export class ErroDeValidacao extends Error {}
+// Todo quadro nasce com esta lista (o desenho exige ao menos uma lista por quadro)
+const NOME_DA_LISTA_PADRAO = 'A Fazer';
 
 export async function criarQuadro({ userId, nome, descricao }) {
     const nomeValidado = validarNome(nome);
@@ -12,7 +18,8 @@ export async function criarQuadro({ userId, nome, descricao }) {
     return quadroRepository.criarQuadro({
         userId,
         nome: nomeValidado,
-        descricao: descricaoNormalizada
+        descricao: descricaoNormalizada,
+        nomeDaListaPadrao: NOME_DA_LISTA_PADRAO
     });
 }
 
@@ -21,7 +28,7 @@ export async function listarMeusQuadros(userId) {
 }
 
 export async function buscarQuadro({ id, userId }) {
-    const idDoQuadro = validarId(id);
+    const idDoQuadro = validarId(id, 'do quadro');
 
     return quadroRepository.buscarQuadroDoUsuario({ id: idDoQuadro, userId });
 }
@@ -30,11 +37,11 @@ export async function atualizarQuadro({ id, userId, nome, descricao }) {
     const dados = {};
 
     if (nome !== undefined) {
-        dados.name = validarNome(nome);
+        dados.nome = validarNome(nome);
     }
 
     if (descricao !== undefined) {
-        dados.description = normalizarDescricao(descricao);
+        dados.descricao = normalizarDescricao(descricao);
     }
 
     if (Object.keys(dados).length === 0) {
@@ -61,40 +68,13 @@ export async function apagarQuadro({ id, userId }) {
     return quadroRepository.apagarQuadro(quadro.id);
 }
 
-function validarId(id) {
-    const idNumerico = Number(id);
-
-    if (!Number.isInteger(idNumerico) || idNumerico <= 0) {
-        throw new ErroDeValidacao('Id do quadro inválido');
-    }
-
-    return idNumerico;
-}
-
 function validarNome(nome) {
-    if (typeof nome !== 'string' || nome.trim().length === 0) {
-        throw new ErroDeValidacao('O nome do quadro precisa ser preenchido');
-    }
-
-    const nomeNormalizado = nome.trim();
-
-    if (nomeNormalizado.length > TAMANHO_MAXIMO_DO_NOME) {
-        throw new ErroDeValidacao(`O nome do quadro pode ter no máximo ${TAMANHO_MAXIMO_DO_NOME} caracteres`);
-    }
-
-    return nomeNormalizado;
+    return validarTextoObrigatorio(nome, {
+        campo: 'O nome do quadro',
+        tamanhoMaximo: TAMANHO_MAXIMO_DO_NOME
+    });
 }
 
 function normalizarDescricao(descricao) {
-    if (descricao === undefined || descricao === null) {
-        return null;
-    }
-
-    if (typeof descricao !== 'string') {
-        throw new ErroDeValidacao('A descrição precisa ser um texto');
-    }
-
-    const descricaoNormalizada = descricao.trim();
-
-    return descricaoNormalizada.length > 0 ? descricaoNormalizada : null;
+    return normalizarTextoOpcional(descricao, { campo: 'A descrição' });
 }
