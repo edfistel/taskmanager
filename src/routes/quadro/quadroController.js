@@ -1,4 +1,5 @@
 import * as quadroService from './quadroService.js';
+import { responderErro } from '../../tools/responderErro.js';
 
 export async function criarQuadro(req, res) {
     try {
@@ -80,14 +81,4 @@ export async function apagarQuadro(req, res) {
     } catch (error) {
         return responderErro(res, error);
     }
-}
-
-function responderErro(res, error) {
-    if (error instanceof quadroService.ErroDeValidacao) {
-        return res.status(400).json({ success: false, message: error.message });
-    }
-
-    console.error(error);
-
-    return res.status(500).json({ success: false, message: 'Erro interno ao processar o quadro' });
 }

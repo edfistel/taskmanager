@@ -31,8 +31,8 @@ export * from "./enums.ts"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Usuarios
+ * const usuarios = await prisma.usuario.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -42,47 +42,42 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model User
+ * Model Usuario
  * 
  */
-export type User = Prisma.UserModel
+export type Usuario = Prisma.UsuarioModel
 /**
  * Model RefreshToken
  * 
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
- * Model Board
+ * Model Quadro
  * 
  */
-export type Board = Prisma.BoardModel
+export type Quadro = Prisma.QuadroModel
 /**
- * Model List
+ * Model Lista
  * 
  */
-export type List = Prisma.ListModel
+export type Lista = Prisma.ListaModel
 /**
- * Model Task
+ * Model Tarefa
  * 
  */
-export type Task = Prisma.TaskModel
+export type Tarefa = Prisma.TarefaModel
 /**
- * Model Subtask
+ * Model Subtarefa
  * 
  */
-export type Subtask = Prisma.SubtaskModel
+export type Subtarefa = Prisma.SubtarefaModel
 /**
- * Model Comment
+ * Model Comentario
  * 
  */
-export type Comment = Prisma.CommentModel
+export type Comentario = Prisma.ComentarioModel
 /**
- * Model TaskAttribute
+ * Model AtribuirTarefa
  * 
  */
-export type TaskAttribute = Prisma.TaskAttributeModel
-/**
- * Model TaskAssignment
- * 
- */
-export type TaskAssignment = Prisma.TaskAssignmentModel
+export type AtribuirTarefa = Prisma.AtribuirTarefaModel
