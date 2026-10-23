@@ -58,6 +58,18 @@ export async function buscarTarefa({ id, userId }) {
     return { ...dadosDaTarefa, quadroId: lista.quadroId };
 }
 
+// Usado por subtarefas, comentários e atribuições: devolve a tarefa e se o usuário é o dono do quadro
+export async function buscarTarefaComAcesso({ tarefaId, userId }) {
+    const idDaTarefa = validarId(tarefaId, 'da tarefa');
+    const tarefa = await tarefaRepository.buscarTarefaAcessivel({ id: idDaTarefa, userId });
+
+    if (!tarefa) {
+        return null;
+    }
+
+    return { id: tarefa.id, ehDono: tarefa.lista.quadro.usuarioId === userId };
+}
+
 export async function atualizarTarefa({ id, userId, titulo, descricao, prazo, status }) {
     const dados = {};
 

@@ -45,6 +45,23 @@ export async function buscarTarefaDoUsuario({ id, userId }) {
     });
 }
 
+// Encontra a tarefa se o usuário for o dono do quadro ou estiver atribuído a ela
+export async function buscarTarefaAcessivel({ id, userId }) {
+    return prisma.tarefa.findFirst({
+        where: {
+            id,
+            OR: [
+                { lista: { quadro: { usuarioId: userId } } },
+                { atribuicoes: { some: { usuarioId: userId } } }
+            ]
+        },
+        select: {
+            id: true,
+            lista: { select: { quadro: { select: { usuarioId: true } } } }
+        }
+    });
+}
+
 export async function atualizarTarefa({ id, dados }) {
     return prisma.tarefa.update({
         where: { id },
