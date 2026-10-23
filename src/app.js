@@ -4,6 +4,9 @@ import { usersRouter } from './routes/users/userRoutes.js';
 import { quadroRouter } from './routes/quadro/quadroRoutes.js';
 import { listaRouter } from './routes/lista/listaRoutes.js';
 import { tarefaRouter } from './routes/tarefa/tarefaRoutes.js';
+import { subtarefaRouter } from './routes/subtarefa/subtarefaRoutes.js';
+import { comentarioRouter } from './routes/comentario/comentarioRoutes.js';
+import { atribuicaoRouter } from './routes/atribuicao/atribuicaoRoutes.js';
 
 const app = express();
 
@@ -15,6 +18,9 @@ app.use('/users', usersRouter);
 app.use('/quadros', quadroRouter);
 app.use(listaRouter);
 app.use(tarefaRouter);
+app.use(subtarefaRouter);
+app.use(comentarioRouter);
+app.use(atribuicaoRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Rota não encontrada' });
