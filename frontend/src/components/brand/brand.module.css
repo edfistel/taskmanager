@@ -1,0 +1,36 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  min-width: 0;
+  color: var(--color-text);
+}
+
+.mark {
+  display: grid;
+  width: 2.35rem;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 0.72rem;
+  color: #04261f;
+  background: linear-gradient(145deg, #69f2cc 0%, #24c69f 60%, #0b9979 100%);
+  box-shadow: 0 10px 28px rgb(28 199 157 / 24%);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+}
+
+.wordmark {
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.compact .mark {
+  width: 2.6rem;
+}
+
+.inverse {
+  color: #f3fbfa;
+}
