@@ -16,46 +16,6 @@ export async function buscarUsuarioPorEmail(email) {
     return await userRepository.buscarUsuarioPorEmail(emailNormalizado);
 }
 
-export async function login({ email, senha }) {
-    if (
-        !isValidarStringPreenchida(email) ||
-        !isValidarStringPreenchida(senha)
-    ) {
-        throw new Error('O usuário e a senha precisam ser preenchidos');
-    }
-
-    const emailNormalizado = normalizarEmail(email);
-
-    if (!isValidarEmail(emailNormalizado)) {
-        throw new Error('Digite um e-mail válido');
-    }
-    
-    const usuario = await userRepository.buscarUsuarioPorEmail(
-        emailNormalizado
-    );
-    
-    if (!usuario) {
-        throw new Error('E-mail ou senha inválidos');
-    }
-
-    const senhaCorreta = await argon2.verify(
-        usuario.senha,
-        senha
-    );
-
-    if (!senhaCorreta) {
-        throw new Error('E-mail ou senha inválidos');
-    }
-
-    // Autenticação das credenciais realizada com sucesso
-    return {
-        id: usuario.id,
-        nome: usuario.nome,
-        email: usuario.email
-    };
-}
-
-
 export async function alterarSenhaDoUsuario({id, novaSenha, senhaAtual}) {
     if(!isValidarStringPreenchida(novaSenha) || !isValidarStringPreenchida(senhaAtual)){
         throw new Error('A senha precisa ser preenchida');

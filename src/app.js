@@ -7,6 +7,8 @@ import { tarefaRouter } from './routes/tarefa/tarefaRoutes.js';
 import { subtarefaRouter } from './routes/subtarefa/subtarefaRoutes.js';
 import { comentarioRouter } from './routes/comentario/comentarioRoutes.js';
 import { atribuicaoRouter } from './routes/atribuicao/atribuicaoRoutes.js';
+import authRouter from './routes/authRoutes.js';
+import { autenticar } from './middlewares/authMiddlewares.js';
 
 const app = express();
 
@@ -14,7 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routesRouter);
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+
+app.use(autenticar);
+
 app.use('/quadros', quadroRouter);
 app.use(listaRouter);
 app.use(tarefaRouter);
