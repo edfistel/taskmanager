@@ -1,5 +1,6 @@
 export const queryKeys = {
   profile: ["profile"] as const,
+  board: (boardId: number) => ["boards", boardId] as const,
   boards: {
     all: ["boards"] as const,
     detail: (boardId: number) => ["boards", boardId] as const,

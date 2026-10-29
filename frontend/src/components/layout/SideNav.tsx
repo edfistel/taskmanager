@@ -11,7 +11,7 @@ interface SideNavProps {
 export function SideNav({ onOpenSettings }: SideNavProps) {
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.sidebarBrand}><TaskFlowLogo /></div>
+      <div className={styles.sidebarBrand}><TaskFlowLogo collapseAtTablet /></div>
       <nav aria-label="Navegação principal" className={styles.navList}>
         <NavLink className={({ isActive }) => (isActive ? styles.active : "")} end to="/">
           <LayoutDashboard size={20} /><span>Visão geral</span>

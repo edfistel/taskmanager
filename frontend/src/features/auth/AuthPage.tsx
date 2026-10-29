@@ -41,7 +41,7 @@ export function AuthPage() {
     <main className={styles.page}>
       <section className={styles.story}>
         <div className={styles.storyInner}>
-          <TaskFlowLogo inverse />
+          <TaskFlowLogo inverse prominent />
           <div className={styles.heroCopy}>
             <h1>Organize o fluxo. Entregue com clareza.</h1>
             <p>
@@ -71,7 +71,7 @@ export function AuthPage() {
         </button>
         <div className={styles.card}>
           <header className={styles.cardHeader}>
-            <div className={styles.mobileLogo}><TaskFlowLogo /></div>
+            <div className={styles.mobileLogo}><TaskFlowLogo prominent /></div>
             <h2>Bem-vindo ao seu fluxo</h2>
             <p>Entre para continuar ou crie uma conta em poucos segundos.</p>
           </header>

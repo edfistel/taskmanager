@@ -10,7 +10,7 @@ const mode = process.argv[2] === "preview" ? "preview" : "dev";
 const viteArguments =
   mode === "preview"
     ? [viteCli, "preview"]
-    : [viteCli, "--host", "127.0.0.1"];
+    : [viteCli];
 
 const children = [
   spawn(process.execPath, [bridgeScript], {

@@ -1,5 +1,15 @@
 import type { CSSProperties } from "react";
-import { ArrowUpRight, Pencil, Trash2 } from "lucide-react";
+import {
+  ArrowUpRight,
+  Boxes,
+  Compass,
+  Layers3,
+  Pencil,
+  Rocket,
+  Target,
+  Trash2,
+  type LucideIcon,
+} from "lucide-react";
 import { Link } from "react-router";
 
 import type { Quadro } from "../../lib/api/types";
@@ -11,13 +21,25 @@ interface BoardCardProps {
   onDelete(board: Quadro): void;
 }
 
-const ACCENTS = ["#43ddb2", "#7f8cff", "#f29f67", "#d878b8", "#58b8e8"];
+interface BoardVisual {
+  accent: string;
+  icon: LucideIcon;
+  patternClass: string;
+}
 
-function getBoardAccent(board: Quadro): string {
+const BOARD_VISUALS: BoardVisual[] = [
+  { accent: "#43ddb2", icon: Layers3, patternClass: styles.patternGrid },
+  { accent: "#7f8cff", icon: Compass, patternClass: styles.patternOrbit },
+  { accent: "#f29f67", icon: Rocket, patternClass: styles.patternDiagonal },
+  { accent: "#d878b8", icon: Target, patternClass: styles.patternDots },
+  { accent: "#58b8e8", icon: Boxes, patternClass: styles.patternMesh },
+];
+
+function getBoardVisual(board: Quadro): BoardVisual {
   const seed = `${board.id}:${board.nome}`;
   let hash = 0;
   for (const character of seed) hash = (hash * 31 + character.charCodeAt(0)) | 0;
-  return ACCENTS[Math.abs(hash) % ACCENTS.length];
+  return BOARD_VISUALS[Math.abs(hash) % BOARD_VISUALS.length];
 }
 
 function formatCreatedAt(value: string): string {
@@ -30,14 +52,21 @@ function formatCreatedAt(value: string): string {
 }
 
 export function BoardCard({ board, onEdit, onDelete }: BoardCardProps) {
+  const visual = getBoardVisual(board);
+  const BoardIcon = visual.icon;
   const cardStyle = {
-    "--board-accent": getBoardAccent(board),
+    "--board-accent": visual.accent,
   } as CSSProperties;
 
   return (
     <article className={styles.boardCard} style={cardStyle}>
       <div className={styles.cardTopline}>
-        <span aria-hidden="true" className={styles.boardMark} />
+        <span
+          aria-hidden="true"
+          className={`${styles.boardMark} ${visual.patternClass}`}
+        >
+          <BoardIcon size={21} strokeWidth={1.8} />
+        </span>
         <div className={styles.cardActions}>
           <button
             aria-label={`Editar ${board.nome}`}

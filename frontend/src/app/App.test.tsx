@@ -30,6 +30,6 @@ describe("TaskFlow application", () => {
     expect(await screen.findByRole("heading", { name: /bem-vindo/i })).toBeVisible();
     expect(screen.getAllByLabelText("TaskFlow").length).toBeGreaterThan(0);
     expect(screen.getAllByText("TaskFlow").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("T").length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("img", { name: /logo taskflow/i }).length).toBeGreaterThan(0);
   });
 });

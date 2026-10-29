@@ -199,13 +199,70 @@
 }
 
 .boardMark {
+  position: relative;
   width: 2.75rem;
   height: 2.75rem;
+  overflow: hidden;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
   border: 1px solid color-mix(in srgb, var(--board-accent) 35%, var(--color-border));
   border-radius: var(--radius-sm);
+  color: var(--board-accent);
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--board-accent) 34%, transparent), transparent),
     var(--color-bg-subtle);
+}
+
+.boardMark::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.52;
+}
+
+.boardMark svg {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 5px color-mix(in srgb, var(--board-accent) 24%, transparent));
+}
+
+.patternGrid::before {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--board-accent) 24%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--board-accent) 24%, transparent) 1px, transparent 1px);
+  background-size: 0.55rem 0.55rem;
+}
+
+.patternOrbit::before {
+  inset: 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--board-accent) 42%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.32rem color-mix(in srgb, var(--board-accent) 10%, transparent);
+}
+
+.patternDiagonal::before {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--board-accent) 30%, transparent) 0 1px,
+    transparent 1px 0.42rem
+  );
+}
+
+.patternDots::before {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--board-accent) 48%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 0.48rem 0.48rem;
+}
+
+.patternMesh::before {
+  background-image:
+    linear-gradient(35deg, color-mix(in srgb, var(--board-accent) 23%, transparent) 25%, transparent 25%),
+    linear-gradient(215deg, color-mix(in srgb, var(--board-accent) 20%, transparent) 25%, transparent 25%);
+  background-size: 0.8rem 0.8rem;
 }
 
 .cardActions { display: flex; gap: var(--space-1); }
