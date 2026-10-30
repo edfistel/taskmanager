@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes } from "react-router";
+import { lazy, Suspense } from "react";
 
 import { AppShell } from "../components/layout/AppShell";
 import { AuthPage } from "../features/auth/AuthPage";
 import { ProtectedRoute } from "../features/auth/ProtectedRoute";
-import { BoardPage } from "../features/boards/BoardPage";
-import { DashboardPage } from "../features/dashboard/DashboardPage";
+const BoardPage = lazy(() => import("../features/boards/BoardPage").then((module) => ({ default: module.BoardPage })));
+const DashboardPage = lazy(() => import("../features/dashboard/DashboardPage").then((module) => ({ default: module.DashboardPage })));
+const AssignmentsPage = lazy(() => import("../features/assignments/AssignmentsPage").then((module) => ({ default: module.AssignmentsPage })));
 
 function ProtectedPage({ title, eyebrow, children }: React.PropsWithChildren<{ title: string; eyebrow?: string }>) {
   return (
@@ -14,22 +16,14 @@ function ProtectedPage({ title, eyebrow, children }: React.PropsWithChildren<{ t
   );
 }
 
-function ComingSoon({ text }: { text: string }) {
-  return (
-    <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: "2rem", background: "var(--color-bg-elevated)" }}>
-      <p style={{ margin: 0, color: "var(--color-text-soft)" }}>{text}</p>
-    </section>
-  );
-}
-
 export function AppRoutes() {
   return (
-    <Routes>
+    <Suspense fallback={<p role="status" style={{ padding: "2rem" }}>Carregando página…</p>}><Routes>
       <Route element={<AuthPage />} path="/login" />
       <Route path="/" element={<ProtectedPage eyebrow="Seu espaço" title="Visão geral"><DashboardPage /></ProtectedPage>} />
       <Route path="/quadros/:quadroId" element={<ProtectedRoute><BoardPage /></ProtectedRoute>} />
-      <Route path="/atribuicoes" element={<ProtectedPage eyebrow="Colaboração" title="Minhas atribuições"><ComingSoon text="Suas tarefas atribuídas aparecerão aqui." /></ProtectedPage>} />
+      <Route path="/atribuicoes" element={<ProtectedPage eyebrow="Colaboração" title="Minhas atribuições"><AssignmentsPage /></ProtectedPage>} />
       <Route element={<Navigate replace to="/" />} path="*" />
-    </Routes>
+    </Routes></Suspense>
   );
 }

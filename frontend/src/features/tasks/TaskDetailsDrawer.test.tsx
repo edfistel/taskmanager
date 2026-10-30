@@ -76,6 +76,14 @@ function createWrapper() {
 }
 
 describe("TaskDetailsDrawer", () => {
+  it("shows only the known assignment summary to a collaborator without fetching owner details", async () => {
+    const { Wrapper } = createWrapper();
+    render(<TaskDetailsDrawer mode="collaborator" taskId={19} summary={{ titulo: "Publicar página inicial", status: "EM_ANDAMENTO", prazo: "2026-11-02" }} onClose={() => undefined} />, { wrapper: Wrapper });
+    expect(await screen.findByText("Publicar página inicial")).toBeVisible();
+    expect(screen.getByText("02/11/2026")).toBeVisible();
+    expect(screen.queryByLabelText("Título da tarefa")).not.toBeInTheDocument();
+    expect(TasksApi.get).not.toHaveBeenCalled();
+  });
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(TasksApi.get).mockResolvedValue(detail);

@@ -42,7 +42,7 @@ export function ConfirmDialog({
       <p className={styles.description}>{description}</p>
       {requiresTyping && (
         <label className={styles.typedField}>
-          Digite {confirmationText} para confirmar
+          <span>Digite <strong className={styles.confirmationPhrase}>{confirmationText}</strong> para confirmar</span>
           <input
             autoComplete="off"
             onChange={(event) => setTypedValue(event.target.value)}

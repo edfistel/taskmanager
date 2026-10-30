@@ -15,16 +15,25 @@ if (!root) {
   throw new Error("Elemento raiz do TaskFlow não encontrado.");
 }
 
-createRoot(root).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <PreferencesProvider>
-        <AuthProvider>
-          <ToastProvider>
-            <App />
-          </ToastProvider>
-        </AuthProvider>
-      </PreferencesProvider>
-    </QueryClientProvider>
-  </StrictMode>,
-);
+async function mount() {
+  if (import.meta.env.DEV && import.meta.env.MODE === "demo") {
+    const { installDemo } = await import("./demo/installDemo");
+    installDemo();
+  }
+
+  createRoot(root!).render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <PreferencesProvider>
+          <AuthProvider>
+            <ToastProvider>
+              <App />
+            </ToastProvider>
+          </AuthProvider>
+        </PreferencesProvider>
+      </QueryClientProvider>
+    </StrictMode>,
+  );
+}
+
+void mount();

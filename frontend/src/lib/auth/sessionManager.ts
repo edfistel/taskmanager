@@ -43,6 +43,7 @@ export class PostRegistrationLoginError extends Error {
 }
 
 export class SessionManager implements SessionPort {
+  private sessionVersion = 0;
   private accessToken: string | null = null;
   private snapshot: AuthSnapshot = { status: "bootstrapping", user: null };
   private refreshPromise: Promise<string | null> | null = null;
@@ -63,23 +64,25 @@ export class SessionManager implements SessionPort {
   getAccessToken(): string | null {
     return this.accessToken;
   }
+  getSessionVersion(): number { return this.sessionVersion; }
 
   async bootstrap(): Promise<void> {
+    const version = this.sessionVersion;
     if (!this.tokenStorage.read()) {
       this.setSnapshot({ status: "anonymous", user: null });
       return;
     }
 
     const accessToken = await this.refresh();
-    if (!accessToken) return;
+    if (!accessToken || version !== this.sessionVersion) return;
 
     try {
       const user = await this.transport<Usuario>("/users/buscarMeuPerfil", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
-      this.setSnapshot({ status: "authenticated", user });
+      if (version === this.sessionVersion) this.setSnapshot({ status: "authenticated", user });
     } catch {
-      this.expire();
+      if (version === this.sessionVersion) this.expire();
     }
   }
 
@@ -137,12 +140,15 @@ export class SessionManager implements SessionPort {
   }
 
   expire(): void {
+    this.sessionVersion += 1;
+    this.refreshPromise = null;
     this.accessToken = null;
     this.tokenStorage.clear();
     this.setSnapshot({ status: "anonymous", user: null });
   }
 
   private async rotateRefresh(): Promise<string | null> {
+    const version = this.sessionVersion;
     const refreshToken = this.tokenStorage.read();
     const persistence = this.tokenStorage.getPersistence();
     if (!refreshToken || !persistence) {
@@ -155,11 +161,12 @@ export class SessionManager implements SessionPort {
         method: "POST",
         json: { refreshToken },
       });
+      if (version !== this.sessionVersion) return null;
       this.accessToken = response.accessToken;
       this.tokenStorage.write(response.refreshToken, persistence);
       return response.accessToken;
     } catch {
-      this.expire();
+      if (version === this.sessionVersion) this.expire();
       return null;
     }
   }
@@ -168,6 +175,8 @@ export class SessionManager implements SessionPort {
     response: AuthResponse,
     persistence: TokenPersistence,
   ): void {
+    this.sessionVersion += 1;
+    this.refreshPromise = null;
     this.accessToken = response.accessToken;
     this.tokenStorage.write(response.refreshToken, persistence);
     this.setSnapshot({ status: "authenticated", user: response.usuario });

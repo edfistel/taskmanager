@@ -5,6 +5,7 @@ import {
   useSyncExternalStore,
   type PropsWithChildren,
 } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import type { Usuario } from "../api/types";
 import {
@@ -33,8 +34,22 @@ export function AuthProvider({
   children,
   manager = sessionManager,
 }: AuthProviderProps) {
+  const queryClient = useQueryClient();
+  const subscribe = useMemo(() => {
+    let identity = manager.getSnapshot().user?.id ?? null;
+    return (listener: () => void) => manager.subscribe(() => {
+      const nextIdentity = manager.getSnapshot().user?.id ?? null;
+      if (nextIdentity !== identity) {
+        // Clear before publishing the new session so another account cannot render cached private data.
+        identity = nextIdentity;
+        void queryClient.cancelQueries();
+        queryClient.clear();
+      }
+      listener();
+    });
+  }, [manager, queryClient]);
   const snapshot = useSyncExternalStore(
-    manager.subscribe,
+    subscribe,
     manager.getSnapshot,
     manager.getSnapshot,
   );

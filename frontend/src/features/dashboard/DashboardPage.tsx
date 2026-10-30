@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
-import { CheckSquare2, Plus, Search, X } from "lucide-react";
+import { Plus, Search, X } from "lucide-react";
 
 import { EmptyState } from "../../components/feedback/EmptyState";
 import { ErrorState } from "../../components/feedback/ErrorState";
 import { BoardGridSkeleton } from "../../components/feedback/Skeleton";
 import { useToast } from "../../components/feedback/ToastProvider";
 import type { Quadro } from "../../lib/api/types";
+import { AssignmentsSummary } from "../assignments/AssignmentsSummary";
 import { BoardCard } from "./BoardCard";
 import { BoardFormDialog } from "./BoardFormDialog";
 import { DeleteBoardDialog } from "./DeleteBoardDialog";
@@ -166,16 +167,7 @@ export function DashboardPage() {
         )}
       </section>
 
-      <section aria-labelledby="assigned-title" className={styles.assignmentsBoundary}>
-        <span className={styles.assignmentIcon}>
-          <CheckSquare2 aria-hidden="true" size={22} />
-        </span>
-        <div>
-          <h2 id="assigned-title">Atribuídas a mim</h2>
-          <p>O resumo das suas tarefas aparecerá aqui quando conectarmos a etapa de atribuições.</p>
-        </div>
-        <span className={styles.soonPill}>Próxima etapa</span>
-      </section>
+      <AssignmentsSummary />
 
       <BoardFormDialog
         board={formBoard === "new" ? null : formBoard}

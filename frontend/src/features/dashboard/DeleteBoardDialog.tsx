@@ -17,7 +17,7 @@ export function DeleteBoardDialog({
   return (
     <ConfirmDialog
       busy={busy}
-      confirmationText={board?.nome ?? ""}
+      confirmationText="Eu confirmo"
       confirmLabel="Excluir quadro"
       description="Esta ação apaga permanentemente as listas, tarefas, subtarefas, comentários e atribuições deste quadro."
       level="typed"

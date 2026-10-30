@@ -1,16 +1,24 @@
-.shell { min-height: 100vh; background: var(--color-bg); }
+.shell { --active-sidebar-width: var(--sidebar-width); min-height: 100vh; background: var(--color-bg); }
+.shell[data-sidebar-collapsed="true"] { --active-sidebar-width: var(--sidebar-compact-width); }
 .sidebar {
   position: fixed;
   z-index: 20;
-  inset: 0 auto 0 0;
-  width: var(--sidebar-width);
+  inset: var(--demo-banner-height, 0px) auto 0 0;
+  width: var(--active-sidebar-width);
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--color-border);
   padding: var(--space-6) var(--space-4);
   background: var(--color-bg-elevated);
 }
-.sidebarBrand { padding: 0 var(--space-3) var(--space-8); }
+.sidebarHeader { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-8); }
+.sidebarBrand { min-width: 0; }
+.sidebarToggle { flex: 0 0 auto; width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text-soft); background: var(--color-bg-subtle); }
+.sidebarToggle:hover { color: var(--color-primary); background: var(--color-primary-soft); }
+.shell[data-sidebar-collapsed="true"] .sidebar { align-items: center; padding-inline: var(--space-3); }
+.shell[data-sidebar-collapsed="true"] .sidebarHeader { flex-direction: column; gap: var(--space-4); }
+.shell[data-sidebar-collapsed="true"] .navList a,
+.shell[data-sidebar-collapsed="true"] .settingsButton { width: 3.2rem; justify-content: center; padding: 0; }
 .navList { display: grid; gap: var(--space-2); }
 .navList a,
 .settingsButton {
@@ -30,7 +38,7 @@
 .settingsButton:hover { color: var(--color-text); background: var(--color-bg-subtle); transform: translateX(2px); }
 .navList .active { color: var(--color-primary); background: var(--color-primary-soft); }
 .settingsButton { width: 100%; margin-top: auto; }
-.workspace { min-height: 100vh; margin-left: var(--sidebar-width); }
+.workspace { min-height: 100vh; min-width: 0; margin-left: var(--active-sidebar-width); }
 .topbar {
   min-height: 6.5rem;
   display: flex;
@@ -53,14 +61,6 @@
 .content { width: min(var(--content-max), 100%); margin-inline: auto; padding: clamp(1.25rem, 3vw, 2.5rem); }
 .mobileNav { display: none; }
 .settingsHint { position: fixed; z-index: 40; right: 1.5rem; bottom: 1.5rem; max-width: 22rem; border: 1px solid var(--color-border); border-left: 4px solid var(--color-primary); border-radius: var(--radius-sm); padding: var(--space-4); color: var(--color-text); background: var(--color-bg-elevated); box-shadow: var(--shadow-md); text-align: left; }
-
-@media (min-width: 768px) and (max-width: 1199px) {
-  .sidebar { width: var(--sidebar-compact-width); align-items: center; padding-inline: var(--space-3); }
-  .sidebarBrand { width: 100%; padding-inline: 0; }
-  .navList span, .settingsButton span { display: none; }
-  .navList a, .settingsButton { width: 3.2rem; justify-content: center; padding: 0; }
-  .workspace { margin-left: var(--sidebar-compact-width); }
-}
 
 @media (max-width: 767px) {
   .sidebar { display: none; }

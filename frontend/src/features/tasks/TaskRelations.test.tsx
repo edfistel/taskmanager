@@ -208,7 +208,10 @@ describe("seções independentes da tarefa", () => {
     await user.click(screen.getByRole("button", { name: /salvar renomeação/i }));
     await waitFor(() => expect(SubtasksApi.rename).toHaveBeenCalledWith(2, "Comprimir imagens"));
     await user.click(await screen.findByRole("button", { name: /excluir comprimir imagens/i }));
+    expect(SubtasksApi.remove).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: /confirmar exclusão/i }));
     await waitFor(() => expect(SubtasksApi.remove).toHaveBeenCalledWith(2));
+    expect(screen.queryByText("Comprimir imagens")).not.toBeInTheDocument();
 
     await user.type(screen.getByLabelText(/e-mail do responsável/i), "rafael@dominio.com");
     await user.click(screen.getByRole("button", { name: /adicionar responsável/i }));
@@ -270,7 +273,10 @@ describe("seções independentes da tarefa", () => {
     await waitFor(() => expect(CommentsApi.update).toHaveBeenCalledWith(11, "Revisão final pronta."));
     const updatedOwnComment = (await screen.findByText("Revisão final pronta.")).closest("li");
     await user.click(within(updatedOwnComment!).getByRole("button", { name: /excluir comentário de klaus/i }));
+    expect(CommentsApi.remove).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: /confirmar exclusão/i }));
     await waitFor(() => expect(CommentsApi.remove).toHaveBeenCalledWith(11));
+    expect(screen.queryByText("Revisão final pronta.")).not.toBeInTheDocument();
   });
 
   it("permite ao proprietário moderar comentários sem editar o texto de outro autor", async () => {
@@ -284,7 +290,60 @@ describe("seções independentes da tarefa", () => {
     expect(within(otherComment!).getByRole("button", { name: /excluir comentário de marina/i })).toBeInTheDocument();
     expect(within(otherComment!).queryByRole("button", { name: /editar comentário de marina/i })).not.toBeInTheDocument();
     await user.click(within(otherComment!).getByRole("button", { name: /excluir comentário de marina/i }));
+    expect(CommentsApi.remove).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: /confirmar exclusão/i }));
     await waitFor(() => expect(CommentsApi.remove).toHaveBeenCalledWith(12));
+    expect(screen.queryByText("Vou validar no tablet.")).not.toBeInTheDocument();
+  });
+
+  it("cancela exclusões compactas sem remover subtarefas ou comentários", async () => {
+    const user = userEvent.setup();
+    const Wrapper = createWrapper();
+    render(
+      <>
+        <SubtaskSection mode="owner" taskId={19} />
+        <CommentSection currentUserId={7} mode="owner" taskId={19} />
+      </>,
+      { wrapper: Wrapper },
+    );
+
+    const deleteSubtask = await screen.findByRole("button", { name: /excluir otimizar imagens/i });
+    await user.click(deleteSubtask);
+    await user.click(screen.getByRole("button", { name: /cancelar exclusão/i }));
+    expect(screen.queryByRole("button", { name: /confirmar exclusão/i })).not.toBeInTheDocument();
+    expect(deleteSubtask).toHaveFocus();
+    expect(screen.getByText("Otimizar imagens")).toBeVisible();
+    expect(SubtasksApi.remove).not.toHaveBeenCalled();
+
+    const deleteComment = screen.getByRole("button", { name: /excluir comentário de marina/i });
+    await user.click(deleteComment);
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("button", { name: /confirmar exclusão/i })).not.toBeInTheDocument();
+    expect(deleteComment).toHaveFocus();
+    expect(screen.getByText("Vou validar no tablet.")).toBeVisible();
+    expect(CommentsApi.remove).not.toHaveBeenCalled();
+  });
+
+  it("bloqueia exclusão duplicada enquanto aguarda e permite tentar novamente após erro", async () => {
+    const user = userEvent.setup();
+    let rejectRemoval!: (error: Error) => void;
+    vi.mocked(CommentsApi.remove).mockImplementationOnce(() => new Promise<void>((_, reject) => {
+      rejectRemoval = reject;
+    })).mockResolvedValue(undefined);
+    const Wrapper = createWrapper();
+    render(<CommentSection currentUserId={7} mode="owner" taskId={19} />, { wrapper: Wrapper });
+
+    await user.click(await screen.findByRole("button", { name: /excluir comentário de marina/i }));
+    await user.click(screen.getByRole("button", { name: /confirmar exclusão/i }));
+    expect(screen.getByRole("button", { name: /excluindo/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /cancelar exclusão/i })).toBeDisabled();
+    expect(screen.getByText("Vou validar no tablet.")).toBeVisible();
+
+    rejectRemoval(new Error("Não foi possível excluir agora."));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Não foi possível excluir agora.");
+    await user.click(screen.getByRole("button", { name: /confirmar exclusão/i }));
+    await waitFor(() => expect(screen.queryByText("Vou validar no tablet.")).not.toBeInTheDocument());
+    expect(CommentsApi.remove).toHaveBeenCalledTimes(2);
   });
 
   it.each([

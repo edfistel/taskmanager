@@ -24,7 +24,7 @@ export function repoRootFrom(importMetaUrl) {
 
 /**
  * @param {string} target
- * @returns {Record<string, { target: string; changeOrigin: boolean }>}
+ * @returns {Record<string, { target: string; changeOrigin: boolean; bypass: (req: { url?: string; headers: { accept?: string } }) => string | undefined }>}
  */
 export function makeProxyConfig(target) {
   return Object.fromEntries(
@@ -33,6 +33,9 @@ export function makeProxyConfig(target) {
       {
         target,
         changeOrigin: true,
+        bypass(req) {
+          if (req.headers.accept?.includes("text/html")) return req.url;
+        },
       },
     ]),
   );

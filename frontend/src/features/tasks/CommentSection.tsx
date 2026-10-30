@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, MessageSquareText, Pencil, RotateCcw, Send, Trash2, X } from "lucide-react";
+import { Check, MessageSquareText, Pencil, RotateCcw, Send, X } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { queryKeys } from "../../lib/api/queryKeys";
 import type { Comentario } from "../../lib/api/types";
+import { CompactDelete } from "./CompactDelete";
 import { CommentsApi } from "./commentsApi";
 import styles from "./task.module.css";
 
@@ -88,15 +89,6 @@ export function CommentSection({ taskId, mode, currentUserId }: CommentSectionPr
     }
   }
 
-  async function removeComment(id: number) {
-    setActionError(null);
-    try {
-      await remove.mutateAsync(id);
-    } catch (error) {
-      setActionError(messageFrom(error));
-    }
-  }
-
   return (
     <section className={styles.relationSection}>
       <header className={styles.relationHeader}>
@@ -140,9 +132,9 @@ export function CommentSection({ taskId, mode, currentUserId }: CommentSectionPr
                     ) : <p>{comment.texto}</p>}
                   </div>
                   {editingId !== comment.id && (own || canDelete) && (
-                    <div className={styles.commentActions}>
+                    <div className={styles.commentActions} style={{ opacity: 1 }}>
                       {own && <button aria-label={`Editar comentário de ${comment.usuario.nome}`} className={styles.iconButton} onClick={() => { setEditingId(comment.id); setEditingText(comment.texto); }} type="button"><Pencil size={14} /></button>}
-                      {canDelete && <button aria-label={`Excluir comentário de ${comment.usuario.nome}`} className={styles.iconButtonDanger} disabled={remove.isPending} onClick={() => void removeComment(comment.id)} type="button"><Trash2 size={14} /></button>}
+                      {canDelete && <CompactDelete disabled={remove.isPending} label={`Excluir comentário de ${comment.usuario.nome}`} onConfirm={() => remove.mutateAsync(comment.id)} question={`Excluir o comentário de ${comment.usuario.nome}?`} />}
                     </div>
                   )}
                 </li>

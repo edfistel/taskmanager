@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ListChecks, Pencil, Plus, RotateCcw, Trash2, X } from "lucide-react";
+import { Check, ListChecks, Pencil, Plus, RotateCcw, X } from "lucide-react";
 import { useMemo, useState, type FormEvent } from "react";
 
 import { queryKeys } from "../../lib/api/queryKeys";
 import type { Subtarefa } from "../../lib/api/types";
+import { CompactDelete } from "./CompactDelete";
 import { SubtasksApi } from "./subtasksApi";
 import styles from "./task.module.css";
 
@@ -105,15 +106,6 @@ export function SubtaskSection({ taskId, mode }: SubtaskSectionProps) {
     }
   }
 
-  async function removeSubtask(id: number) {
-    setActionError(null);
-    try {
-      await remove.mutateAsync(id);
-    } catch (error) {
-      setActionError(messageFrom(error));
-    }
-  }
-
   return (
     <section className={styles.relationSection}>
       <header className={styles.relationHeader}>
@@ -171,7 +163,7 @@ export function SubtaskSection({ taskId, mode }: SubtaskSectionProps) {
                     {owner && (
                       <div className={styles.rowActions}>
                         <button aria-label={`Renomear ${subtask.titulo}`} className={styles.iconButton} onClick={() => { setEditingId(subtask.id); setEditingTitle(subtask.titulo); }} type="button"><Pencil size={14} /></button>
-                        <button aria-label={`Excluir ${subtask.titulo}`} className={styles.iconButtonDanger} disabled={remove.isPending} onClick={() => void removeSubtask(subtask.id)} type="button"><Trash2 size={14} /></button>
+                        <CompactDelete disabled={remove.isPending} label={`Excluir ${subtask.titulo}`} onConfirm={() => remove.mutateAsync(subtask.id)} question={`Excluir a subtarefa “${subtask.titulo}”?`} />
                       </div>
                     )}
                   </>

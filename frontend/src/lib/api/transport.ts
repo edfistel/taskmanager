@@ -11,6 +11,7 @@ export type JsonTransport = <T>(
 ) => Promise<T>;
 
 export interface SessionPort {
+  getSessionVersion?(): number;
   getAccessToken(): string | null;
   refresh(): Promise<string | null>;
   expire(): void;
@@ -94,26 +95,39 @@ export function createAuthenticatedTransport(
     path: string,
     options: RequestJsonOptions = {},
   ): Promise<T> => {
+    const version = session.getSessionVersion?.();
+    function ensureCurrentSession() {
+      if (version !== undefined && session.getSessionVersion?.() !== version) {
+        throw new DOMException("A sessão mudou durante a solicitação.", "AbortError");
+      }
+    }
     try {
-      return await base<T>(
+      const result = await base<T>(
         path,
         withAccessToken(options, session.getAccessToken()),
       );
+      ensureCurrentSession();
+      return result;
     } catch (error) {
+      ensureCurrentSession();
       if (!isApiError(error) || error.status !== 401) throw error;
 
       const refreshedToken = await session.refresh();
+      ensureCurrentSession();
       if (!refreshedToken) {
         session.expire();
         throw error;
       }
 
       try {
-        return await base<T>(
+        const result = await base<T>(
           path,
           withAccessToken(options, session.getAccessToken() ?? refreshedToken),
         );
+        ensureCurrentSession();
+        return result;
       } catch (retryError) {
+        ensureCurrentSession();
         if (isApiError(retryError) && retryError.status === 401) {
           session.expire();
         }

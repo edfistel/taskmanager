@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ErrorState } from "../../components/feedback/ErrorState";
 import { useToast } from "../../components/feedback/ToastProvider";
 import { Drawer } from "../../components/overlays/Drawer";
-import type { AtualizarTarefaInput } from "../../lib/api/types";
+import type { AtualizarTarefaInput, TarefaResumo } from "../../lib/api/types";
+import { formatApiDate } from "../../lib/date";
 import { useAuth } from "../../lib/auth/useAuth";
 import { AssigneeSection } from "./AssigneeSection";
 import { CommentSection } from "./CommentSection";
@@ -21,6 +22,7 @@ import styles from "./task.module.css";
 interface TaskDetailsDrawerProps {
   taskId: number | null;
   mode: "owner" | "collaborator";
+  summary?: Pick<TarefaResumo, "titulo" | "prazo" | "status">;
   onClose(): void;
 }
 
@@ -28,7 +30,7 @@ function messageFrom(error: unknown): string {
   return error instanceof Error ? error.message : "Não foi possível concluir esta ação.";
 }
 
-export function TaskDetailsDrawer({ taskId, mode, onClose }: TaskDetailsDrawerProps) {
+export function TaskDetailsDrawer({ taskId, mode, summary, onClose }: TaskDetailsDrawerProps) {
   const { user } = useAuth();
   const editable = mode === "owner";
   const detailsQuery = useTaskDetails(taskId, editable);
@@ -85,9 +87,16 @@ export function TaskDetailsDrawer({ taskId, mode, onClose }: TaskDetailsDrawerPr
             />
               ) : null
             ) : (
+              <div>
+                {summary && <section aria-label="Resumo da tarefa atribuída">
+                  <h3>{summary.titulo}</h3>
+                  <p>{{ A_FAZER: "A fazer", EM_ANDAMENTO: "Em andamento", CONCLUIDO: "Concluído" }[summary.status]}</p>
+                  <p>{summary.prazo ? formatApiDate(summary.prazo) : "Sem prazo"}</p>
+                </section>}
               <div className={styles.collaboratorNotice}>
                 <ShieldCheck aria-hidden="true" size={18} />
                 <div><strong>Modo colaborador</strong><p>Você pode acompanhar responsáveis, concluir subtarefas e participar dos comentários.</p></div>
+              </div>
               </div>
             )}
 

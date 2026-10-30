@@ -133,3 +133,18 @@ describe("authenticated transport", () => {
     expect(session.refresh).not.toHaveBeenCalled();
   });
 });
+describe("responses from an ended session", () => {
+  it("rejects a late mutation response instead of publishing it to the next account", async () => {
+    let finish!: (value: unknown) => void;
+    let version = 1;
+    const base: JsonTransport = <T,>() => new Promise<T>((resolve) => { finish = resolve as (value: unknown) => void; });
+    const transport = createAuthenticatedTransport(base, {
+      getAccessToken: () => "access", refresh: async () => "access", expire: () => undefined,
+      getSessionVersion: () => version,
+    });
+    const pending = transport("/tarefas/1", { method: "PUT", json: { titulo: "Dados antigos" } });
+    version = 2;
+    finish({ titulo: "Dados antigos" });
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+  });
+});

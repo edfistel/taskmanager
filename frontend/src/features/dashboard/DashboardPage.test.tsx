@@ -8,6 +8,9 @@ import { ToastProvider } from "../../components/feedback/ToastProvider";
 import type { Quadro, QuadroCriado } from "../../lib/api/types";
 import { BoardsApi } from "./boardsApi";
 import { DashboardPage } from "./DashboardPage";
+import { AssignmentsApi } from "../assignments/assignmentsApi";
+
+vi.mock("../assignments/assignmentsApi", () => ({ AssignmentsApi: { mine: vi.fn() } }));
 
 vi.mock("./boardsApi", () => ({
   BoardsApi: {
@@ -57,6 +60,7 @@ function renderDashboard() {
 describe("DashboardPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(AssignmentsApi.mine).mockResolvedValue([]);
     vi.mocked(BoardsApi.list).mockResolvedValue([]);
     vi.mocked(BoardsApi.create).mockResolvedValue({} as QuadroCriado);
     vi.mocked(BoardsApi.update).mockResolvedValue(alpha);
@@ -69,6 +73,16 @@ describe("DashboardPage", () => {
     renderDashboard();
 
     expect(screen.getByRole("status", { name: /carregando quadros/i })).toBeVisible();
+  });
+
+  it("replaces the static assignments call to action with real assigned tasks", async () => {
+    vi.mocked(AssignmentsApi.mine).mockResolvedValue([{ atribuidoEm: "2026-10-30T12:00:00Z", tarefa: { id: 99, titulo: "Revisar entrega", status: "EM_ANDAMENTO", prazo: null, lista: { id: 3, nome: "Entrada", quadro: { id: 88, nome: "Outro proprietário" } } } }]);
+    renderDashboard();
+    expect(await screen.findByText("Revisar entrega")).toBeVisible();
+    expect(screen.getByText("1 tarefa atribuída")).toBeVisible();
+    expect(screen.getByRole("link", { name: "Ver minhas tarefas" })).toHaveAttribute("href", "/atribuicoes");
+    expect(screen.queryByRole("link", { name: /outro proprietário/i })).not.toBeInTheDocument();
+    expect(AssignmentsApi.mine).toHaveBeenCalledOnce();
   });
 
   it("offers a retry after a board request fails", async () => {
@@ -156,7 +170,7 @@ describe("DashboardPage", () => {
     });
   });
 
-  it("requires the exact board name before deletion", async () => {
+  it("requires Eu confirmo instead of the board name before deletion", async () => {
     const user = userEvent.setup();
     vi.mocked(BoardsApi.list).mockResolvedValue([alpha]);
 
@@ -167,12 +181,13 @@ describe("DashboardPage", () => {
     expect(confirmButton).toBeDisabled();
 
     await user.type(
-      screen.getByLabelText(/digite projeto alpha para confirmar/i),
-      "Projeto Website",
+      screen.getByLabelText(/digite eu confirmo para confirmar/i),
+      "Projeto Alpha",
     );
     expect(confirmButton).toBeDisabled();
-    await user.clear(screen.getByLabelText(/digite projeto alpha para confirmar/i));
-    await user.type(screen.getByLabelText(/digite projeto alpha para confirmar/i), "Projeto Alpha");
+    expect(BoardsApi.remove).not.toHaveBeenCalled();
+    await user.clear(screen.getByLabelText(/digite eu confirmo para confirmar/i));
+    await user.type(screen.getByLabelText(/digite eu confirmo para confirmar/i), "Eu confirmo");
     expect(confirmButton).toBeEnabled();
     await user.click(confirmButton);
 

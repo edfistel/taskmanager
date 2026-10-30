@@ -12,6 +12,23 @@ import { TokenStorage } from "./tokenStorage";
 const user: Usuario = { id: 4, nome: "Ana Lima", email: "ana@empresa.com" };
 
 describe("SessionManager", () => {
+  it("ignores an old refresh response after a new login", async () => {
+    let finish!: (value: RefreshResponse) => void;
+    const oldRefresh = new Promise<RefreshResponse>((resolve) => { finish = resolve; });
+    const transport: JsonTransport = async <T>(path: string) => {
+      if (path === "/auth/refresh") return await oldRefresh as T;
+      return { usuario: user, accessToken: "new-access", refreshToken: "new-refresh" } as T;
+    };
+    const storage = new TokenStorage();
+    storage.write("old-refresh", "session");
+    const manager = new SessionManager(transport, storage);
+    const pending = manager.refresh();
+    await manager.login({ email: user.email, senha: "segredo123", remember: false });
+    finish({ accessToken: "old-access", refreshToken: "rotated-old-refresh" });
+    await pending;
+    expect(manager.getAccessToken()).toBe("new-access");
+    expect(storage.read()).toBe("new-refresh");
+  });
   beforeEach(() => {
     sessionStorage.clear();
     localStorage.clear();

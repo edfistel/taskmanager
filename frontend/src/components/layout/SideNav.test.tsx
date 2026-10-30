@@ -5,17 +5,15 @@ import { describe, expect, it, vi } from "vitest";
 import { SideNav } from "./SideNav";
 
 describe("SideNav", () => {
-  it("marks the TaskFlow logo to collapse inside the compact sidebar", () => {
+  it("shows the brand and an accessible menu toggle in the expanded sidebar", () => {
     render(
       <MemoryRouter>
         <SideNav onOpenSettings={vi.fn()} />
       </MemoryRouter>,
     );
 
-    expect(screen.getByLabelText("TaskFlow")).toHaveAttribute(
-      "data-collapse-at-tablet",
-      "true",
-    );
+    expect(screen.getByText("TaskFlow")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Recolher menu lateral" })).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("img", { name: /logo taskflow/i })).toBeVisible();
   });
 });
