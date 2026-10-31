@@ -2,7 +2,7 @@
 
 ## Verificado sem banco
 
-- 123 testes automatizados de frontend, incluindo autenticação, refresh concorrente, logout, isolamento de sessão, painel, listas, tarefas, atribuições, configurações, menu lateral e demonstração, passaram em 30/10/2026.
+- 129 testes automatizados de frontend, incluindo autenticação, refresh concorrente, logout, isolamento de sessão, painel, listas, tarefas, atribuições, configurações, menu lateral, demonstração e verificação das portas locais, passaram em 30/10/2026.
 - Build TypeScript + Vite concluído.
 - Formulários de login e cadastro renderizados no navegador.
 - Navegação HTML para quadro atendida pela SPA; usuário sem sessão retorna ao login.
@@ -23,6 +23,10 @@ Execute `npm run dev:ui` na raiz para abrir a interface pública em http://local
 - Revisão no navegador em desktop (1440), tablet (1024) e celular (390), com dados fictícios. Criação de quadro/lista/tarefa, edição de status, subtarefa, comentário, atribuição, filtros, configurações, logout e login testados com mouse/teclado. Arrastar cartão entre listas e a alternativa “Mover para…” foram exercitados e preservaram o status.
 - Corrigidos foco/Escape de modais empilhados, bloqueio de rolagem ao fundo, nomes acessíveis na navegação compacta e rolagem inicial ao trocar de página.
 - Menu lateral com botão de recolher/expandir, logo preservado e textos ocultos no modo compacto; preferência local mantida entre páginas. Verificados mouse, teclado, alinhamento da área de conteúdo e navegação móvel.
+- Cadastro corrigido para não ultrapassar a largura da tela. Quatro campos verificados no navegador em larguras 320, 390, 768, 900, 901, 1024 e 1440px; telas baixas permitem rolagem até o botão de criação sem cortar o formulário.
+- Login e cadastro mantêm a mesma posição e largura do painel ao alternar abas; espaço da barra de rolagem reservado e alinhamento superior fixo. Verificação de coordenadas no navegador em oito combinações de largura/altura confirmou ausência de deslocamento.
+- `npm run dev` verificado a partir da raiz: inicia frontend e API juntos. Segunda execução identifica a instância deste projeto e informa a URL; conflito com outro programa não resulta em encerramento automático de processos.
+- Instalação única configurada: `npm install` na raiz executa o `postinstall` para instalar o frontend pelo lockfile. Verificada em cópia limpa sem node_modules: dependências dos dois lados instaladas, backend importado, 129 testes e build concluídos. Versões das dependências existentes preservadas.
 - Cache limpo ao terminar/trocar a identidade; respostas autenticadas e refresh atrasados não atualizam a sessão seguinte.
 
 ## Demonstração navegável

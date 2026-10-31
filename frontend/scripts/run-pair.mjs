@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { inspectLocalRuntime, localProjectId } from "./local-runtime.mjs";
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const frontendRoot = resolve(scriptDirectory, "..");
@@ -11,6 +12,19 @@ const viteArguments =
   mode === "preview"
     ? [viteCli, "preview"]
     : [viteCli];
+
+const runtime = await inspectLocalRuntime({ uiPort: 3000, apiPort: 3001, projectId: localProjectId, mode });
+if (runtime.state === "already-running") {
+  console.log("[TaskFlow] Este projeto já está em execução. Acesse http://localhost:3000 (frontend + API).");
+  console.log("[TaskFlow] Para encerrá-lo, use Ctrl+C no terminal que iniciou o servidor.");
+  process.exit(0);
+}
+if (runtime.state === "conflict") {
+  console.error(`[TaskFlow] Não foi possível iniciar: porta(s) ${runtime.occupied.join(", ")} em uso.`);
+  console.error("[TaskFlow] Encerre a execução anterior com Ctrl+C e rode npm run dev na raiz do projeto.");
+  console.error("[TaskFlow] Se as portas pertencem a outro programa, libere-as primeiro. Nenhum processo foi encerrado automaticamente.");
+  process.exit(1);
+}
 
 const children = [
   spawn(process.execPath, [bridgeScript], {

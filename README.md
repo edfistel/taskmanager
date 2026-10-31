@@ -13,8 +13,9 @@ API REST para gerenciamento de usuários, quadros e tarefas, desenvolvida com No
 
    ```bash
    npm install
-   npm ci --prefix frontend
    ```
+
+   A instalação na raiz instala as dependências do backend e, pelo `postinstall`, também as do frontend usando seu lockfile. Não é necessário executar uma instalação separada dentro de `frontend/`.
 
 2. Se `.env` ainda não existir, copie `.env.exemplo` para `.env` na raiz e preencha os dados de um PostgreSQL em execução. Configure `DATABASE_URL` para as operações do Prisma e as variáveis `DB_USER`, `DB_HOST`, `DB_DATABASE`, `DB_PASSWORD` e `DB_PORT` para o mesmo banco usado pela aplicação. Configure também `JWT_SECRET` com uma chave aleatória secreta. Não substitua um `.env` existente.
 
@@ -32,7 +33,9 @@ API REST para gerenciamento de usuários, quadros e tarefas, desenvolvida com No
 
 Abra **http://localhost:3000/**. O comando da raiz inicia a interface Vite na porta `3000` e a API interna na porta `3001`. Sem sessão, a interface redireciona para `/login`; a aba **Criar conta** cadastra o usuário e faz login automático. Após entrar, `/` mostra o painel e `/quadros/:quadroId` abre um quadro.
 
-Não execute uma segunda API junto com `npm run dev`: o frontend já inicia a API. Pare com Ctrl+C qualquer execução antiga antes de reiniciar. A API na porta 3000 da configuração anterior respondia apenas JSON, por isso não exibia login/cadastro.
+Para o uso diário, basta abrir um terminal na pasta do projeto e executar `npm run dev`; esse único comando inicia frontend e API juntos. As dependências e a `.env` precisam estar preparadas uma vez, conforme as etapas acima.
+
+Se esse mesmo projeto já estiver rodando, uma segunda execução reconhece a instância e informa http://localhost:3000, sem tentar ocupar as portas novamente. Para realmente parar ou reiniciar, use Ctrl+C no terminal que iniciou o servidor. Se outro programa estiver usando 3000 ou 3001, o iniciador informa o conflito e não encerra processos automaticamente. Não execute uma segunda API junto com `npm run dev`: o frontend já inicia a API.
 
 Para executar somente a API, use `npm run dev:api` (Nodemon) ou `npm start`, na porta `3001` por padrão; `PORT` permite alterar a porta apenas nesse modo. O frontend integrado utiliza a API fixa em `127.0.0.1:3001`, encaminhando as requisições pelo proxy sem precisar de CORS. Navegações HTML em rotas de páginas são atendidas pelo Vite.
 

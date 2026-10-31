@@ -7,7 +7,7 @@
 - Confira http://localhost:3000/health: deve responder `status: OK` e `database: connected`.
 - Mantenha o terminal aberto e a conexão de internet disponível para acessar o PostgreSQL remoto.
 - Use contas e registros próprios da apresentação, separados dos dados existentes. Não mostre `.env` nem credenciais nos slides ou na tela compartilhada.
-- Para outra máquina, instale as dependências da raiz e do frontend e configure a `.env` local conforme o README. Confirme o acesso ao banco nessa máquina antes do dia da apresentação.
+- Para outra máquina, execute `npm install` na raiz (instala backend e frontend automaticamente) e configure a `.env` local conforme o README. Confirme o acesso ao banco nessa máquina antes do dia da apresentação.
 
 ## Sequência sugerida
 

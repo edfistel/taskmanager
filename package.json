@@ -12,6 +12,7 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
+    "postinstall": "npm --prefix frontend ci",
     "dev": "npm --prefix frontend run dev",
     "dev:ui": "npm --prefix frontend run dev:ui",
     "dev:api": "nodemon src/server.js",

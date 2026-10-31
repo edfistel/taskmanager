@@ -8,14 +8,15 @@
 }
 
 html {
-  min-width: 20rem;
+  min-width: 0;
+  scrollbar-gutter: stable;
   background: var(--color-bg);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
 }
 
 body {
-  min-width: 20rem;
+  min-width: 0;
   min-height: 100vh;
   margin: 0;
   color: var(--color-text);

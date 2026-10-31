@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { afterEach, vi } from "vitest";
 
 // jsdom does not implement browser scrolling; navigation itself is tested separately.
-window.scrollTo = vi.fn();
+if (typeof window !== "undefined") window.scrollTo = vi.fn();
 
 afterEach(() => {
   cleanup();

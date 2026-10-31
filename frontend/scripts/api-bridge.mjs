@@ -1,5 +1,7 @@
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { createServer } from "node:http";
+import { localProjectId } from "./local-runtime.mjs";
 
 import { repoRootFrom } from "./paths.mjs";
 
@@ -31,7 +33,16 @@ async function startBridge() {
 
   const appModuleUrl = pathToFileURL(resolve(repositoryRoot, "src", "app.js"));
   const { default: app } = await import(appModuleUrl.href);
-  const server = app.listen(API_PORT, API_HOST, () => {
+  const server = createServer((req, res) => {
+    if (req.method === "GET" && req.url?.split("?")[0] === "/__taskflow/local-runtime") {
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Cache-Control", "no-store");
+      res.end(JSON.stringify({ app: "Api - Task Manager", projectId: localProjectId }));
+      return;
+    }
+    app(req, res);
+  });
+  server.listen(API_PORT, API_HOST, () => {
     console.log(`[TaskFlow] API interna em http://${API_HOST}:${API_PORT}`);
   });
 
