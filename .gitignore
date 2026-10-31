@@ -7,3 +7,11 @@ logs
 
 # Diretorios de dependências do Node.js
 node_modules/
+
+# Protótipos locais do brainstorming visual
+.superpowers/
+
+# Artefatos do frontend
+frontend/dist/
+frontend/coverage/
+frontend/.vitest/
