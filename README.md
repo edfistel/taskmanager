@@ -1,87 +1,81 @@
 # Task Manager API
 
-API REST para gerenciamento de usuários, quadros e tarefas, desenvolvida com Node.js, Express, PostgreSQL e Prisma.
+Monorepositório com quatro serviços Node.js: `api-gateway`, `auth-service`, `user-service` e `task-service`.
 
 ## Requisitos
 
-- Node.js e npm
-- PostgreSQL
+- Node.js e npm para execução local
+- PostgreSQL local ou Docker para execução em containers
 
 ## Configuração
 
-1. Instale as dependências:
+1. Disponibilize um banco PostgreSQL vazio chamado `taskmanager` no servidor real ou no provedor. A criação do banco físico depende do servidor/provedor; os schemas e tabelas da aplicação são criados pelos schemas Prisma com `db push`.
+
+2. Copie cada `.env.exemplo` para `.env` na pasta do respectivo serviço. Todos usam o mesmo banco `taskmanager`: Gateway usa `public`, Auth usa `auth`, Users usa `users` e Tasks usa `tasks`. Substitua host, porta, usuário e senha pelos dados do seu PostgreSQL. Codifique caracteres especiais do usuário e da senha no formato URL. Use o mesmo `JWT_SECRET` e `INTERNAL_SERVICE_TOKEN` nos quatro serviços.
+
+3. Instale as dependências, gere os clientes Prisma e crie os schemas/tabelas a partir dos quatro arquivos Prisma:
 
    ```bash
-   npm install
+   npm --prefix services/api-gateway install
+   npm --prefix services/auth-service install
+   npm --prefix services/user-service install
+   npm --prefix services/task-service install
+   npm run generate:gateway
+   npm run generate:auth
+   npm run generate:user
+   npm run generate:task
+   npm run db:push:all
    ```
 
-2. Copie `.env.exemplo` para `.env` e preencha os dados do PostgreSQL. Configure `DATABASE_URL` para as operações do Prisma e as variáveis `DB_USER`, `DB_HOST`, `DB_DATABASE`, `DB_PASSWORD` e `DB_PORT` para a conexão usada pela aplicação.
-
-3. Crie ou atualize as tabelas do banco:
+4. Inicie as quatro APIs juntas em modo de desenvolvimento:
 
    ```bash
-   npm run migrate
+   npm run dev:all
    ```
 
-4. Inicie o servidor:
+   Para iniciar sem Nodemon:
 
    ```bash
-   npm run dev
+   npm run start:all
    ```
 
-O servidor usa a porta `3000`. Para iniciar sem o Nodemon, execute `npm start`.
+O gateway recebe chamadas públicas na porta `3000` e encaminha para os serviços internos: autenticação `3001`, usuários `3002` e tarefas `3003`. Cada API tem seu próprio `schema.prisma`, e o comando `db:push` cria as tabelas no schema correspondente do banco compartilhado.
+
+Como alternativa para desenvolvimento, preencha os quatro `.env` e execute `docker compose up --build`. O Compose sobe um PostgreSQL em container com o banco `taskmanager`; cada API executa `prisma db push` usando seu schema. As credenciais definidas no Compose são apenas para desenvolvimento. O volume `taskmanager-data` mantém os dados entre reinicializações. Se esse volume foi criado pela configuração anterior, remova-o para recomeçar do zero; isso apaga os dados contidos nele. `db push` aplica o estado atual do schema Prisma diretamente e não cria arquivos de migration.
 
 ## Todas as rotas
 
-As rotas respondem em JSON. Use `Authorization: Bearer <accessToken>` nas rotas marcadas como privadas. O refresh token é enviado no corpo de `/auth/refresh` e `/auth/logout`.
+As rotas públicas do sistema passam pelo gateway na porta `3000`. Ele encaminha autenticação para `auth-service`, perfil para `user-service` e quadros/tarefas para `task-service`. O gateway valida o JWT nas rotas privadas, e os serviços de usuários e tarefas também o validam antes de executar a operação. O refresh token é enviado no corpo de `/auth/refresh` e `/auth/logout`.
 
-| Método | Caminho | Acesso |
-| --- | --- | --- |
-| `GET` | `/` | Público |
-| `GET` | `/health` | Público |
-| `POST` | `/auth/login` | Público |
-| `POST` | `/auth/refresh` | Refresh token |
-| `POST` | `/auth/logout` | Refresh token |
-| `POST` | `/users/register` | Público; cadastro |
-| `GET` | `/users/buscarUsuarioPorEmail/:email` | Privado |
-| `GET` | `/users/buscarMeuPerfil` | Privado |
-| `DELETE` | `/users/apagarUsuario` | Privado |
-| `PUT` | `/users/alterarSenha` | Privado |
-| `POST` | `/quadros` | Privado |
-| `GET` | `/quadros` | Privado |
-| `GET` | `/quadros/:id` | Privado |
-| `PUT` | `/quadros/:id` | Privado |
-| `DELETE` | `/quadros/:id` | Privado |
-| `POST` | `/quadros/:quadroId/listas` | Privado |
-| `GET` | `/quadros/:quadroId/listas` | Privado |
-| `PUT` | `/listas/:id` | Privado |
-| `PATCH` | `/listas/:id/mover` | Privado |
-| `DELETE` | `/listas/:id` | Privado |
-| `POST` | `/listas/:listaId/tarefas` | Privado |
-| `GET` | `/listas/:listaId/tarefas` | Privado |
-| `GET` | `/tarefas/:id` | Privado |
-| `PUT` | `/tarefas/:id` | Privado |
-| `PATCH` | `/tarefas/:id/mover` | Privado |
-| `DELETE` | `/tarefas/:id` | Privado |
-| `POST` | `/tarefas/:tarefaId/subtarefas` | Privado |
-| `GET` | `/tarefas/:tarefaId/subtarefas` | Privado |
-| `PUT` | `/subtarefas/:id` | Privado |
-| `PATCH` | `/subtarefas/:id/concluir` | Privado |
-| `DELETE` | `/subtarefas/:id` | Privado |
-| `POST` | `/tarefas/:tarefaId/comentarios` | Privado |
-| `GET` | `/tarefas/:tarefaId/comentarios` | Privado |
-| `PUT` | `/comentarios/:id` | Privado |
-| `DELETE` | `/comentarios/:id` | Privado |
-| `GET` | `/atribuicoes/minhas` | Privado |
-| `POST` | `/tarefas/:tarefaId/atribuicoes` | Privado |
-| `GET` | `/tarefas/:tarefaId/atribuicoes` | Privado |
-| `DELETE` | `/tarefas/:tarefaId/atribuicoes/:usuarioId` | Privado |
+| Método | Caminho | Serviço | Acesso |
+| --- | --- | --- | --- |
+| `GET` | `/` e `/health` | API Gateway | Público |
+| `POST` | `/auth/login` | Gateway → Auth | Público |
+| `POST` | `/auth/refresh` | Gateway → Auth | Refresh token |
+| `POST` | `/auth/logout` | Gateway → Auth | Refresh token |
+| `POST` | `/users/register` | Gateway → Auth | Público; cadastro |
+| `PUT` | `/users/alterarSenha` | Gateway → Auth | JWT válido |
+| `GET` | `/users/buscarUsuarioPorEmail/:email` | Gateway → Users | JWT válido |
+| `GET` | `/users/buscarMeuPerfil` | Gateway → Users | JWT válido |
+| `DELETE` | `/users/apagarUsuario` | Gateway → Users | JWT válido |
+| `POST`, `GET`, `PUT`, `DELETE` | `/quadros` e `/quadros/:id` | Gateway → Tasks | JWT válido |
+| `POST`, `GET` | `/quadros/:quadroId/listas` | Gateway → Tasks | JWT válido |
+| `PUT`, `PATCH`, `DELETE` | `/listas/:id` e `/listas/:id/mover` | Gateway → Tasks | JWT válido |
+| `POST`, `GET` | `/listas/:listaId/tarefas` | Gateway → Tasks | JWT válido |
+| `GET`, `PUT`, `PATCH`, `DELETE` | `/tarefas/:id` e `/tarefas/:id/mover` | Gateway → Tasks | JWT válido |
+| `POST`, `GET` | `/tarefas/:tarefaId/subtarefas` | Gateway → Tasks | JWT válido |
+| `PUT`, `PATCH`, `DELETE` | `/subtarefas/:id` | Gateway → Tasks | JWT válido |
+| `POST`, `GET` | `/tarefas/:tarefaId/comentarios` | Gateway → Tasks | JWT válido |
+| `PUT`, `DELETE` | `/comentarios/:id` | Gateway → Tasks | JWT válido |
+| `GET` | `/atribuicoes/minhas` | Gateway → Tasks | JWT válido |
+| `POST`, `GET` | `/tarefas/:tarefaId/atribuicoes` | Gateway → Tasks | JWT válido |
+| `DELETE` | `/tarefas/:tarefaId/atribuicoes/:usuarioId` | Gateway → Tasks | JWT válido |
 
 ## Autenticação JWT pelo Postman
 
-O cadastro e as operações da conta ficam em `/users`. As rotas `/auth` cuidam do login e da sessão: use o `accessToken` nas rotas protegidas e envie o `refreshToken` apenas para renovar a sessão ou fazer logout.
+O Postman usa somente o gateway (`http://localhost:3000`). Ele encaminha login, cadastro, alteração de senha e sessão para o serviço de autenticação; perfil vai para usuários e recursos do gerenciador vão para tarefas.
 
-Antes de começar, configure `JWT_SECRET` no `.env` com uma chave secreta e inicie a API (`npm run dev`). No Postman, crie e selecione um Environment, por exemplo `Task Manager Local`, com estas variáveis:
+Antes de começar, configure o mesmo `JWT_SECRET` nos serviços e inicie os quatro (`npm run dev:gateway`, `npm run dev:auth`, `npm run dev:user` e `npm run dev:task`). No Postman, crie e selecione um Environment, por exemplo `Task Manager Local`, com estas variáveis:
 
 | Variável | Valor inicial |
 | --- | --- |
@@ -157,6 +151,19 @@ Envie o login novamente depois de adicionar o script. Confirme que o Environment
 
 O Postman adiciona o prefixo `Bearer` automaticamente. A resposta `200 OK` deve trazer o perfil do usuário. Para outras rotas protegidas, use a mesma configuração Bearer com `{{accessToken}}`.
 
+### Alterar a senha
+
+- Método e URL: `PUT {{baseUrl}}/users/alterarSenha`
+- Aba **Authorization**: `Bearer Token` com `{{accessToken}}`
+- Corpo:
+
+```json
+{
+  "senhaAtual": "senha1234",
+  "novaSenha": "outraSenha123"
+}
+```
+
 ### 4. Renovar os tokens
 
 O `accessToken` expira em 15 minutos. Para obter um novo par:
@@ -190,8 +197,8 @@ O logout revoga o refresh token. O access token já emitido continua válido at�
 ### Qual token usar
 
 - `accessToken`: informe em **Authorization > Bearer Token** para acessar rotas privadas. Ele é um JWT com validade de 15 minutos.
-- `refreshToken`: envie como `refreshToken` no JSON de `/auth/refresh` ou `/auth/logout`. Não o use como Bearer token. A validade armazenada é de 7 dias, e cada renovação gera outro refresh token e revoga o anterior.
-- `POST /users/register` (cadastro) e `/auth/login` são públicas. As rotas `/users/buscarUsuarioPorEmail/:email`, `/users/buscarMeuPerfil`, `/users/apagarUsuario`, `/users/alterarSenha` e as rotas de quadros, listas e tarefas exigem o access token.
+- `refreshToken`: envie como `refreshToken` no JSON de `{{baseUrl}}/auth/refresh` ou `{{baseUrl}}/auth/logout`. Não o use como Bearer token. A validade armazenada é de 7 dias, e cada renovação gera outro refresh token e revoga o anterior.
+- Cadastro (`POST {{baseUrl}}/users/register`) e login (`POST {{baseUrl}}/auth/login`) são públicos. Alteração de senha, perfil, consulta de usuários, exclusão e as rotas de quadros, listas e tarefas exigem access token.
 
 ### Respostas comuns
 
@@ -208,41 +215,47 @@ O logout revoga o refresh token. O access token já emitido continua válido at�
 ## Estrutura do projeto
 
 ```text
-src/
-├── app.js                  # Configuração do Express e registro das rotas
-├── server.js               # Inicialização do servidor na porta 3000
-├── config/database.js      # Cliente Prisma e conexão com PostgreSQL
-├── controllers/
-│   └── authControllers.js
-├── middlewares/
-│   └── authMiddlewares.js  # Validação do access token JWT
-├── routes/
-│   ├── authRoutes.js
-│   ├── users/
-│   ├── quadro/
-│   ├── lista/
-│   ├── tarefa/
-│   ├── subtarefa/
-│   ├── comentario/
-│   ├── atribuicao/
-│   └── routes.js           # Raiz da API e verificação de saúde
-├── service/authService.js
-└── tools/                  # Tokens, validações e utilitários
-prisma/
-├── schema.prisma           # Modelos e relações do banco
-└── migrations/             # Histórico de migrations
+services/
+├── api-gateway/             # Ponto de entrada HTTP e encaminhamento
+├── auth-service/            # Login, sessão, cadastro e credenciais
+├── user-service/            # Perfil e operações de conta
+└── task-service/            # Quadros, listas, tarefas e demais recursos
+docker-compose.yml           # Execução local dos serviços e PostgreSQL
+package.json                 # Comandos locais para os quatro serviços
+services/run-all-apis.cjs    # Inicia ou encerra os quatro processos juntos
+services/*/prisma/schema.prisma # Modelos e schema de cada API no PostgreSQL
 ```
 
-## Modelo de dados
+Cada serviço possui um README com suas rotas, variáveis de ambiente e comandos: [API Gateway](services/api-gateway/README.md), [Auth Service](services/auth-service/README.md), [User Service](services/user-service/README.md) e [Task Service](services/task-service/README.md).
 
-O schema Prisma define usuários, tokens de atualização, quadros, listas, tarefas, subtarefas, comentários e atribuições de tarefas. As tarefas possuem os status `A_FAZER`, `EM_ANDAMENTO` e `CONCLUIDO`.
+## Banco e schemas Prisma
+
+O projeto usa o banco PostgreSQL `taskmanager`, com um schema Prisma por serviço. Os quatro `schema.prisma` apontam para o mesmo banco e definem onde ficam suas tabelas:
+
+| Serviço | Schema | Dados armazenados |
+| --- | --- | --- |
+| API Gateway | `public` | Versões do sistema, portas/estado das APIs e logs de tráfego (`ApiLog`). |
+| Auth | `auth` | Credenciais e refresh tokens. |
+| Users | `users` | Perfis de usuário. |
+| Tasks | `tasks` | Quadros, tarefas e projeção pública dos usuários. |
+
+`npm run db:push:all` executa `prisma db push` para cada serviço. O Prisma cria os schemas e as tabelas descritos nos arquivos Prisma, sem diretório de migrations. O serviço de tarefas mantém uma projeção local do usuário para atribuições e comentários; cadastro e exclusão sincronizam os dados por chamadas internas autenticadas.
+
+## Observabilidade do Gateway
+
+O Gateway consulta `/health` das APIs Auth, Users e Tasks a cada 10 segundos. Considera uma API ativa quando `/health` responde com HTTP 2xx. Registra porta, versão, estado, última verificação e eventos de indisponibilidade/recuperação. `GET /internal/status` retorna a versão ativa do sistema, quantas APIs estão registradas/ativas e os dados de cada serviço. Proteja a rota enviando o header `x-internal-service-token` com o mesmo `INTERNAL_SERVICE_TOKEN` configurado nos serviços, por exemplo: `curl -H "x-internal-service-token: SEU_TOKEN" http://localhost:3000/internal/status`.
+
+Cada requisição encaminhada grava serviço, método HTTP, endpoint normalizado, status e duração no modelo `ApiLog`. O endpoint não inclui query string, e IDs numéricos/UUIDs e e-mails são substituídos por parâmetros; o Gateway não grava corpo, headers ou tokens. Logs e eventos de disponibilidade são removidos após 30 dias por padrão; ajuste `GATEWAY_LOG_RETENTION_DAYS` no `.env` do Gateway.
 
 ## Scripts disponíveis
 
 | Comando | Descrição |
 | --- | --- |
-| `npm start` | Inicia o servidor com Node.js. |
-| `npm run dev` | Inicia o servidor com Nodemon. |
-| `npm run generate` | Gera o cliente Prisma. |
-| `npm run migrate` | Executa migrations em ambiente de desenvolvimento. |
-| `npm run reset` | Redefine o banco e reaplica as migrations; os dados existentes podem ser apagados. |
+| `npm run dev:gateway` / `npm run start:gateway` | Inicia o Gateway público na porta `3000`. |
+| `npm run dev:auth` / `npm run start:auth` | Inicia autenticação na porta `3001`. |
+| `npm run dev:user` / `npm run start:user` | Inicia usuários na porta `3002`. |
+| `npm run dev:task` / `npm run start:task` | Inicia tarefas na porta `3003`. |
+| `npm run dev:all` / `npm run start:all` | Inicia as quatro APIs juntas. |
+| `npm run generate:gateway`, `npm run generate:auth`, `npm run generate:user`, `npm run generate:task` | Gera os clientes Prisma de cada API. |
+| `npm run db:push:all` | Cria/atualiza os quatro schemas e tabelas pelo Prisma. |
+| `npm run db:push:gateway`, `npm run db:push:auth`, `npm run db:push:user`, `npm run db:push:task` | Cria/atualiza o schema de uma API. |
