@@ -1,0 +1,27 @@
+.region {
+  position: fixed;
+  z-index: 150;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  display: grid;
+  width: min(24rem, calc(100vw - 2rem));
+  gap: var(--space-2);
+}
+
+.toast {
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-md);
+  animation: toast-in var(--duration-base) ease both;
+}
+
+.success { border-left-color: var(--color-success); }
+.error { border-left-color: var(--color-danger); }
+.info { border-left-color: var(--color-violet); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(10px); }
+}

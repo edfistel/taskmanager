@@ -1,10 +1,10 @@
-# Task Manager API
+# Task Manager / TaskFlow
 
 API REST para gerenciamento de usuários, quadros e tarefas, desenvolvida com Node.js, Express, PostgreSQL e Prisma.
 
 ## Requisitos
 
-- Node.js e npm
+- Node.js >= 22.12 e npm
 - PostgreSQL
 
 ## Configuração
@@ -15,7 +15,9 @@ API REST para gerenciamento de usuários, quadros e tarefas, desenvolvida com No
    npm install
    ```
 
-2. Copie `.env.exemplo` para `.env` e preencha os dados do PostgreSQL. Configure `DATABASE_URL` para as operações do Prisma e as variáveis `DB_USER`, `DB_HOST`, `DB_DATABASE`, `DB_PASSWORD` e `DB_PORT` para a conexão usada pela aplicação.
+   A instalação na raiz instala as dependências do backend e, pelo `postinstall`, também as do frontend usando seu lockfile. Não é necessário executar uma instalação separada dentro de `frontend/`.
+
+2. Se `.env` ainda não existir, copie `.env.exemplo` para `.env` na raiz e preencha os dados de um PostgreSQL em execução. Configure `DATABASE_URL` para as operações do Prisma e as variáveis `DB_USER`, `DB_HOST`, `DB_DATABASE`, `DB_PASSWORD` e `DB_PORT` para o mesmo banco usado pela aplicação. Configure também `JWT_SECRET` com uma chave aleatória secreta. Não substitua um `.env` existente.
 
 3. Crie ou atualize as tabelas do banco:
 
@@ -29,9 +31,27 @@ API REST para gerenciamento de usuários, quadros e tarefas, desenvolvida com No
    npm run dev
    ```
 
-O servidor usa a porta `3000`. Para iniciar sem o Nodemon, execute `npm start`.
+Abra **http://localhost:3000/**. O comando da raiz inicia a interface Vite na porta `3000` e a API interna na porta `3001`. Sem sessão, a interface redireciona para `/login`; a aba **Criar conta** cadastra o usuário e faz login automático. Após entrar, `/` mostra o painel e `/quadros/:quadroId` abre um quadro.
+
+Para o uso diário, basta abrir um terminal na pasta do projeto e executar `npm run dev`; esse único comando inicia frontend e API juntos. As dependências e a `.env` precisam estar preparadas uma vez, conforme as etapas acima.
+
+Se esse mesmo projeto já estiver rodando, uma segunda execução reconhece a instância e informa http://localhost:3000, sem tentar ocupar as portas novamente. Para realmente parar ou reiniciar, use Ctrl+C no terminal que iniciou o servidor. Se outro programa estiver usando 3000 ou 3001, o iniciador informa o conflito e não encerra processos automaticamente. Não execute uma segunda API junto com `npm run dev`: o frontend já inicia a API.
+
+Para executar somente a API, use `npm run dev:api` (Nodemon) ou `npm start`, na porta `3001` por padrão; `PORT` permite alterar a porta apenas nesse modo. O frontend integrado utiliza a API fixa em `127.0.0.1:3001`, encaminhando as requisições pelo proxy sem precisar de CORS. Navegações HTML em rotas de páginas são atendidas pelo Vite.
+
+Se faltar `.env`, o iniciador integrado informa as variáveis ausentes e encerra. Se `/health` indicar banco desconectado, confira o serviço PostgreSQL, as credenciais e as migrations. Login exige `JWT_SECRET` e as tabelas existentes; apenas abrir a tela não comprova autenticação.
 
 ## Todas as rotas
+
+### Desenvolvimento da interface sem banco
+
+Na raiz, execute `npm run dev:ui` para iniciar somente o frontend em http://localhost:3000/login, sem exigir `.env` ou iniciar uma API. Pare outro Vite nessa porta antes de executar o comando. Esse modo permite revisar login, cadastro, validações locais e apresentação; chamadas de cadastro/login ainda precisam da API e do PostgreSQL. Não cria contas nem sessões fictícias e não libera páginas protegidas.
+
+Os testes (`npm test`) exercitam sessão, painel e Kanban com respostas simuladas. Eles não comprovam conexão nem persistência no banco. Consulte `docs/validacao-local.md` para os próximos passos.
+
+Para navegar pelas páginas internas sem PostgreSQL, execute **`npm run dev:demo`** e abra **http://localhost:3002/**. A demonstração usa somente dados fictícios em memória, identificados por uma faixa na tela. É possível experimentar quadros, listas, tarefas, colaboração, atribuições e configurações. As alterações são restauradas ao recarregar. Use o botão de restaurar para reiniciar a prévia. Depois de sair da conta, o login demonstrativo aceita um e-mail válido e senha com pelo menos 8 caracteres; nenhuma credencial real é necessária.
+
+O modo demonstrativo é exclusivo de desenvolvimento (`vite --mode demo`); o build de produção exclui seu código. O modo normal em `localhost:3000` continua exigindo a API e o banco para autenticar e salvar dados reais.
 
 As rotas respondem em JSON. Use `Authorization: Bearer <accessToken>` nas rotas marcadas como privadas. O refresh token é enviado no corpo de `/auth/refresh` e `/auth/logout`.
 
@@ -85,7 +105,7 @@ Antes de começar, configure `JWT_SECRET` no `.env` com uma chave secreta e inic
 
 | Variável | Valor inicial |
 | --- | --- |
-| `baseUrl` | `http://localhost:3000` |
+| `baseUrl` | `http://localhost:3001` |
 | `accessToken` | (vazio) |
 | `refreshToken` | (vazio) |
 
@@ -210,7 +230,7 @@ O logout revoga o refresh token. O access token já emitido continua válido at�
 ```text
 src/
 ├── app.js                  # Configuração do Express e registro das rotas
-├── server.js               # Inicialização do servidor na porta 3000
+├── server.js               # Inicialização da API na porta 3001 (ou PORT)
 ├── config/database.js      # Cliente Prisma e conexão com PostgreSQL
 ├── controllers/
 │   └── authControllers.js
@@ -242,7 +262,10 @@ O schema Prisma define usuários, tokens de atualização, quadros, listas, tare
 | Comando | Descrição |
 | --- | --- |
 | `npm start` | Inicia o servidor com Node.js. |
-| `npm run dev` | Inicia o servidor com Nodemon. |
+| `npm run dev` | Inicia frontend (3000) e API (3001). |
+| `npm run dev:api` | Inicia somente a API com Nodemon. |
+| `npm test` | Executa a suíte de testes do frontend, incluindo sessão e autenticação. |
+| `npm run build` | Verifica TypeScript e gera o build do frontend. |
 | `npm run generate` | Gera o cliente Prisma. |
 | `npm run migrate` | Executa migrations em ambiente de desenvolvimento. |
 | `npm run reset` | Redefine o banco e reaplica as migrations; os dados existentes podem ser apagados. |
