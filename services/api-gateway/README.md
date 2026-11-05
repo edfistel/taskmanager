@@ -12,8 +12,8 @@ Por padrão, o Gateway escuta na porta `3000`. As rotas públicas do sistema dev
 | `GET` | `/health` | Gateway | Público; verifica a conexão com o banco |
 | `GET` | `/internal/status` | Gateway | Header `x-internal-service-token` obrigatório |
 | `POST` | `/auth/login`, `/auth/refresh`, `/auth/logout` | Auth | Público; cada operação valida os dados recebidos |
-| `POST` | `/users/register` | Auth | Público |
-| `PUT` | `/users/alterarSenha` | Auth | Access token JWT |
+| `POST` | `/users/register` | Users | Público |
+| `PUT` | `/users/alterarSenha` | Users | Access token JWT |
 | `GET`, `DELETE` | `/users/*` | Users | Access token JWT |
 | Vários | `/quadros`, `/listas`, `/tarefas`, `/subtarefas`, `/comentarios`, `/atribuicoes` | Tasks | Access token JWT |
 
@@ -58,4 +58,4 @@ npm run dev:gateway
 
 `npm run start:gateway` inicia sem Nodemon. `npm run dev:all` e `npm run start:all` iniciam os quatro serviços pelo script `services/run-all-apis.cjs`.
 
-Para administrar o schema do Gateway, use `npm run db:format:gateway`, `npm run db:validate:gateway`, `npm run db:migrate:gateway`, `npm run db:studio:gateway` ou `npm run db:reset:gateway`. `npm run db:push:gateway` sincroniza diretamente o schema sem histórico de migrations. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância. `db:reset:*` apaga os dados do schema e deve ser usado apenas quando isso for desejado.
+Para administrar o schema do Gateway, use `npm run db:format:gateway`, `npm run db:validate:gateway`, `npm run db:studio:gateway` ou `npm run db:reset:gateway`. `npm run db:push:gateway` sincroniza diretamente o schema. O reset recria as tabelas pelo Prisma com `db push --force-reset` e apaga os dados do schema. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância.

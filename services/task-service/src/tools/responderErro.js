@@ -11,6 +11,6 @@ export function responderErro(res, error) {
     }
 
     console.error(error);
-
-    return res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+    const status = Number.isInteger(error.status) && error.status >= 500 && error.status < 600 ? error.status : 500;
+    return res.status(status).json({ success: false, message: status === 503 ? 'Serviço dependente indisponível' : 'Erro interno do servidor' });
 }

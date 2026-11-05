@@ -4,19 +4,12 @@ const camposDaAtribuicao = {
     id: true,
     atribuidoEm: true,
     tarefaId: true,
-    usuario: { select: { id: true, nome: true, email: true } }
+    usuarioId: true,
 };
 
 // Códigos de erro do Prisma: registro repetido e registro não encontrado
 const REGISTRO_REPETIDO = 'P2002';
 const REGISTRO_NAO_ENCONTRADO = 'P2025';
-
-export async function buscarIdDoUsuarioPorEmail(email) {
-    return prisma.usuario.findUnique({
-        where: { email },
-        select: { id: true }
-    });
-}
 
 // Devolve null se o usuário já estiver atribuído à tarefa
 export async function atribuirUsuario({ tarefaId, usuarioId }) {

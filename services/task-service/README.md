@@ -26,14 +26,13 @@ Por padrão, o serviço escuta na porta `3003`. Em uso normal, acesse os recurso
 | `GET` | `/atribuicoes/minhas` | Lista tarefas atribuídas ao usuário autenticado |
 | `POST`, `GET` | `/tarefas/:tarefaId/atribuicoes` | Atribui ou lista usuários atribuídos à tarefa |
 | `DELETE` | `/tarefas/:tarefaId/atribuicoes/:usuarioId` | Remove uma atribuição |
-| `POST` | `/internal/users` | Provisiona a projeção do usuário; header interno obrigatório |
-| `DELETE` | `/internal/users/:id` | Remove a projeção do usuário; header interno obrigatório |
+| `DELETE` | `/internal/users/:id` | Remove os quadros, comentários e atribuições do usuário; header interno obrigatório |
 
 O serviço valida o JWT também quando recebe chamadas diretas, além da validação feita pelo Gateway. Rotas `/internal` usam `x-internal-service-token` e são destinadas às chamadas entre serviços.
 
 ## Banco de dados
 
-Usa o schema `tasks` no banco PostgreSQL compartilhado `taskmanager`. O Prisma define quadros, listas, tarefas, subtarefas, comentários, atribuições, status e uma projeção de usuário para relacionar os recursos. O banco físico deve existir antes de executar `db:push`.
+Usa o schema `tasks` no banco PostgreSQL compartilhado `taskmanager`. O Prisma define quadros, listas, tarefas, subtarefas, comentários e atribuições. Os recursos guardam `usuarioId` como um identificador escalar; os dados e credenciais do usuário pertencem somente ao User Service. Para exibir autores de comentários, listar atribuições e localizar usuários por e-mail, Tasks consulta as rotas internas do User Service.
 
 ## Configuração
 
@@ -45,6 +44,7 @@ Copie `.env.exemplo` para `.env` e ajuste:
 | `TASK_SERVICE_PORT` | Porta HTTP; padrão `3003` |
 | `JWT_SECRET` | Mesmo segredo usado pelo Auth para assinar access tokens |
 | `INTERNAL_SERVICE_TOKEN` | Segredo compartilhado para chamadas internas |
+| `USER_SERVICE_URL` | URL interna do User Service; padrão `http://localhost:3002` |
 
 ## Comandos
 
@@ -59,4 +59,4 @@ npm run dev:task
 
 `npm run start:task` inicia sem Nodemon. Use `npm run dev:all` ou `npm run start:all` para iniciar todos os serviços.
 
-Para administrar o schema Tasks, use `npm run db:format:task`, `npm run db:validate:task`, `npm run db:migrate:task`, `npm run db:studio:task` ou `npm run db:reset:task`. `npm run db:push:task` sincroniza diretamente o schema sem histórico de migrations. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância. `db:reset:*` apaga os dados do schema e deve ser usado apenas quando isso for desejado.
+Para administrar o schema Tasks, use `npm run db:format:task`, `npm run db:validate:task`, `npm run db:studio:task` ou `npm run db:reset:task`. `npm run db:push:task` sincroniza diretamente o schema. O reset recria as tabelas pelo Prisma com `db push --force-reset` e apaga os dados do schema. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância.

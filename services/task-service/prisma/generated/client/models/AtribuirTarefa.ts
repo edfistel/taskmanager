@@ -217,7 +217,6 @@ export type AtribuirTarefaWhereInput = {
   tarefaId?: Prisma.IntFilter<"AtribuirTarefa"> | number
   usuarioId?: Prisma.IntFilter<"AtribuirTarefa"> | number
   tarefa?: Prisma.XOR<Prisma.TarefaScalarRelationFilter, Prisma.TarefaWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type AtribuirTarefaOrderByWithRelationInput = {
@@ -226,7 +225,6 @@ export type AtribuirTarefaOrderByWithRelationInput = {
   tarefaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
   tarefa?: Prisma.TarefaOrderByWithRelationInput
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type AtribuirTarefaWhereUniqueInput = Prisma.AtLeast<{
@@ -239,7 +237,6 @@ export type AtribuirTarefaWhereUniqueInput = Prisma.AtLeast<{
   tarefaId?: Prisma.IntFilter<"AtribuirTarefa"> | number
   usuarioId?: Prisma.IntFilter<"AtribuirTarefa"> | number
   tarefa?: Prisma.XOR<Prisma.TarefaScalarRelationFilter, Prisma.TarefaWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id" | "tarefaId_usuarioId">
 
 export type AtribuirTarefaOrderByWithAggregationInput = {
@@ -266,8 +263,8 @@ export type AtribuirTarefaScalarWhereWithAggregatesInput = {
 
 export type AtribuirTarefaCreateInput = {
   atribuidoEm?: Date | string
+  usuarioId: number
   tarefa: Prisma.TarefaCreateNestedOneWithoutAtribuicoesInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutAtribuicoesInput
 }
 
 export type AtribuirTarefaUncheckedCreateInput = {
@@ -279,8 +276,8 @@ export type AtribuirTarefaUncheckedCreateInput = {
 
 export type AtribuirTarefaUpdateInput = {
   atribuidoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   tarefa?: Prisma.TarefaUpdateOneRequiredWithoutAtribuicoesNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutAtribuicoesNestedInput
 }
 
 export type AtribuirTarefaUncheckedUpdateInput = {
@@ -299,6 +296,7 @@ export type AtribuirTarefaCreateManyInput = {
 
 export type AtribuirTarefaUpdateManyMutationInput = {
   atribuidoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type AtribuirTarefaUncheckedUpdateManyInput = {
@@ -356,48 +354,6 @@ export type AtribuirTarefaSumOrderByAggregateInput = {
   usuarioId?: Prisma.SortOrder
 }
 
-export type AtribuirTarefaCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput> | Prisma.AtribuirTarefaCreateWithoutUsuarioInput[] | Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput | Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.AtribuirTarefaCreateManyUsuarioInputEnvelope
-  connect?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-}
-
-export type AtribuirTarefaUncheckedCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput> | Prisma.AtribuirTarefaCreateWithoutUsuarioInput[] | Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput | Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.AtribuirTarefaCreateManyUsuarioInputEnvelope
-  connect?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-}
-
-export type AtribuirTarefaUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput> | Prisma.AtribuirTarefaCreateWithoutUsuarioInput[] | Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput | Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.AtribuirTarefaUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.AtribuirTarefaUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.AtribuirTarefaCreateManyUsuarioInputEnvelope
-  set?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  disconnect?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  delete?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  connect?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  update?: Prisma.AtribuirTarefaUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.AtribuirTarefaUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.AtribuirTarefaUpdateManyWithWhereWithoutUsuarioInput | Prisma.AtribuirTarefaUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
-}
-
-export type AtribuirTarefaUncheckedUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput> | Prisma.AtribuirTarefaCreateWithoutUsuarioInput[] | Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput | Prisma.AtribuirTarefaCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.AtribuirTarefaUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.AtribuirTarefaUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.AtribuirTarefaCreateManyUsuarioInputEnvelope
-  set?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  disconnect?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  delete?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  connect?: Prisma.AtribuirTarefaWhereUniqueInput | Prisma.AtribuirTarefaWhereUniqueInput[]
-  update?: Prisma.AtribuirTarefaUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.AtribuirTarefaUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.AtribuirTarefaUpdateManyWithWhereWithoutUsuarioInput | Prisma.AtribuirTarefaUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
-}
-
 export type AtribuirTarefaCreateNestedManyWithoutTarefaInput = {
   create?: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutTarefaInput, Prisma.AtribuirTarefaUncheckedCreateWithoutTarefaInput> | Prisma.AtribuirTarefaCreateWithoutTarefaInput[] | Prisma.AtribuirTarefaUncheckedCreateWithoutTarefaInput[]
   connectOrCreate?: Prisma.AtribuirTarefaCreateOrConnectWithoutTarefaInput | Prisma.AtribuirTarefaCreateOrConnectWithoutTarefaInput[]
@@ -440,56 +396,9 @@ export type AtribuirTarefaUncheckedUpdateManyWithoutTarefaNestedInput = {
   deleteMany?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
 }
 
-export type AtribuirTarefaCreateWithoutUsuarioInput = {
-  atribuidoEm?: Date | string
-  tarefa: Prisma.TarefaCreateNestedOneWithoutAtribuicoesInput
-}
-
-export type AtribuirTarefaUncheckedCreateWithoutUsuarioInput = {
-  id?: number
-  atribuidoEm?: Date | string
-  tarefaId: number
-}
-
-export type AtribuirTarefaCreateOrConnectWithoutUsuarioInput = {
-  where: Prisma.AtribuirTarefaWhereUniqueInput
-  create: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput>
-}
-
-export type AtribuirTarefaCreateManyUsuarioInputEnvelope = {
-  data: Prisma.AtribuirTarefaCreateManyUsuarioInput | Prisma.AtribuirTarefaCreateManyUsuarioInput[]
-  skipDuplicates?: boolean
-}
-
-export type AtribuirTarefaUpsertWithWhereUniqueWithoutUsuarioInput = {
-  where: Prisma.AtribuirTarefaWhereUniqueInput
-  update: Prisma.XOR<Prisma.AtribuirTarefaUpdateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedUpdateWithoutUsuarioInput>
-  create: Prisma.XOR<Prisma.AtribuirTarefaCreateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedCreateWithoutUsuarioInput>
-}
-
-export type AtribuirTarefaUpdateWithWhereUniqueWithoutUsuarioInput = {
-  where: Prisma.AtribuirTarefaWhereUniqueInput
-  data: Prisma.XOR<Prisma.AtribuirTarefaUpdateWithoutUsuarioInput, Prisma.AtribuirTarefaUncheckedUpdateWithoutUsuarioInput>
-}
-
-export type AtribuirTarefaUpdateManyWithWhereWithoutUsuarioInput = {
-  where: Prisma.AtribuirTarefaScalarWhereInput
-  data: Prisma.XOR<Prisma.AtribuirTarefaUpdateManyMutationInput, Prisma.AtribuirTarefaUncheckedUpdateManyWithoutUsuarioInput>
-}
-
-export type AtribuirTarefaScalarWhereInput = {
-  AND?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
-  OR?: Prisma.AtribuirTarefaScalarWhereInput[]
-  NOT?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
-  id?: Prisma.IntFilter<"AtribuirTarefa"> | number
-  atribuidoEm?: Prisma.DateTimeFilter<"AtribuirTarefa"> | Date | string
-  tarefaId?: Prisma.IntFilter<"AtribuirTarefa"> | number
-  usuarioId?: Prisma.IntFilter<"AtribuirTarefa"> | number
-}
-
 export type AtribuirTarefaCreateWithoutTarefaInput = {
   atribuidoEm?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutAtribuicoesInput
+  usuarioId: number
 }
 
 export type AtribuirTarefaUncheckedCreateWithoutTarefaInput = {
@@ -524,27 +433,14 @@ export type AtribuirTarefaUpdateManyWithWhereWithoutTarefaInput = {
   data: Prisma.XOR<Prisma.AtribuirTarefaUpdateManyMutationInput, Prisma.AtribuirTarefaUncheckedUpdateManyWithoutTarefaInput>
 }
 
-export type AtribuirTarefaCreateManyUsuarioInput = {
-  id?: number
-  atribuidoEm?: Date | string
-  tarefaId: number
-}
-
-export type AtribuirTarefaUpdateWithoutUsuarioInput = {
-  atribuidoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tarefa?: Prisma.TarefaUpdateOneRequiredWithoutAtribuicoesNestedInput
-}
-
-export type AtribuirTarefaUncheckedUpdateWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  atribuidoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tarefaId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type AtribuirTarefaUncheckedUpdateManyWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  atribuidoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tarefaId?: Prisma.IntFieldUpdateOperationsInput | number
+export type AtribuirTarefaScalarWhereInput = {
+  AND?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
+  OR?: Prisma.AtribuirTarefaScalarWhereInput[]
+  NOT?: Prisma.AtribuirTarefaScalarWhereInput | Prisma.AtribuirTarefaScalarWhereInput[]
+  id?: Prisma.IntFilter<"AtribuirTarefa"> | number
+  atribuidoEm?: Prisma.DateTimeFilter<"AtribuirTarefa"> | Date | string
+  tarefaId?: Prisma.IntFilter<"AtribuirTarefa"> | number
+  usuarioId?: Prisma.IntFilter<"AtribuirTarefa"> | number
 }
 
 export type AtribuirTarefaCreateManyTarefaInput = {
@@ -555,7 +451,7 @@ export type AtribuirTarefaCreateManyTarefaInput = {
 
 export type AtribuirTarefaUpdateWithoutTarefaInput = {
   atribuidoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutAtribuicoesNestedInput
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type AtribuirTarefaUncheckedUpdateWithoutTarefaInput = {
@@ -578,7 +474,6 @@ export type AtribuirTarefaSelect<ExtArgs extends runtime.Types.Extensions.Intern
   tarefaId?: boolean
   usuarioId?: boolean
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["atribuirTarefa"]>
 
 export type AtribuirTarefaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -587,7 +482,6 @@ export type AtribuirTarefaSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   tarefaId?: boolean
   usuarioId?: boolean
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["atribuirTarefa"]>
 
 export type AtribuirTarefaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -596,7 +490,6 @@ export type AtribuirTarefaSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   tarefaId?: boolean
   usuarioId?: boolean
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["atribuirTarefa"]>
 
 export type AtribuirTarefaSelectScalar = {
@@ -609,22 +502,18 @@ export type AtribuirTarefaSelectScalar = {
 export type AtribuirTarefaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "atribuidoEm" | "tarefaId" | "usuarioId", ExtArgs["result"]["atribuirTarefa"]>
 export type AtribuirTarefaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type AtribuirTarefaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type AtribuirTarefaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $AtribuirTarefaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AtribuirTarefa"
   objects: {
     tarefa: Prisma.$TarefaPayload<ExtArgs>
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1026,7 +915,6 @@ readonly fields: AtribuirTarefaFieldRefs;
 export interface Prisma__AtribuirTarefaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tarefa<T extends Prisma.TarefaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TarefaDefaultArgs<ExtArgs>>): Prisma.Prisma__TarefaClient<runtime.Types.Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

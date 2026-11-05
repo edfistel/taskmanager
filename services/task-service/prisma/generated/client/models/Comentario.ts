@@ -225,7 +225,6 @@ export type ComentarioWhereInput = {
   tarefaId?: Prisma.IntFilter<"Comentario"> | number
   usuarioId?: Prisma.IntFilter<"Comentario"> | number
   tarefa?: Prisma.XOR<Prisma.TarefaScalarRelationFilter, Prisma.TarefaWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type ComentarioOrderByWithRelationInput = {
@@ -235,7 +234,6 @@ export type ComentarioOrderByWithRelationInput = {
   tarefaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
   tarefa?: Prisma.TarefaOrderByWithRelationInput
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
@@ -248,7 +246,6 @@ export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
   tarefaId?: Prisma.IntFilter<"Comentario"> | number
   usuarioId?: Prisma.IntFilter<"Comentario"> | number
   tarefa?: Prisma.XOR<Prisma.TarefaScalarRelationFilter, Prisma.TarefaWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
 export type ComentarioOrderByWithAggregationInput = {
@@ -278,8 +275,8 @@ export type ComentarioScalarWhereWithAggregatesInput = {
 export type ComentarioCreateInput = {
   texto: string
   criadoEm?: Date | string
+  usuarioId: number
   tarefa: Prisma.TarefaCreateNestedOneWithoutComentariosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosInput
 }
 
 export type ComentarioUncheckedCreateInput = {
@@ -293,8 +290,8 @@ export type ComentarioUncheckedCreateInput = {
 export type ComentarioUpdateInput = {
   texto?: Prisma.StringFieldUpdateOperationsInput | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   tarefa?: Prisma.TarefaUpdateOneRequiredWithoutComentariosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosNestedInput
 }
 
 export type ComentarioUncheckedUpdateInput = {
@@ -316,6 +313,7 @@ export type ComentarioCreateManyInput = {
 export type ComentarioUpdateManyMutationInput = {
   texto?: Prisma.StringFieldUpdateOperationsInput | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ComentarioUncheckedUpdateManyInput = {
@@ -372,48 +370,6 @@ export type ComentarioSumOrderByAggregateInput = {
   usuarioId?: Prisma.SortOrder
 }
 
-export type ComentarioCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.ComentarioCreateWithoutUsuarioInput, Prisma.ComentarioUncheckedCreateWithoutUsuarioInput> | Prisma.ComentarioCreateWithoutUsuarioInput[] | Prisma.ComentarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.ComentarioCreateOrConnectWithoutUsuarioInput | Prisma.ComentarioCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.ComentarioCreateManyUsuarioInputEnvelope
-  connect?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-}
-
-export type ComentarioUncheckedCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.ComentarioCreateWithoutUsuarioInput, Prisma.ComentarioUncheckedCreateWithoutUsuarioInput> | Prisma.ComentarioCreateWithoutUsuarioInput[] | Prisma.ComentarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.ComentarioCreateOrConnectWithoutUsuarioInput | Prisma.ComentarioCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.ComentarioCreateManyUsuarioInputEnvelope
-  connect?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-}
-
-export type ComentarioUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.ComentarioCreateWithoutUsuarioInput, Prisma.ComentarioUncheckedCreateWithoutUsuarioInput> | Prisma.ComentarioCreateWithoutUsuarioInput[] | Prisma.ComentarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.ComentarioCreateOrConnectWithoutUsuarioInput | Prisma.ComentarioCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.ComentarioUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.ComentarioUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.ComentarioCreateManyUsuarioInputEnvelope
-  set?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  disconnect?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  delete?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  connect?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  update?: Prisma.ComentarioUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.ComentarioUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.ComentarioUpdateManyWithWhereWithoutUsuarioInput | Prisma.ComentarioUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
-}
-
-export type ComentarioUncheckedUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.ComentarioCreateWithoutUsuarioInput, Prisma.ComentarioUncheckedCreateWithoutUsuarioInput> | Prisma.ComentarioCreateWithoutUsuarioInput[] | Prisma.ComentarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.ComentarioCreateOrConnectWithoutUsuarioInput | Prisma.ComentarioCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.ComentarioUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.ComentarioUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.ComentarioCreateManyUsuarioInputEnvelope
-  set?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  disconnect?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  delete?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  connect?: Prisma.ComentarioWhereUniqueInput | Prisma.ComentarioWhereUniqueInput[]
-  update?: Prisma.ComentarioUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.ComentarioUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.ComentarioUpdateManyWithWhereWithoutUsuarioInput | Prisma.ComentarioUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
-}
-
 export type ComentarioCreateNestedManyWithoutTarefaInput = {
   create?: Prisma.XOR<Prisma.ComentarioCreateWithoutTarefaInput, Prisma.ComentarioUncheckedCreateWithoutTarefaInput> | Prisma.ComentarioCreateWithoutTarefaInput[] | Prisma.ComentarioUncheckedCreateWithoutTarefaInput[]
   connectOrCreate?: Prisma.ComentarioCreateOrConnectWithoutTarefaInput | Prisma.ComentarioCreateOrConnectWithoutTarefaInput[]
@@ -456,60 +412,10 @@ export type ComentarioUncheckedUpdateManyWithoutTarefaNestedInput = {
   deleteMany?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
 }
 
-export type ComentarioCreateWithoutUsuarioInput = {
-  texto: string
-  criadoEm?: Date | string
-  tarefa: Prisma.TarefaCreateNestedOneWithoutComentariosInput
-}
-
-export type ComentarioUncheckedCreateWithoutUsuarioInput = {
-  id?: number
-  texto: string
-  criadoEm?: Date | string
-  tarefaId: number
-}
-
-export type ComentarioCreateOrConnectWithoutUsuarioInput = {
-  where: Prisma.ComentarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.ComentarioCreateWithoutUsuarioInput, Prisma.ComentarioUncheckedCreateWithoutUsuarioInput>
-}
-
-export type ComentarioCreateManyUsuarioInputEnvelope = {
-  data: Prisma.ComentarioCreateManyUsuarioInput | Prisma.ComentarioCreateManyUsuarioInput[]
-  skipDuplicates?: boolean
-}
-
-export type ComentarioUpsertWithWhereUniqueWithoutUsuarioInput = {
-  where: Prisma.ComentarioWhereUniqueInput
-  update: Prisma.XOR<Prisma.ComentarioUpdateWithoutUsuarioInput, Prisma.ComentarioUncheckedUpdateWithoutUsuarioInput>
-  create: Prisma.XOR<Prisma.ComentarioCreateWithoutUsuarioInput, Prisma.ComentarioUncheckedCreateWithoutUsuarioInput>
-}
-
-export type ComentarioUpdateWithWhereUniqueWithoutUsuarioInput = {
-  where: Prisma.ComentarioWhereUniqueInput
-  data: Prisma.XOR<Prisma.ComentarioUpdateWithoutUsuarioInput, Prisma.ComentarioUncheckedUpdateWithoutUsuarioInput>
-}
-
-export type ComentarioUpdateManyWithWhereWithoutUsuarioInput = {
-  where: Prisma.ComentarioScalarWhereInput
-  data: Prisma.XOR<Prisma.ComentarioUpdateManyMutationInput, Prisma.ComentarioUncheckedUpdateManyWithoutUsuarioInput>
-}
-
-export type ComentarioScalarWhereInput = {
-  AND?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
-  OR?: Prisma.ComentarioScalarWhereInput[]
-  NOT?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
-  id?: Prisma.IntFilter<"Comentario"> | number
-  texto?: Prisma.StringFilter<"Comentario"> | string
-  criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
-  tarefaId?: Prisma.IntFilter<"Comentario"> | number
-  usuarioId?: Prisma.IntFilter<"Comentario"> | number
-}
-
 export type ComentarioCreateWithoutTarefaInput = {
   texto: string
   criadoEm?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosInput
+  usuarioId: number
 }
 
 export type ComentarioUncheckedCreateWithoutTarefaInput = {
@@ -545,31 +451,15 @@ export type ComentarioUpdateManyWithWhereWithoutTarefaInput = {
   data: Prisma.XOR<Prisma.ComentarioUpdateManyMutationInput, Prisma.ComentarioUncheckedUpdateManyWithoutTarefaInput>
 }
 
-export type ComentarioCreateManyUsuarioInput = {
-  id?: number
-  texto: string
-  criadoEm?: Date | string
-  tarefaId: number
-}
-
-export type ComentarioUpdateWithoutUsuarioInput = {
-  texto?: Prisma.StringFieldUpdateOperationsInput | string
-  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tarefa?: Prisma.TarefaUpdateOneRequiredWithoutComentariosNestedInput
-}
-
-export type ComentarioUncheckedUpdateWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  texto?: Prisma.StringFieldUpdateOperationsInput | string
-  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tarefaId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ComentarioUncheckedUpdateManyWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  texto?: Prisma.StringFieldUpdateOperationsInput | string
-  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tarefaId?: Prisma.IntFieldUpdateOperationsInput | number
+export type ComentarioScalarWhereInput = {
+  AND?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
+  OR?: Prisma.ComentarioScalarWhereInput[]
+  NOT?: Prisma.ComentarioScalarWhereInput | Prisma.ComentarioScalarWhereInput[]
+  id?: Prisma.IntFilter<"Comentario"> | number
+  texto?: Prisma.StringFilter<"Comentario"> | string
+  criadoEm?: Prisma.DateTimeFilter<"Comentario"> | Date | string
+  tarefaId?: Prisma.IntFilter<"Comentario"> | number
+  usuarioId?: Prisma.IntFilter<"Comentario"> | number
 }
 
 export type ComentarioCreateManyTarefaInput = {
@@ -582,7 +472,7 @@ export type ComentarioCreateManyTarefaInput = {
 export type ComentarioUpdateWithoutTarefaInput = {
   texto?: Prisma.StringFieldUpdateOperationsInput | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosNestedInput
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ComentarioUncheckedUpdateWithoutTarefaInput = {
@@ -608,7 +498,6 @@ export type ComentarioSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   tarefaId?: boolean
   usuarioId?: boolean
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comentario"]>
 
 export type ComentarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -618,7 +507,6 @@ export type ComentarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   tarefaId?: boolean
   usuarioId?: boolean
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comentario"]>
 
 export type ComentarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -628,7 +516,6 @@ export type ComentarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   tarefaId?: boolean
   usuarioId?: boolean
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comentario"]>
 
 export type ComentarioSelectScalar = {
@@ -642,22 +529,18 @@ export type ComentarioSelectScalar = {
 export type ComentarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "texto" | "criadoEm" | "tarefaId" | "usuarioId", ExtArgs["result"]["comentario"]>
 export type ComentarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type ComentarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type ComentarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tarefa?: boolean | Prisma.TarefaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $ComentarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Comentario"
   objects: {
     tarefa: Prisma.$TarefaPayload<ExtArgs>
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1060,7 +943,6 @@ readonly fields: ComentarioFieldRefs;
 export interface Prisma__ComentarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tarefa<T extends Prisma.TarefaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TarefaDefaultArgs<ExtArgs>>): Prisma.Prisma__TarefaClient<runtime.Types.Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

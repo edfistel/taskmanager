@@ -16,19 +16,6 @@ enum Status {
   @@schema("tasks")
 }
 
-model Usuario {
-  id       Int      @id @default(autoincrement())
-  nome     String?
-  email    String   @unique
-  criadoEm DateTime @default(now())
-
-  quadros       Quadro[]
-  comentarios   Comentario[]
-  atribuicoes   AtribuirTarefa[]
-
-  @@schema("tasks")
-}
-
 model Quadro {
   id        Int      @id @default(autoincrement())
   nome      String
@@ -36,10 +23,10 @@ model Quadro {
   criadoEm  DateTime @default(now())
 
   usuarioId Int
-  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   listas Lista[]
 
+  @@index([usuarioId])
   @@schema("tasks")
 }
 
@@ -94,8 +81,8 @@ model Comentario {
   tarefa   Tarefa @relation(fields: [tarefaId], references: [id], onDelete: Cascade)
 
   usuarioId Int
-  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
+  @@index([usuarioId])
   @@schema("tasks")
 }
 
@@ -107,8 +94,8 @@ model AtribuirTarefa {
   tarefa   Tarefa @relation(fields: [tarefaId], references: [id], onDelete: Cascade)
 
   usuarioId Int
-  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@unique([tarefaId, usuarioId])
+  @@index([usuarioId])
   @@schema("tasks")
 }
