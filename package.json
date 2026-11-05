@@ -1,6 +1,7 @@
 {
-  "name": "taskmanager",
+  "name": "taskmanager-local",
   "version": "1.0.0",
+  "private": true,
   "description": "API de gerenciamento de tarefas com Express",
   "keywords": [
     "tarefas",
@@ -10,29 +11,60 @@
   "license": "ISC",
   "author": "Eduardo Fischer, Lucas Oleques",
   "type": "module",
-  "main": "src/server.js",
+  "main": "services/run-all-apis.cjs",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate dev --name database_structure",
-    "reset": "npx prisma migrate reset --force"
-  },
-  "dependencies": {
-    "@prisma/adapter-pg": "^7.10.1",
-    "@prisma/client": "^7.10.1",
-    "argon2": "^0.45.1",
-    "dotenv": "^18.0.8",
-    "express": "^5.3.0",
-    "express-validator": "^7.3.2",
-    "jsonwebtoken": "^9.0.3",
-    "nodemon": "^3.1.14",
-    "pg": "^8.23.1",
-    "prisma": "^7.10.1"
-  },
-  "devDependencies": {
-    "@types/node": "^26.6.5",
-    "@types/pg": "^8.23.1"
+    "dev:gateway": "npm --prefix services/api-gateway run dev",
+    "dev:auth": "npm --prefix services/auth-service run dev",
+    "dev:user": "npm --prefix services/user-service run dev",
+    "dev:task": "npm --prefix services/task-service run dev",
+    "dev:all": "node services/run-all-apis.cjs dev",
+
+    "start:gateway": "npm --prefix services/api-gateway run start",
+    "start:auth": "npm --prefix services/auth-service run start",
+    "start:user": "npm --prefix services/user-service run start",
+    "start:task": "npm --prefix services/task-service run start",
+    "start:all": "node services/run-all-apis.cjs start",
+
+    "db:format:gateway": "npm --prefix services/api-gateway run db:format",
+    "db:format:auth": "npm --prefix services/auth-service run db:format",
+    "db:format:user": "npm --prefix services/user-service run db:format",
+    "db:format:task": "npm --prefix services/task-service run db:format",
+    "db:format:all": "npm run db:format:gateway && npm run db:format:auth && npm run db:format:user && npm run db:format:task",
+
+    "db:validate:gateway": "npm --prefix services/api-gateway run db:validate",
+    "db:validate:auth": "npm --prefix services/auth-service run db:validate",
+    "db:validate:user": "npm --prefix services/user-service run db:validate",
+    "db:validate:task": "npm --prefix services/task-service run db:validate",
+    "db:validate:all": "npm run db:validate:gateway && npm run db:validate:auth && npm run db:validate:user && npm run db:validate:task",
+
+    "db:generate:gateway": "npm --prefix services/api-gateway run db:generate",
+    "db:generate:auth": "npm --prefix services/auth-service run db:generate",
+    "db:generate:user": "npm --prefix services/user-service run db:generate",
+    "db:generate:task": "npm --prefix services/task-service run db:generate",
+    "db:generate:all": "npm run db:generate:gateway && npm run db:generate:auth && npm run db:generate:user && npm run db:generate:task",
+
+    "db:migrate:gateway": "npm --prefix services/api-gateway run db:migrate",
+    "db:migrate:auth": "npm --prefix services/auth-service run db:migrate",
+    "db:migrate:user": "npm --prefix services/user-service run db:migrate",
+    "db:migrate:task": "npm --prefix services/task-service run db:migrate",
+    "db:migrate:all": "npm run db:migrate:gateway && npm run db:migrate:auth && npm run db:migrate:user && npm run db:migrate:task",
+
+    "db:push:gateway": "npm --prefix services/api-gateway run db:push",
+    "db:push:auth": "npm --prefix services/auth-service run db:push",
+    "db:push:user": "npm --prefix services/user-service run db:push",
+    "db:push:task": "npm --prefix services/task-service run db:push",
+    "db:push:all": "npm run db:push:gateway && npm run db:push:auth && npm run db:push:user && npm run db:push:task",
+
+    "db:studio:gateway": "npm --prefix services/api-gateway run db:studio",
+    "db:studio:auth": "npm --prefix services/auth-service run db:studio",
+    "db:studio:user": "npm --prefix services/user-service run db:studio",
+    "db:studio:task": "npm --prefix services/task-service run db:studio",
+    "db:studio:all": "node services/run-db-studio.cjs all",
+    
+    "db:reset:gateway": "npm --prefix services/api-gateway run db:reset",
+    "db:reset:auth": "npm --prefix services/auth-service run db:reset",
+    "db:reset:user": "npm --prefix services/user-service run db:reset",
+    "db:reset:task": "npm --prefix services/task-service run db:reset",
+    "db:reset:all": "npm run db:reset:gateway && npm run db:reset:auth && npm run db:reset:user && npm run db:reset:task"
   }
 }

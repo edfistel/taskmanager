@@ -7,3 +7,6 @@ logs
 
 # Diretorios de dependências do Node.js
 node_modules/
+
+# Clientes Prisma gerados durante a instalação/build
+**/prisma/generated/
