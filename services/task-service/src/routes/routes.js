@@ -20,7 +20,7 @@ routesRouter.get("/health", async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-
+        console.error("Database connection failed in task-service");
         res.status(500).json({
             status: "ERROR",
             database: "disconnected"

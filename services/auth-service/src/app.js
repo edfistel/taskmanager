@@ -17,9 +17,11 @@ app.get('/', function(req, res, next) {
 app.get("/health", async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
+    console.log("Database connection successful in auth-service");
     return res.status(200).json({ status: "OK", service: "auth-service", version: serviceVersion, database: "connected" });
   } catch (error) {
     console.error(error);
+    console.error("Database connection failed in auth-service");
     return res.status(500).json({ status: "ERROR", database: "disconnected" });
   }
 });

@@ -15,8 +15,11 @@ app.get("/", (req, res) => res.json({ app: "Task Manager API Gateway", version: 
 app.get("/health", async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
+    console.log("Database connection successful in api-gateway");
     return res.status(200).json({ status: "OK", service: "api-gateway", version: gatewayVersion });
-  } catch {
+  } catch (error) {
+    console.error(error);
+    console.error("Database connection failed in api-gateway");
     return res.status(503).json({ status: "ERROR", service: "api-gateway", database: "disconnected" });
   }
 });
