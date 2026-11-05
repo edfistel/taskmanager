@@ -40,9 +40,11 @@ Execute a partir da raiz do monorepositório:
 
 ```bash
 npm --prefix services/user-service install
-npm run generate:user
+npm run db:generate:user
 npm run db:push:user
 npm run dev:user
 ```
 
 `npm run start:user` inicia sem Nodemon. Use `npm run dev:all` ou `npm run start:all` para iniciar todos os serviços.
+
+Para administrar o schema Users, use `npm run db:format:user`, `npm run db:validate:user`, `npm run db:migrate:user`, `npm run db:studio:user` ou `npm run db:reset:user`. `npm run db:push:user` sincroniza diretamente o schema sem histórico de migrations. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância. `db:reset:*` apaga os dados do schema e deve ser usado apenas quando isso for desejado.

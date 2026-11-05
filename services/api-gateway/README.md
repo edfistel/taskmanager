@@ -51,9 +51,11 @@ Execute os comandos a partir da raiz do monorepositório:
 
 ```bash
 npm --prefix services/api-gateway install
-npm run generate:gateway
+npm run db:generate:gateway
 npm run db:push:gateway
 npm run dev:gateway
 ```
 
 `npm run start:gateway` inicia sem Nodemon. `npm run dev:all` e `npm run start:all` iniciam os quatro serviços pelo script `services/run-all-apis.cjs`.
+
+Para administrar o schema do Gateway, use `npm run db:format:gateway`, `npm run db:validate:gateway`, `npm run db:migrate:gateway`, `npm run db:studio:gateway` ou `npm run db:reset:gateway`. `npm run db:push:gateway` sincroniza diretamente o schema sem histórico de migrations. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância. `db:reset:*` apaga os dados do schema e deve ser usado apenas quando isso for desejado.

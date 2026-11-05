@@ -20,10 +20,7 @@ Monorepositório com quatro serviços Node.js: `api-gateway`, `auth-service`, `u
    npm --prefix services/auth-service install
    npm --prefix services/user-service install
    npm --prefix services/task-service install
-   npm run generate:gateway
-   npm run generate:auth
-   npm run generate:user
-   npm run generate:task
+   npm run db:generate:all
    npm run db:push:all
    ```
 
@@ -239,7 +236,7 @@ O projeto usa o banco PostgreSQL `taskmanager`, com um schema Prisma por serviç
 | Users | `users` | Perfis de usuário. |
 | Tasks | `tasks` | Quadros, tarefas e projeção pública dos usuários. |
 
-`npm run db:push:all` executa `prisma db push` para cada serviço. O Prisma cria os schemas e as tabelas descritos nos arquivos Prisma, sem diretório de migrations. O serviço de tarefas mantém uma projeção local do usuário para atribuições e comentários; cadastro e exclusão sincronizam os dados por chamadas internas autenticadas.
+`npm run db:push:all` executa `prisma db push` para cada serviço e cria/atualiza os schemas e tabelas descritos nos arquivos Prisma, sem criar histórico de migrations. Se preferir migrations, use `npm run db:migrate:all`; esse comando cria e aplica migrations para cada serviço. O serviço de tarefas mantém uma projeção local do usuário para atribuições e comentários; cadastro e exclusão sincronizam os dados por chamadas internas autenticadas.
 
 ## Observabilidade do Gateway
 
@@ -256,6 +253,14 @@ Cada requisição encaminhada grava serviço, método HTTP, endpoint normalizado
 | `npm run dev:user` / `npm run start:user` | Inicia usuários na porta `3002`. |
 | `npm run dev:task` / `npm run start:task` | Inicia tarefas na porta `3003`. |
 | `npm run dev:all` / `npm run start:all` | Inicia as quatro APIs juntas. |
-| `npm run generate:gateway`, `npm run generate:auth`, `npm run generate:user`, `npm run generate:task` | Gera os clientes Prisma de cada API. |
+| `npm run db:format:<serviço>` / `npm run db:format:all` | Formata um ou todos os schemas Prisma. |
+| `npm run db:validate:<serviço>` / `npm run db:validate:all` | Valida um ou todos os schemas Prisma. |
+| `npm run db:generate:<serviço>` / `npm run db:generate:all` | Gera os clientes Prisma de um ou de todos os serviços. |
+| `npm run db:migrate:<serviço>` / `npm run db:migrate:all` | Cria e aplica migrations com Prisma Migrate. |
 | `npm run db:push:all` | Cria/atualiza os quatro schemas e tabelas pelo Prisma. |
 | `npm run db:push:gateway`, `npm run db:push:auth`, `npm run db:push:user`, `npm run db:push:task` | Cria/atualiza o schema de uma API. |
+| `npm run db:studio:<serviço>` | Abre o Prisma Studio na porta `5555`, conectado ao banco configurado para o serviço. |
+| `npm run db:studio:all` | Abre uma instância do Prisma Studio na porta `5555`; use o seletor de schemas para alternar entre `public`, `auth`, `users` e `tasks`. Encerre com `Ctrl+C`. |
+| `npm run db:reset:<serviço>` / `npm run db:reset:all` | Reinicia o(s) schema(s) alvo(s) reaplicando as migrations; apaga os dados e deve ser usado apenas em desenvolvimento. |
+
+Os nomes válidos para `<serviço>` são `gateway`, `auth`, `user` e `task`. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `db:studio:all` usa uma única conexão ao banco compartilhado e deixa a troca de schema disponível na interface.

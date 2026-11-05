@@ -64,9 +64,11 @@ Execute a partir da raiz do monorepositório:
 
 ```bash
 npm --prefix services/auth-service install
-npm run generate:auth
+npm run db:generate:auth
 npm run db:push:auth
 npm run dev:auth
 ```
 
 `npm run start:auth` inicia sem Nodemon. Use `npm run dev:all` ou `npm run start:all` para iniciar todos os serviços.
+
+Para administrar o schema Auth, use `npm run db:format:auth`, `npm run db:validate:auth`, `npm run db:migrate:auth`, `npm run db:studio:auth` ou `npm run db:reset:auth`. `npm run db:push:auth` sincroniza diretamente o schema sem histórico de migrations. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância. `db:reset:*` apaga os dados do schema e deve ser usado apenas quando isso for desejado.

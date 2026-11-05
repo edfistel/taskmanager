@@ -52,9 +52,11 @@ Execute a partir da raiz do monorepositório:
 
 ```bash
 npm --prefix services/task-service install
-npm run generate:task
+npm run db:generate:task
 npm run db:push:task
 npm run dev:task
 ```
 
 `npm run start:task` inicia sem Nodemon. Use `npm run dev:all` ou `npm run start:all` para iniciar todos os serviços.
+
+Para administrar o schema Tasks, use `npm run db:format:task`, `npm run db:validate:task`, `npm run db:migrate:task`, `npm run db:studio:task` ou `npm run db:reset:task`. `npm run db:push:task` sincroniza diretamente o schema sem histórico de migrations. O Studio abre na porta `5555`; como os serviços compartilham o banco, você também pode selecionar outro schema na interface. Os comandos `db:*:all` aplicam a operação aos quatro serviços; `npm run db:studio:all` abre uma única instância. `db:reset:*` apaga os dados do schema e deve ser usado apenas quando isso for desejado.
