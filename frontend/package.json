@@ -12,7 +12,7 @@
     "build": "tsc -b && vite build",
     "preview": "node scripts/run-pair.mjs preview",
     "test": "vitest run",
-    "dev:demo": "vite --mode demo --port 3002"
+    "dev:demo": "vite --mode demo --port 5174"
   },
   "dependencies": {
     "@dnd-kit/dom": "^0.5.1",

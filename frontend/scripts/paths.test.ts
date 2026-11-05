@@ -25,9 +25,9 @@ describe("local bridge paths", () => {
     ]);
   });
 
-  it("targets the internal API consistently", () => {
-    expect(makeProxyConfig("http://127.0.0.1:3001")["/auth"].target).toBe(
-      "http://127.0.0.1:3001",
+  it("targets the API Gateway consistently", () => {
+    expect(makeProxyConfig("http://127.0.0.1:3000")["/auth"].target).toBe(
+      "http://127.0.0.1:3000",
     );
   });
 });

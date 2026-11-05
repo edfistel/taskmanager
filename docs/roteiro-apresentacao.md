@@ -3,11 +3,11 @@
 ## Antes da apresentação
 
 - Na raiz do projeto, execute `npm run dev`.
-- Abra http://localhost:3000/login. Essa é a aplicação conectada ao banco real.
-- Confira http://localhost:3000/health: deve responder `status: OK` e `database: connected`.
+- Abra http://localhost:5173/login. Essa é a aplicação conectada ao banco real.
+- Confira http://localhost:3000/health: o API Gateway deve responder `status: OK`.
 - Mantenha o terminal aberto e a conexão de internet disponível para acessar o PostgreSQL remoto.
 - Use contas e registros próprios da apresentação, separados dos dados existentes. Não mostre `.env` nem credenciais nos slides ou na tela compartilhada.
-- Para outra máquina, execute `npm install` na raiz (instala backend e frontend automaticamente) e configure a `.env` local conforme o README. Confirme o acesso ao banco nessa máquina antes do dia da apresentação.
+- Para outra máquina, execute `npm install` e `npm run install:services`; configure os quatro arquivos `.env` conforme o README. Confirme o acesso ao banco nessa máquina antes do dia da apresentação.
 
 ## Sequência sugerida
 
@@ -34,7 +34,7 @@ As configurações e os detalhes são painéis/modais dentro da aplicação, sem
 
 ## Demonstração alternativa
 
-`npm run dev:demo` abre http://localhost:3002 com dados fictícios em memória. Esse modo serve para explorar a interface, mas não comprova persistência no PostgreSQL. Para apresentar o sistema integrado, use a porta 3000.
+`npm run dev:demo` abre http://localhost:5174 com dados fictícios em memória. Esse modo serve para explorar a interface, mas não comprova persistência no PostgreSQL. Para apresentar o sistema integrado, use a interface em `5173`; as chamadas passam pelo Gateway em `3000`.
 
 ## Verificações já realizadas
 
