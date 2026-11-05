@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["public"]
+}
+
+model ApiVersion {
+  id        Int      @id @default(autoincrement())
+  versao    String   @unique
+  descricao String?
+  ativa     Boolean  @default(true)
+  criadoEm  DateTime @default(now())
+
+  @@schema("public")
+}
+
+model ApiService {
+  id                 Int                     @id @default(autoincrement())
+  key                String                  @unique
+  name               String
+  baseUrl            String
+  port               Int
+  active             Boolean                 @default(false)
+  version            String?
+  httpStatus         Int?
+  lastCheckAt        DateTime?
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  logs               ApiLog[]
+  availabilityEvents ApiAvailabilityEvent[]
+
+  @@map("api_services")
+  @@schema("public")
+}
+
+model ApiLog {
+  id           Int        @id @default(autoincrement())
+  apiServiceId Int
+  metodo       String
+  endpoint     String
+  statusCode   Int
+  duracaoMs    Int
+  criadoEm     DateTime   @default(now())
+  apiService   ApiService @relation(fields: [apiServiceId], references: [id], onDelete: Cascade)
+
+  @@index([apiServiceId, criadoEm])
+  @@schema("public")
+}
+
+model ApiAvailabilityEvent {
+  id          BigInt     @id @default(autoincrement())
+  apiServiceId Int
+  eventType   String
+  active      Boolean
+  version     String?
+  httpStatus  Int?
+  createdAt   DateTime   @default(now())
+  apiService  ApiService @relation(fields: [apiServiceId], references: [id], onDelete: Cascade)
+
+  @@index([apiServiceId, createdAt])
+  @@schema("public")
+}

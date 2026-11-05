@@ -1,50 +1,34 @@
-# Validação local e continuidade
+# Execução e validação local
 
-## Verificado sem banco
+## Preparar o ambiente
 
-- 129 testes automatizados de frontend, incluindo autenticação, refresh concorrente, logout, isolamento de sessão, painel, listas, tarefas, atribuições, configurações, menu lateral, demonstração e verificação das portas locais, passaram em 30/10/2026.
-- Build TypeScript + Vite concluído.
-- Formulários de login e cadastro renderizados no navegador.
-- Navegação HTML para quadro atendida pela SPA; usuário sem sessão retorna ao login.
-- Requisições JSON de quadros continuam encaminhadas para a API.
+1. Instale as dependências da raiz e do frontend com `npm install`.
+2. Instale as dependências dos quatro microsserviços com `npm run install:services`.
+3. Copie o arquivo `.env.exemplo` para `.env` em cada pasta de `services/` e configure o PostgreSQL. Use os mesmos valores de `JWT_SECRET` e `INTERNAL_SERVICE_TOKEN` nos quatro serviços.
+4. Gere os clientes Prisma e crie as tabelas:
 
-A suíte de frontend usa respostas simuladas. A persistência também foi validada posteriormente contra o PostgreSQL, conforme a seção de integração real abaixo.
+   ```bash
+   npm run db:generate:all
+   npm run db:push:all
+   ```
 
-## Trabalhar sem PostgreSQL
+## Iniciar frontend e APIs
 
-Execute `npm run dev:ui` na raiz para abrir a interface pública em http://localhost:3000/login. O comando não inicia API nem requer `.env`. Rotas protegidas continuam exigindo sessão. Use `npm test` para exercitar os componentes internos com as fixtures existentes.
+Execute na raiz:
 
-## Estado atual do frontend
+```bash
+npm run dev
+```
 
-- A rota `/atribuicoes` já tem listagem, busca, filtros de status/quadro/prazo e abertura de detalhes com resolução de acesso. O contrato e as permissões também foram exercitados contra a API real.
-- O painel já mostra totais e três atribuições recentes, com estados de vazio, carregamento e erro.
-- Configurações implementadas: tema, densidade, redução de movimento, perfil somente leitura, troca de senha, saída e exclusão com confirmação digitada. Os contratos são testados com respostas simuladas.
-- Páginas e configurações carregadas sob demanda; arquivo JavaScript principal caiu de aproximadamente 500 kB para 276 kB. Build sem aviso de chunk acima de 500 kB. A imagem original da marca foi preservada.
-- Revisão no navegador em desktop (1440), tablet (1024) e celular (390), com dados fictícios. Criação de quadro/lista/tarefa, edição de status, subtarefa, comentário, atribuição, filtros, configurações, logout e login testados com mouse/teclado. Arrastar cartão entre listas e a alternativa “Mover para…” foram exercitados e preservaram o status.
-- Corrigidos foco/Escape de modais empilhados, bloqueio de rolagem ao fundo, nomes acessíveis na navegação compacta e rolagem inicial ao trocar de página.
-- Menu lateral com botão de recolher/expandir, logo preservado e textos ocultos no modo compacto; preferência local mantida entre páginas. Verificados mouse, teclado, alinhamento da área de conteúdo e navegação móvel.
-- Cadastro corrigido para não ultrapassar a largura da tela. Quatro campos verificados no navegador em larguras 320, 390, 768, 900, 901, 1024 e 1440px; telas baixas permitem rolagem até o botão de criação sem cortar o formulário.
-- Login e cadastro mantêm a mesma posição e largura do painel ao alternar abas; espaço da barra de rolagem reservado e alinhamento superior fixo. Verificação de coordenadas no navegador em oito combinações de largura/altura confirmou ausência de deslocamento.
-- `npm run dev` verificado a partir da raiz: inicia frontend e API juntos. Segunda execução identifica a instância deste projeto e informa a URL; conflito com outro programa não resulta em encerramento automático de processos.
-- Instalação única configurada: `npm install` na raiz executa o `postinstall` para instalar o frontend pelo lockfile. Verificada em cópia limpa sem node_modules: dependências dos dois lados instaladas, backend importado, 129 testes e build concluídos. Versões das dependências existentes preservadas.
-- Cache limpo ao terminar/trocar a identidade; respostas autenticadas e refresh atrasados não atualizam a sessão seguinte.
+Abra http://localhost:5173. O frontend encaminha as requisições HTTP para o Gateway em `http://localhost:3000`, que usa Auth em `3001`, Users em `3002` e Tasks em `3003`. O comando inicia os cinco processos juntos; Ctrl+C encerra a execução.
 
-## Demonstração navegável
+O iniciador verifica todas as portas antes de iniciar. Se uma estiver ocupada por outro processo, ele informa o conflito e não encerra esse processo. Se a mesma execução deste projeto já estiver ativa, informa a URL existente.
 
-Execute `npm run dev:demo` e abra http://localhost:3002. Dados fictícios, alterações em memória, sem banco. A faixa visível identifica o modo; recarregar ou restaurar reinicia os dados. O código demonstrativo não faz parte do build normal de produção. Capturas da revisão ficam em `.superpowers/previews/` (ignorada pelo Git).
+## Iniciar partes separadas
 
-Os testes e a revisão visual não garantem ausência absoluta de bugs. A demonstração continua separada dos dados reais.
+- `npm run dev:ui`: somente o Vite em http://localhost:5173. Para chamadas reais, o Gateway ainda precisa estar rodando.
+- `npm run dev:all`: os quatro serviços de API, sem o frontend.
+- `npm run dev:gateway`, `npm run dev:auth`, `npm run dev:user` ou `npm run dev:task`: um serviço específico.
+- `npm run dev:demo`: frontend com dados fictícios em http://localhost:5174, sem banco.
 
-## Integração real validada em 30/10/2026
-
-1. `.env` local criada com conexão e JWT_SECRET aleatória; arquivo ignorado pelo Git.
-2. Conexão na porta 5432 e consultas pelo Prisma confirmadas. Duas migrations já aplicadas, sem alterações de schema ou reset.
-3. `npm run dev` iniciado com interface em http://localhost:3000 e API interna em 3001. `/health` confirmou banco conectado.
-4. Teste de integração passou pelo proxy da interface: cadastro, e-mail duplicado, senha inválida, login e consulta de perfil.
-5. Quadro/listas/tarefa criados e tarefa editada/movida. Nova leitura pela API e consulta independente pelo Prisma confirmaram título, status, lista e prazo salvos.
-6. Subtarefas, comentários e atribuições exercitados com duas contas temporárias. Conta sem acesso recebeu 404; após atribuição, pôde colaborar sem obter os detalhes privativos do proprietário.
-7. Refresh rotativo, bloqueio de reutilização de refresh revogado e logout confirmados.
-8. Troca de senha e exclusão da conta temporária via API confirmadas, incluindo exclusão em cascata dos registros de teste.
-9. Limpeza restrita às contas desta execução, identificadas por IDs e e-mails aleatórios únicos; dados existentes preservados.
-
-O script local de verificação está em `.superpowers/check-real-db.mjs` (ignorado pelo Git); ele gera credenciais temporárias em memória e não exibe segredos. A interface normal foi deixada aberta em `/login` para cadastro ou entrada da conta do usuário. O modo de demonstração permanece em 3002.
+O endpoint público de saúde do Gateway é `http://localhost:3000/health`. Ele também verifica a conexão com o banco. A suíte de testes do frontend usa respostas simuladas e não comprova a integração dos microsserviços com o PostgreSQL.
