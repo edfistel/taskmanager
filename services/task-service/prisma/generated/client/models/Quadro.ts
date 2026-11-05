@@ -220,7 +220,6 @@ export type QuadroWhereInput = {
   descricao?: Prisma.StringNullableFilter<"Quadro"> | string | null
   criadoEm?: Prisma.DateTimeFilter<"Quadro"> | Date | string
   usuarioId?: Prisma.IntFilter<"Quadro"> | number
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   listas?: Prisma.ListaListRelationFilter
 }
 
@@ -230,7 +229,6 @@ export type QuadroOrderByWithRelationInput = {
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
   listas?: Prisma.ListaOrderByRelationAggregateInput
 }
 
@@ -243,7 +241,6 @@ export type QuadroWhereUniqueInput = Prisma.AtLeast<{
   descricao?: Prisma.StringNullableFilter<"Quadro"> | string | null
   criadoEm?: Prisma.DateTimeFilter<"Quadro"> | Date | string
   usuarioId?: Prisma.IntFilter<"Quadro"> | number
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   listas?: Prisma.ListaListRelationFilter
 }, "id">
 
@@ -275,7 +272,7 @@ export type QuadroCreateInput = {
   nome: string
   descricao?: string | null
   criadoEm?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutQuadrosInput
+  usuarioId: number
   listas?: Prisma.ListaCreateNestedManyWithoutQuadroInput
 }
 
@@ -292,7 +289,7 @@ export type QuadroUpdateInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutQuadrosNestedInput
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   listas?: Prisma.ListaUpdateManyWithoutQuadroNestedInput
 }
 
@@ -317,6 +314,7 @@ export type QuadroUpdateManyMutationInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type QuadroUncheckedUpdateManyInput = {
@@ -325,16 +323,6 @@ export type QuadroUncheckedUpdateManyInput = {
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type QuadroListRelationFilter = {
-  every?: Prisma.QuadroWhereInput
-  some?: Prisma.QuadroWhereInput
-  none?: Prisma.QuadroWhereInput
-}
-
-export type QuadroOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type QuadroCountOrderByAggregateInput = {
@@ -376,46 +364,24 @@ export type QuadroScalarRelationFilter = {
   isNot?: Prisma.QuadroWhereInput
 }
 
-export type QuadroCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.QuadroCreateWithoutUsuarioInput, Prisma.QuadroUncheckedCreateWithoutUsuarioInput> | Prisma.QuadroCreateWithoutUsuarioInput[] | Prisma.QuadroUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.QuadroCreateOrConnectWithoutUsuarioInput | Prisma.QuadroCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.QuadroCreateManyUsuarioInputEnvelope
-  connect?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
+export type StringFieldUpdateOperationsInput = {
+  set?: string
 }
 
-export type QuadroUncheckedCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.QuadroCreateWithoutUsuarioInput, Prisma.QuadroUncheckedCreateWithoutUsuarioInput> | Prisma.QuadroCreateWithoutUsuarioInput[] | Prisma.QuadroUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.QuadroCreateOrConnectWithoutUsuarioInput | Prisma.QuadroCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.QuadroCreateManyUsuarioInputEnvelope
-  connect?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
-export type QuadroUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.QuadroCreateWithoutUsuarioInput, Prisma.QuadroUncheckedCreateWithoutUsuarioInput> | Prisma.QuadroCreateWithoutUsuarioInput[] | Prisma.QuadroUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.QuadroCreateOrConnectWithoutUsuarioInput | Prisma.QuadroCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.QuadroUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.QuadroUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.QuadroCreateManyUsuarioInputEnvelope
-  set?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  disconnect?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  delete?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  connect?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  update?: Prisma.QuadroUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.QuadroUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.QuadroUpdateManyWithWhereWithoutUsuarioInput | Prisma.QuadroUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.QuadroScalarWhereInput | Prisma.QuadroScalarWhereInput[]
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
-export type QuadroUncheckedUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.QuadroCreateWithoutUsuarioInput, Prisma.QuadroUncheckedCreateWithoutUsuarioInput> | Prisma.QuadroCreateWithoutUsuarioInput[] | Prisma.QuadroUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.QuadroCreateOrConnectWithoutUsuarioInput | Prisma.QuadroCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.QuadroUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.QuadroUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.QuadroCreateManyUsuarioInputEnvelope
-  set?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  disconnect?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  delete?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  connect?: Prisma.QuadroWhereUniqueInput | Prisma.QuadroWhereUniqueInput[]
-  update?: Prisma.QuadroUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.QuadroUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.QuadroUpdateManyWithWhereWithoutUsuarioInput | Prisma.QuadroUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.QuadroScalarWhereInput | Prisma.QuadroScalarWhereInput[]
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type QuadroCreateNestedOneWithoutListasInput = {
@@ -432,63 +398,11 @@ export type QuadroUpdateOneRequiredWithoutListasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuadroUpdateToOneWithWhereWithoutListasInput, Prisma.QuadroUpdateWithoutListasInput>, Prisma.QuadroUncheckedUpdateWithoutListasInput>
 }
 
-export type QuadroCreateWithoutUsuarioInput = {
-  nome: string
-  descricao?: string | null
-  criadoEm?: Date | string
-  listas?: Prisma.ListaCreateNestedManyWithoutQuadroInput
-}
-
-export type QuadroUncheckedCreateWithoutUsuarioInput = {
-  id?: number
-  nome: string
-  descricao?: string | null
-  criadoEm?: Date | string
-  listas?: Prisma.ListaUncheckedCreateNestedManyWithoutQuadroInput
-}
-
-export type QuadroCreateOrConnectWithoutUsuarioInput = {
-  where: Prisma.QuadroWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuadroCreateWithoutUsuarioInput, Prisma.QuadroUncheckedCreateWithoutUsuarioInput>
-}
-
-export type QuadroCreateManyUsuarioInputEnvelope = {
-  data: Prisma.QuadroCreateManyUsuarioInput | Prisma.QuadroCreateManyUsuarioInput[]
-  skipDuplicates?: boolean
-}
-
-export type QuadroUpsertWithWhereUniqueWithoutUsuarioInput = {
-  where: Prisma.QuadroWhereUniqueInput
-  update: Prisma.XOR<Prisma.QuadroUpdateWithoutUsuarioInput, Prisma.QuadroUncheckedUpdateWithoutUsuarioInput>
-  create: Prisma.XOR<Prisma.QuadroCreateWithoutUsuarioInput, Prisma.QuadroUncheckedCreateWithoutUsuarioInput>
-}
-
-export type QuadroUpdateWithWhereUniqueWithoutUsuarioInput = {
-  where: Prisma.QuadroWhereUniqueInput
-  data: Prisma.XOR<Prisma.QuadroUpdateWithoutUsuarioInput, Prisma.QuadroUncheckedUpdateWithoutUsuarioInput>
-}
-
-export type QuadroUpdateManyWithWhereWithoutUsuarioInput = {
-  where: Prisma.QuadroScalarWhereInput
-  data: Prisma.XOR<Prisma.QuadroUpdateManyMutationInput, Prisma.QuadroUncheckedUpdateManyWithoutUsuarioInput>
-}
-
-export type QuadroScalarWhereInput = {
-  AND?: Prisma.QuadroScalarWhereInput | Prisma.QuadroScalarWhereInput[]
-  OR?: Prisma.QuadroScalarWhereInput[]
-  NOT?: Prisma.QuadroScalarWhereInput | Prisma.QuadroScalarWhereInput[]
-  id?: Prisma.IntFilter<"Quadro"> | number
-  nome?: Prisma.StringFilter<"Quadro"> | string
-  descricao?: Prisma.StringNullableFilter<"Quadro"> | string | null
-  criadoEm?: Prisma.DateTimeFilter<"Quadro"> | Date | string
-  usuarioId?: Prisma.IntFilter<"Quadro"> | number
-}
-
 export type QuadroCreateWithoutListasInput = {
   nome: string
   descricao?: string | null
   criadoEm?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutQuadrosInput
+  usuarioId: number
 }
 
 export type QuadroUncheckedCreateWithoutListasInput = {
@@ -519,7 +433,7 @@ export type QuadroUpdateWithoutListasInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutQuadrosNestedInput
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type QuadroUncheckedUpdateWithoutListasInput = {
@@ -528,35 +442,6 @@ export type QuadroUncheckedUpdateWithoutListasInput = {
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type QuadroCreateManyUsuarioInput = {
-  id?: number
-  nome: string
-  descricao?: string | null
-  criadoEm?: Date | string
-}
-
-export type QuadroUpdateWithoutUsuarioInput = {
-  nome?: Prisma.StringFieldUpdateOperationsInput | string
-  descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  listas?: Prisma.ListaUpdateManyWithoutQuadroNestedInput
-}
-
-export type QuadroUncheckedUpdateWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  nome?: Prisma.StringFieldUpdateOperationsInput | string
-  descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  listas?: Prisma.ListaUncheckedUpdateManyWithoutQuadroNestedInput
-}
-
-export type QuadroUncheckedUpdateManyWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  nome?: Prisma.StringFieldUpdateOperationsInput | string
-  descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -596,7 +481,6 @@ export type QuadroSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   descricao?: boolean
   criadoEm?: boolean
   usuarioId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   listas?: boolean | Prisma.Quadro$listasArgs<ExtArgs>
   _count?: boolean | Prisma.QuadroCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quadro"]>
@@ -607,7 +491,6 @@ export type QuadroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   descricao?: boolean
   criadoEm?: boolean
   usuarioId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quadro"]>
 
 export type QuadroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -616,7 +499,6 @@ export type QuadroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   descricao?: boolean
   criadoEm?: boolean
   usuarioId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quadro"]>
 
 export type QuadroSelectScalar = {
@@ -629,21 +511,15 @@ export type QuadroSelectScalar = {
 
 export type QuadroOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "descricao" | "criadoEm" | "usuarioId", ExtArgs["result"]["quadro"]>
 export type QuadroInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   listas?: boolean | Prisma.Quadro$listasArgs<ExtArgs>
   _count?: boolean | Prisma.QuadroCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type QuadroIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-}
-export type QuadroIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-}
+export type QuadroIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type QuadroIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $QuadroPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Quadro"
   objects: {
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
     listas: Prisma.$ListaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1046,7 +922,6 @@ readonly fields: QuadroFieldRefs;
  */
 export interface Prisma__QuadroClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   listas<T extends Prisma.Quadro$listasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quadro$listasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1336,10 +1211,6 @@ export type QuadroCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.QuadroCreateManyInput | Prisma.QuadroCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.QuadroIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1410,10 +1281,6 @@ export type QuadroUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Quadros to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.QuadroIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

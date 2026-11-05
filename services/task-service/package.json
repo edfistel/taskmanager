@@ -22,7 +22,7 @@
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:studio": "node ../../services/run-db-studio.cjs task",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma db push --force-reset"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",

@@ -1,5 +1,32 @@
 import * as userService from './userService.js';
 
+export async function criarUsuario(req, res) {
+    try {
+        const { nome, email, senha } = req.body || {};
+        const usuario = await userService.criarUsuario({ nome, email, senha });
+        return res.status(201).json({ success: true, body: usuario });
+    } catch (error) {
+        const status = error.status || (error.code === 'P2002' ? 409 : 500);
+        if (status >= 500) console.error(error);
+        return res.status(status).json({ success: false, message: status >= 500 ? 'Erro ao cadastrar usuário' : error.message });
+    }
+}
+
+export async function alterarSenha(req, res) {
+    try {
+        await userService.alterarSenhaDoUsuario({
+            id: req.user.id,
+            senhaAtual: req.body?.senhaAtual,
+            novaSenha: req.body?.novaSenha,
+        });
+        return res.status(200).json({ success: true, message: 'Senha alterada com sucesso' });
+    } catch (error) {
+        const status = error.status || 500;
+        if (status >= 500) console.error(error);
+        return res.status(status).json({ success: false, message: status >= 500 ? 'Erro ao alterar senha' : error.message });
+    }
+}
+
 export async function buscarUsuarioPorEmail(req, res) {
     try{
 

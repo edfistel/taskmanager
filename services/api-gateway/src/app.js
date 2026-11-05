@@ -45,8 +45,8 @@ app.get("/internal/status", async (req, res) => {
 });
 
 app.use("/auth", encaminharPara("auth-service", authServiceUrl));
-app.use("/users/register", encaminharPara("auth-service", authServiceUrl));
-app.use("/users/alterarSenha", autenticar, encaminharPara("auth-service", authServiceUrl));
+app.use("/users/register", encaminharPara("user-service", userServiceUrl));
+app.use("/users/alterarSenha", autenticar, encaminharPara("user-service", userServiceUrl));
 app.use("/users", autenticar, encaminharPara("user-service", userServiceUrl));
 
 for (const caminho of [

@@ -1,6 +1,6 @@
-import argon2 from "argon2";
 import { prisma } from "../config/database.js";
 import { gerarAccessToken, gerarRefreshToken } from "../tools/tokens.js";
+import { autenticarUsuario, buscarUsuarioPorId } from "./userServiceClient.js";
 
 const DURACAO_REFRESH_TOKEN_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -18,12 +18,7 @@ export async function login(email, senha) {
     throw erroComStatus("Digite um e-mail válido", 400);
   }
 
-  const usuario = await prisma.usuario.findUnique({
-    where: { email: emailNormalizado },
-    select: { id: true, nome: true, email: true, senha: true },
-  });
-  const senhaCorreta = usuario && await argon2.verify(usuario.senha, senha);
-  if (!senhaCorreta) throw erroComStatus("Credenciais inválidas", 401);
+  const usuario = await autenticarUsuario(emailNormalizado, senha);
 
   const usuarioAutenticado = { id: usuario.id, nome: usuario.nome, email: usuario.email };
   const accessToken = gerarAccessToken(usuarioAutenticado);
@@ -41,7 +36,6 @@ export async function login(email, senha) {
 export async function atualizarToken(refreshToken) {
   const registro = await prisma.refreshToken.findUnique({
     where: { token: refreshToken },
-    include: { usuario: true },
   });
   if (!registro) throw erroComStatus("Refresh token inválido", 401);
   if (registro.revogado) throw erroComStatus("Refresh token revogado", 401);
@@ -50,8 +44,19 @@ export async function atualizarToken(refreshToken) {
     throw erroComStatus("Refresh token expirado", 401);
   }
 
+  let usuario;
+  try {
+    usuario = await buscarUsuarioPorId(registro.usuarioId);
+  } catch (error) {
+    if (error.status === 404) {
+      await prisma.refreshToken.update({ where: { id: registro.id }, data: { revogado: true } });
+      throw erroComStatus("Refresh token inválido", 401);
+    }
+    throw error;
+  }
+
   const novoRefreshToken = gerarRefreshToken();
-  const accessToken = gerarAccessToken(registro.usuario);
+  const accessToken = gerarAccessToken(usuario);
   await prisma.$transaction(async (transacao) => {
     const revogacao = await transacao.refreshToken.updateMany({
       where: { id: registro.id, revogado: false, expiraEm: { gt: new Date() } },

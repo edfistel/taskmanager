@@ -23,17 +23,19 @@ export async function alterarNome({ id, nome }) {
     });
 }
 
-export async function provisionarUsuario({ id, nome, email }) {
-    return prisma.usuario.upsert({
-        where: { id },
-        create: { id, nome, email },
-        update: { nome, email },
+export async function criarUsuario({ nome, email, senha }) {
+    return prisma.usuario.create({
+        data: { nome, email, senha },
         select: camposPublicos
     });
 }
 
-export async function removerUsuarioInterno(id) {
-    return prisma.usuario.deleteMany({ where: { id } });
+export async function alterarSenha({ id, senha }) {
+    return prisma.usuario.update({
+        where: { id },
+        data: { senha },
+        select: { id: true }
+    });
 }
 
 export async function buscarUsuarioPorId(id) {
@@ -46,6 +48,27 @@ export async function buscarUsuarioPorId(id) {
 export async function buscarUsuarioPorEmail(email) {
     return prisma.usuario.findUnique({
         where: { email },
+        select: camposPublicos
+    });
+}
+
+export async function buscarCredenciaisPorEmail(email) {
+    return prisma.usuario.findUnique({
+        where: { email },
+        select: { id: true, nome: true, email: true, senha: true }
+    });
+}
+
+export async function buscarCredenciaisPorId(id) {
+    return prisma.usuario.findUnique({
+        where: { id },
+        select: { id: true, senha: true }
+    });
+}
+
+export async function buscarUsuariosPorIds(ids) {
+    return prisma.usuario.findMany({
+        where: { id: { in: ids } },
         select: camposPublicos
     });
 }

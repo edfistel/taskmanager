@@ -1,5 +1,6 @@
 import * as comentarioRepository from './comentarioRepository.js';
 import * as tarefaService from '../tarefa/tarefaService.js';
+import { buscarUsuariosPorIds } from '../../clients/userServiceClient.js';
 import { ErroDePermissao, validarId, validarTextoObrigatorio } from '../../tools/validacao.js';
 
 const TAMANHO_MAXIMO_DO_TEXTO = 2000;
@@ -13,11 +14,12 @@ export async function escreverComentario({ userId, tarefaId, texto }) {
         return null;
     }
 
-    return comentarioRepository.criarComentario({
+    const comentario = await comentarioRepository.criarComentario({
         tarefaId: tarefa.id,
         usuarioId: userId,
         texto: textoValidado
     });
+    return (await incluirUsuarios([comentario]))[0];
 }
 
 export async function listarComentariosDaTarefa({ userId, tarefaId }) {
@@ -27,7 +29,8 @@ export async function listarComentariosDaTarefa({ userId, tarefaId }) {
         return null;
     }
 
-    return comentarioRepository.listarComentariosDaTarefa(tarefa.id);
+    const comentarios = await comentarioRepository.listarComentariosDaTarefa(tarefa.id);
+    return incluirUsuarios(comentarios);
 }
 
 // editar() do diagrama: só o autor pode alterar o próprio comentário
@@ -43,7 +46,8 @@ export async function editarComentario({ id, userId, texto }) {
         throw new ErroDePermissao('Só o autor pode editar o comentário');
     }
 
-    return comentarioRepository.editarComentario({ id: encontrado.comentario.id, texto: textoValidado });
+    const comentario = await comentarioRepository.editarComentario({ id: encontrado.comentario.id, texto: textoValidado });
+    return (await incluirUsuarios([comentario]))[0];
 }
 
 // excluir() do diagrama: o autor ou o dono do quadro podem excluir
@@ -60,7 +64,8 @@ export async function excluirComentario({ id, userId }) {
         throw new ErroDePermissao('Só o autor ou o dono do quadro podem excluir o comentário');
     }
 
-    return comentarioRepository.excluirComentario(encontrado.comentario.id);
+    const comentario = await comentarioRepository.excluirComentario(encontrado.comentario.id);
+    return (await incluirUsuarios([comentario]))[0];
 }
 
 // Quem não tem acesso à tarefa recebe null (404), sem saber que o comentário existe
@@ -85,5 +90,21 @@ function validarTexto(texto) {
     return validarTextoObrigatorio(texto, {
         campo: 'O texto do comentário',
         tamanhoMaximo: TAMANHO_MAXIMO_DO_TEXTO
+    });
+}
+
+async function incluirUsuarios(comentarios) {
+    if (comentarios.length === 0) return comentarios;
+
+    const ids = [...new Set(comentarios.map(({ usuarioId }) => usuarioId))];
+    const usuarios = await buscarUsuariosPorIds(ids);
+    const usuariosPorId = new Map(usuarios.map((usuario) => [usuario.id, usuario]));
+
+    return comentarios.map((comentario) => {
+        const usuario = usuariosPorId.get(comentario.usuarioId);
+        return {
+            ...comentario,
+            usuario: usuario ? { id: usuario.id, nome: usuario.nome } : null,
+        };
     });
 }

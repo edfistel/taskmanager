@@ -8,7 +8,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Usuario.ts'
 export type * from './models/Quadro.ts'
 export type * from './models/Lista.ts'
 export type * from './models/Tarefa.ts'

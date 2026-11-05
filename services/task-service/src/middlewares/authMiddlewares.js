@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import { buscarUsuarioPorId } from "../clients/userServiceClient.js";
 
-export function autenticar(req, res, next) {
+export async function autenticar(req, res, next) {
   const autorizacao = req.headers.authorization;
 
   if (!autorizacao) {
@@ -31,6 +32,14 @@ export function autenticar(req, res, next) {
     return res.status(401).json({ erro: "Token inválido" });
   }
 
-  req.user = { id: payload.id, email: payload.email };
+    try {
+      const usuario = await buscarUsuarioPorId(payload.id);
+      if (!usuario) return res.status(401).json({ erro: "Usuário não encontrado" });
+    } catch (error) {
+      console.error(error);
+      return res.status(error.status || 503).json({ erro: "Serviço de usuários indisponível" });
+    }
+
+    req.user = { id: payload.id, email: payload.email };
   return next();
 }

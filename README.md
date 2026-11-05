@@ -259,4 +259,4 @@ O schema Prisma define usuários, tokens de atualização, quadros, listas, tare
 | `npm run db:push:<serviço>` / `npm run db:push:all` | Cria/atualiza as tabelas descritas nos schemas Prisma. |
 | `npm run db:migrate:<serviço>` / `npm run db:migrate:all` | Cria/aplica migrations Prisma. |
 | `npm run db:studio:<serviço>` / `npm run db:studio:all` | Abre Prisma Studio para um serviço ou para o banco compartilhado. |
-| `npm run db:reset:<serviço>` / `npm run db:reset:all` | Apaga e recria os dados/migrations; use com cuidado. |
+| `npm run db:reset:<serviço>` / `npm run db:reset:all` | Recria as tabelas pelo schema Prisma com `db push --force-reset` e apaga os dados; use com cuidado. |

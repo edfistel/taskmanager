@@ -1,5 +1,6 @@
 import * as atribuicaoRepository from './atribuicaoRepository.js';
 import * as tarefaService from '../tarefa/tarefaService.js';
+import { buscarUsuarioPorEmail, buscarUsuariosPorIds } from '../../clients/userServiceClient.js';
 import {
     ErroDeValidacao,
     ErroDePermissao,
@@ -18,7 +19,7 @@ export async function atribuirUsuario({ userId, tarefaId, email }) {
 
     exigirDono(tarefa, 'Só o dono do quadro pode atribuir a tarefa');
 
-    const usuario = await atribuicaoRepository.buscarIdDoUsuarioPorEmail(emailValidado);
+    const usuario = await buscarUsuarioPorEmail(emailValidado);
 
     if (!usuario) {
         throw new ErroDeValidacao('Nenhum usuário cadastrado com este e-mail');
@@ -30,7 +31,8 @@ export async function atribuirUsuario({ userId, tarefaId, email }) {
         throw new ErroDeValidacao('Este usuário já está atribuído à tarefa');
     }
 
-    return atribuicao;
+    const { usuarioId, ...dadosDaAtribuicao } = atribuicao;
+    return { ...dadosDaAtribuicao, usuario };
 }
 
 export async function listarAtribuicoesDaTarefa({ userId, tarefaId }) {
@@ -40,7 +42,8 @@ export async function listarAtribuicoesDaTarefa({ userId, tarefaId }) {
         return null;
     }
 
-    return atribuicaoRepository.listarAtribuicoesDaTarefa(tarefa.id);
+    const atribuicoes = await atribuicaoRepository.listarAtribuicoesDaTarefa(tarefa.id);
+    return incluirUsuarios(atribuicoes);
 }
 
 export async function removerAtribuicao({ userId, tarefaId, usuarioId }) {
@@ -64,4 +67,17 @@ function exigirDono(tarefa, mensagem) {
     if (!tarefa.ehDono) {
         throw new ErroDePermissao(mensagem);
     }
+}
+
+async function incluirUsuarios(atribuicoes) {
+    if (atribuicoes.length === 0) return atribuicoes;
+
+    const ids = [...new Set(atribuicoes.map(({ usuarioId }) => usuarioId))];
+    const usuarios = await buscarUsuariosPorIds(ids);
+    const usuariosPorId = new Map(usuarios.map((usuario) => [usuario.id, usuario]));
+
+    return atribuicoes.map(({ usuarioId, ...atribuicao }) => ({
+        ...atribuicao,
+        usuario: usuariosPorId.get(usuarioId) || null,
+    }));
 }

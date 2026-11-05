@@ -1,7 +1,6 @@
 import express from "express";
 import { createRequire } from "node:module";
 import authRouter from "./routes/authRoutes.js";
-import userAuthRouter from "./routes/userAuthRoutes.js";
 import internalRouter from "./routes/internalRoutes.js";
 import { prisma } from "./config/database.js";
 
@@ -28,7 +27,6 @@ app.get("/health", async (req, res) => {
 
 app.use("/internal", internalRouter);
 app.use("/auth", authRouter);
-app.use("/users", userAuthRouter);
 app.use((req, res) => res.status(404).json({ error: "Rota não encontrada" }));
 app.use((error, req, res, next) => {
   console.error(error);

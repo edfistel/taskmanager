@@ -6,7 +6,6 @@ const camposDoComentario = {
     criadoEm: true,
     tarefaId: true,
     usuarioId: true,
-    usuario: { select: { id: true, nome: true } }
 };
 
 export async function criarComentario({ tarefaId, usuarioId, texto }) {
